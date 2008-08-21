@@ -33,7 +33,8 @@ import java.util.List;
 import java.util.Map;
 
 import cspfj.constraint.Constraint;
-import cspfj.constraint.DTPConstraint;
+import cspfj.constraint.DTConstraint;
+import cspfj.constraint.DiffConstraint;
 import cspfj.exception.FailedGenerationException;
 import cspfj.problem.ProblemGenerator;
 import cspfj.problem.Variable;
@@ -41,6 +42,8 @@ import cspfj.problem.Variable;
 public class OpenShopGenerator implements ProblemGenerator {
 
 	private int[][] durations;
+
+	private final int[][] shuffle;
 
 	private Map<Variable, Integer> durationsMap;
 
@@ -52,11 +55,11 @@ public class OpenShopGenerator implements ProblemGenerator {
 
 	private final Collection<Constraint> constraints;
 
-	// private final String filename;
+	private final boolean js;
 
 	public OpenShopGenerator(final String filename) {
-
 		constraints = new ArrayList<Constraint>();
+
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(filename));
 
@@ -66,15 +69,15 @@ public class OpenShopGenerator implements ProblemGenerator {
 				if (line.charAt(0) == '!' || line.trim().isEmpty()) {
 					continue;
 				}
-				
+
 				if (ln == 0) {
 					size = Integer.parseInt(line);
 					durations = new int[size][size];
 					durationsMap = new HashMap<Variable, Integer>(size * size);
-				} else {
+				} else if (ln > 1) {
 					final String[] values = line.split(" +");
 					for (int i = 0; i < values.length; i++) {
-						durations[ln - 1][i] = Integer.parseInt(values[i]);
+						durations[ln - 2][i] = Integer.parseInt(values[i]);
 					}
 				}
 				ln++;
@@ -88,9 +91,30 @@ public class OpenShopGenerator implements ProblemGenerator {
 			e.printStackTrace();
 		}
 
-		// for (int[] d :durations) {
-		// System.out.println(Arrays.toString(d));
-		// }
+		shuffle = new int[size][size];
+
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				shuffle[i][j] = j;
+			}
+		}
+
+		ub = getUB();
+		js = false;
+	}
+
+	public OpenShopGenerator(final int size, final int durSeed,
+			final int machSeed, final boolean js) {
+		constraints = new ArrayList<Constraint>();
+
+		durations = randMatrix(durSeed, size, size);
+		durationsMap = new HashMap<Variable, Integer>(size * size);
+
+		shuffle = randShuffle(machSeed, size, size);
+
+		this.js = js;
+
+		this.size = size;
 
 		ub = getUB();
 	}
@@ -103,6 +127,14 @@ public class OpenShopGenerator implements ProblemGenerator {
 		this.ub = ub;
 	}
 
+	public void factor(final float factor) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				durations[i][j] = (int) Math.ceil(durations[i][j] * factor);
+			}
+		}
+	}
+
 	public int getLB() {
 		int max = 0;
 		for (int i = size; --i >= 0;) {
@@ -110,11 +142,20 @@ public class OpenShopGenerator implements ProblemGenerator {
 			int sumC = 0;
 			for (int j = size; --j >= 0;) {
 				sumL += durations[i][j];
-				sumC += durations[j][i];
+				sumC += durations[j][find(i, shuffle[j])];
 			}
 			max = max(max, max(sumL, sumC));
 		}
 		return max;
+	}
+
+	public static int find(int value, int[] array) {
+		for (int i = array.length; --i >= 0;) {
+			if (array[i] == value) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	public final int getUB() {
@@ -125,7 +166,7 @@ public class OpenShopGenerator implements ProblemGenerator {
 			int sumC = 0;
 			for (int j = size; --j >= 0;) {
 				sumL += durations[i][j];
-				sumC += durations[j][i];
+				sumC += durations[j][find(i, shuffle[j])];
 			}
 			maxL = max(maxL, sumL);
 			maxC = max(maxC, sumC);
@@ -154,8 +195,13 @@ public class OpenShopGenerator implements ProblemGenerator {
 		durationsMap.clear();
 		for (int i = size; --i >= 0;) {
 			for (int j = size; --j >= 0;) {
-				variables[i][j] = new Variable(intDomain(ub - durations[i][j]
-						+ 1));
+				if (i == 0 && j == 0 && js) {
+					variables[0][0] = new Variable(intDomain((ub
+							- durations[i][j] + 2) / 2));
+				} else {
+					variables[i][j] = new Variable(intDomain(ub
+							- durations[i][j] + 1));
+				}
 				durationsMap.put(variables[i][j], durations[i][j]);
 			}
 		}
@@ -168,7 +214,7 @@ public class OpenShopGenerator implements ProblemGenerator {
 		for (int l = size; --l >= 0;) {
 			for (int c1 = size; --c1 >= 0;) {
 				for (int c2 = size; --c2 >= c1 + 1;) {
-					constraints.add(new DTPConstraint(new Variable[] {
+					constraints.add(new DTConstraint(new Variable[] {
 							variables[l][c1], variables[l][c2] },
 							durations[l][c1], durations[l][c2], true));
 				}
@@ -177,12 +223,27 @@ public class OpenShopGenerator implements ProblemGenerator {
 
 		// cpt = 0 ;
 
-		for (int c = size; --c >= 0;) {
-			for (int l1 = size; --l1 >= 0;) {
-				for (int l2 = size; --l2 >= l1 + 1;) {
-					constraints.add(new DTPConstraint(new Variable[] {
-							variables[l1][c], variables[l2][c] },
-							durations[l1][c], durations[l2][c], true));
+		if (js) {
+			for (int c = size; --c >= 0;) {
+				for (int l1 = size; --l1 >= 1;) {
+					constraints.add(new DiffConstraint(new Variable[] {
+							variables[l1 - 1][find(c, shuffle[l1 - 1])],
+							variables[l1][find(c, shuffle[l1])] },
+							durations[l1 - 1][find(c, shuffle[l1 - 1])], true));
+
+				}
+
+			}
+		} else {
+			for (int c = size; --c >= 0;) {
+				for (int l1 = size; --l1 >= 0;) {
+					for (int l2 = size; --l2 >= l1 + 1;) {
+						constraints.add(new DTConstraint(new Variable[] {
+								variables[l1][find(c, shuffle[l1])],
+								variables[l2][find(c, shuffle[l2])] },
+								durations[l1][find(c, shuffle[l1])],
+								durations[l2][find(c, shuffle[l2])], true));
+					}
 				}
 			}
 		}
@@ -227,4 +288,60 @@ public class OpenShopGenerator implements ProblemGenerator {
 		}
 	}
 
+	public String toString() {
+		final StringBuilder stb = new StringBuilder();
+		stb.append("Durations:\n");
+		for (int[] d : durations) {
+			stb.append(Arrays.toString(d)).append("\n");
+		}
+		return stb.toString();
+	}
+
+	private final static int A = 16807;
+	private final static int B = 127773;
+	private final static int C = 2836;
+	private final static int M = (0x1 << 31) - 1;
+	private static int seed = 1;
+
+	private static double nextRand() {
+		int rand = A * (seed % B) - (seed / B) * C;
+		if (rand < 0) {
+			rand += M;
+		}
+		seed = rand;
+		return (double) rand / M;
+	}
+
+	private static int nextRand(int a, int b) {
+		return (int) Math.floor(a + nextRand() * (b - a + 1));
+	}
+
+	private static int[][] randMatrix(int seed, int x, int y) {
+		OpenShopGenerator.seed = seed;
+		int[][] matrix = new int[x][y];
+		for (int i = 0; i < x; i++) {
+			for (int j = 0; j < y; j++) {
+				matrix[i][j] = nextRand(1, 99);
+			}
+		}
+		return matrix;
+	}
+
+	private static int[][] randShuffle(int seed, int x, int y) {
+		OpenShopGenerator.seed = seed;
+		int[][] matrix = new int[x][y];
+
+		for (int i = 0; i < x; i++) {
+			for (int j = 0; j < y; j++) {
+				matrix[i][j] = j;
+			}
+			for (int j = 0; j < y; j++) {
+				final int s = nextRand(j, y - 1);
+				final int t = matrix[i][j];
+				matrix[i][j] = matrix[i][s];
+				matrix[i][s] = t;
+			}
+		}
+		return matrix;
+	}
 }
