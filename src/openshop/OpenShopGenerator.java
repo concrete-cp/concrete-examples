@@ -33,8 +33,8 @@ import java.util.List;
 import java.util.Map;
 
 import cspfj.constraint.Constraint;
-import cspfj.constraint.DTConstraint;
-import cspfj.constraint.DiffConstraint;
+import cspfj.constraint.semantic.DTConstraint;
+import cspfj.constraint.semantic.DiffConstraint;
 import cspfj.exception.FailedGenerationException;
 import cspfj.problem.ProblemGenerator;
 import cspfj.problem.Variable;
