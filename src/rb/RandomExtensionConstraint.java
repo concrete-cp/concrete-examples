@@ -1,5 +1,3 @@
-/* $Header: /home/vion/migration/examples/src/rb/RandomExtensionConstraint.java,v 1.1 2009-02-05 16:15:03 scand1sk Exp $ */
-
 package rb;
 
 import rb.randomlists.CoarseProportionRandomListGenerator;
