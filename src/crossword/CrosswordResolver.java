@@ -2,9 +2,11 @@ package crossword;
 
 import java.io.IOException;
 
+import cspfj.AbstractSolver;
 import cspfj.MGACIter;
 import cspfj.ResultHandler;
 import cspfj.Solver;
+import cspfj.filter.CDC;
 import cspfj.problem.Problem;
 
 public class CrosswordResolver extends Thread {
@@ -17,6 +19,9 @@ public class CrosswordResolver extends Thread {
 	
 	public void run() {
 		final Solver solver = new MGACIter(problem, new ResultHandler());
+		
+		solver.setUsePrepro(CDC.class);
+		AbstractSolver.parameter("cdc.addConstraints", "BIN");
 		// solver.setAllSolutions(true);
 		try {
 			if (!solver.runSolver()) {

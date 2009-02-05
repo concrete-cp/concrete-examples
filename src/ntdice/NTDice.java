@@ -71,8 +71,6 @@ public class NTDice implements ProblemGenerator {
 			}
 		}
 
-		constraints.add(new Continuous(allFaces));
-
 		// for (int i = nbDies ; --i>=0;) {
 		// for (int j = nbFaces-1;--j>=0;) {
 		// constraints.add(

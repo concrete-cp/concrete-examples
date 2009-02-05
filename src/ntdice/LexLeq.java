@@ -1,8 +1,7 @@
 package ntdice;
 
-import java.util.Arrays;
-
 import cspfj.constraint.AbstractConstraint;
+import cspfj.filter.RevisionHandler;
 import cspfj.problem.Variable;
 
 public class LexLeq extends AbstractConstraint {
@@ -13,10 +12,8 @@ public class LexLeq extends AbstractConstraint {
 
 	private int alpha;
 
-	private final boolean[] changed;
-
 	public LexLeq(final Variable[] v0, final Variable[] v1) {
-		super(merge(v0, v1, new Variable[v0.length + v1.length]), false);
+		super(merge(v0, v1, new Variable[v0.length + v1.length]));
 		if (v0.length != v1.length) {
 			throw new IllegalArgumentException();
 		}
@@ -24,7 +21,6 @@ public class LexLeq extends AbstractConstraint {
 		this.v1 = v1;
 		this.q = v0.length;
 		alpha = 0;
-		changed = new boolean[2 * q];
 	}
 
 	private static <T> T[] merge(T[] v1, T[] v2, T[] into) {
@@ -69,21 +65,19 @@ public class LexLeq extends AbstractConstraint {
 		return changed;
 	}
 
-	
-	public boolean[] revise(final int level) {
-		Arrays.fill(changed, false);
+	public boolean revise(final int level, final RevisionHandler revisator) {
 		while (alpha < q) {
 			if (revise(v0[alpha], v1[alpha], true, level)) {
-				changed[alpha] = true;
 				if (v0[alpha].getDomainSize() == 0) {
-					return new boolean[0];
+					return false;
 				}
+				revisator.revised(this, v0[alpha]);
 			}
 			if (revise(v0[alpha], v1[alpha], false, level)) {
-				changed[q + alpha] = true;
 				if (v1[alpha].getDomainSize() == 0) {
-					return new boolean[0];
+					return false;
 				}
+				revisator.revised(this, v1[alpha]);
 			}
 			if (v0[alpha].getDomainSize() != 1
 					|| !sameDomain(v0[alpha], v1[alpha])) {
@@ -92,7 +86,7 @@ public class LexLeq extends AbstractConstraint {
 			alpha++;
 		}
 
-		return changed;
+		return true;
 	}
 
 	private static boolean sameDomain(Variable v0, Variable v1) {

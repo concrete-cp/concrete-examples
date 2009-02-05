@@ -31,6 +31,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import cspfj.constraint.Constraint;
 import cspfj.constraint.semantic.DTConstraint;
@@ -266,9 +267,9 @@ public class OpenShopGenerator implements ProblemGenerator {
 
 		// final StringBuffer sb = new StringBuffer();
 
-		for (Variable v : solution.keySet()) {
-			evaluation = Math.max(evaluation, solution.get(v)
-					+ durationsMap.get(v));
+		for (Entry<Variable, Integer> e : solution.entrySet()) {
+			evaluation = Math.max(evaluation, e.getValue()
+					+ durationsMap.get(e.getKey()));
 			// sb.append(v).append(" (").append(durationsMap.get(v))
 			// .append(") : ").append(solution.get(v)).append('-').append(
 			// solution.get(v) + durationsMap.get(v)).append('\n');

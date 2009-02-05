@@ -1,16 +1,16 @@
 package ntdice;
 
-import cspfj.constraint.AbstractConstraint;
+import cspfj.constraint.AbstractPVRConstraint;
 import cspfj.problem.Variable;
 
-public class Leq extends AbstractConstraint {
+public class Leq extends AbstractPVRConstraint {
 
 	private final Variable v0, v1;
 
 	private int lastMin, lastMax;
 
 	public Leq(final Variable v1, final Variable v2) {
-		super(new Variable[] { v1, v2 }, false);
+		super(new Variable[] { v1, v2 });
 		this.v0 = v1;
 		this.v1 = v2;
 		lastMin = Integer.MAX_VALUE;

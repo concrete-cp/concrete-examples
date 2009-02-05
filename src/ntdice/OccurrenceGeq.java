@@ -77,7 +77,6 @@ public class OccurrenceGeq extends AbstractConstraint {
 				if (--count < 0) {
 					return false;
 				}
-
 			}
 		}
 

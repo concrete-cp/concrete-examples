@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.InvalidParameterException;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -41,9 +42,9 @@ public class TopYear {
 		final SortedMap<Integer, Integer> stats = new TreeMap<Integer, Integer>();
 
 		final Pattern p = Pattern
-				.compile("<A\\ href=\"\\/game\\/([0-9]*)\" style='font-size:125%;'>");
-
-		for (int page = 1; page <= 2; page++) {
+				.compile("<A href=\"/game/(\\d*)\" style='font-size:125%;'>([^<]*)</A>\\s*</td>\\s*<td align='right'>([.\\d]*)</td><td align='right'>");
+		boolean end = false;
+		for (int page = 1; !end; page++) {
 			final StringBuilder stb = new StringBuilder();
 
 			final BufferedReader r = new BufferedReader(new InputStreamReader(
@@ -57,17 +58,29 @@ public class TopYear {
 			}
 
 			final Matcher m = p.matcher(stb);
-
+			int count = 0;
 			while (m.find()) {
+				if (Float.valueOf(m.group(3)) < 7) {
+					end = true;
+					break;
+				}
+				System.out.print(m.group(2) + ": "
+						+ Integer.valueOf(m.group(1)) + " "
+						+ Float.valueOf(m.group(3)) + " ");
 				updateStats(Integer.valueOf(m.group(1)), stats);
+
+				count++;
+			}
+			if (!end && count != 50) {
+				throw new InvalidParameterException(Integer.toString(count));
 			}
 		}
 
-		for (int i = stats.firstKey(); i <= stats.lastKey(); i++) {
+		 for (int i = 1979; i <= stats.lastKey(); i++) {
 			if (stats.containsKey(i)) {
-				System.out.println(i + "\t" + stats.get(i));
+				System.out.println(stats.get(i));
 			} else {
-				System.out.println(i + "\t" + 0);
+				System.out.println(0);
 			}
 		}
 
@@ -75,15 +88,21 @@ public class TopYear {
 
 	private static void updateStats(int id, SortedMap<Integer, Integer> stats)
 			throws MalformedURLException, SAXException, IOException {
-		System.out.print(id + ": ");
-
 		// lecture du contenu d'un fichier XML avec DOM
 
 		final Document document = constructeur.parse(new URL(
 				"http://www.boardgamegeek.com/xmlapi/game/" + id).openStream());
 
-		final int year = Integer.valueOf(document.getElementsByTagName(
-				"yearpublished").item(0).getTextContent());
+		int year;
+		try {
+			year = Integer.valueOf(document.getElementsByTagName(
+					"yearpublished").item(0).getTextContent());
+			if (year < 1980) {
+				year = 1979;
+			}
+		} catch (NumberFormatException e) {
+			year = 1978;
+		}
 
 		System.out.println(year);
 

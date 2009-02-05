@@ -8,7 +8,7 @@ import java.util.List;
 import cspfj.MGACIter;
 import cspfj.ResultHandler;
 import cspfj.Solver;
-import cspfj.constraint.AbstractConstraint;
+import cspfj.constraint.AbstractAC3Constraint;
 import cspfj.constraint.Constraint;
 import cspfj.exception.FailedGenerationException;
 import cspfj.problem.Problem;
@@ -75,7 +75,7 @@ public class Pigeons implements ProblemGenerator {
 		}
 	}
 
-	private static class DiffConstraint extends AbstractConstraint {
+	private static class DiffConstraint extends AbstractAC3Constraint {
 		public DiffConstraint(Variable[] scope) {
 			super(scope);
 		}

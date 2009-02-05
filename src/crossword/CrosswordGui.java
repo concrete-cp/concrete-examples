@@ -68,7 +68,7 @@ public class CrosswordGui {
 				cell[i][j].setFont(cell[i][j].getFont().deriveFont(25F));
 				row.add(cell[i][j]);
 
-				if (RAND.nextFloat() < .1) {
+				if (RAND.nextFloat() < .15) {
 					black.add(new Cell(i, j));
 				}
 			}
@@ -112,7 +112,8 @@ public class CrosswordGui {
 
 	public void solve() throws FailedGenerationException, IOException {
 		Logger.getLogger("").addHandler(new Visualize());
-		Logger.getLogger("").setLevel(Level.FINE);
+		//Logger.getLogger("").getHandlers()[0].setLevel(Level.FINER);
+		Logger.getLogger("").setLevel(Level.FINER);
 		crossword = new CrosswordGenerator(x, y, black);
 		final Problem problem = Problem.load(crossword);
 		new CrosswordResolver(problem).start();
@@ -150,7 +151,8 @@ public class CrosswordGui {
 
 		@Override
 		public void publish(LogRecord arg0) {
-			if ("mac".equals(arg0.getSourceMethodName())) {
+			if ("mac".equals(arg0.getSourceMethodName())
+					|| "singletonTest".equals(arg0.getSourceMethodName())) {
 				Matcher m = pattern.matcher(arg0.getMessage());
 				if (m.find()) {
 					int level = Integer.valueOf(m.group(1));
