@@ -3,7 +3,7 @@ package crossword;
 import java.io.IOException;
 
 import cspfj.AbstractSolver;
-import cspfj.MGACIter;
+import cspfj.MGACRec;
 import cspfj.ResultHandler;
 import cspfj.Solver;
 import cspfj.filter.CDC;
@@ -18,9 +18,9 @@ public class CrosswordResolver extends Thread {
 	}
 	
 	public void run() {
-		final Solver solver = new MGACIter(problem, new ResultHandler());
+		final Solver solver = new MGACRec(problem, new ResultHandler());
 		
-		solver.setUsePrepro(CDC.class);
+		//solver.setUsePrepro(CDC.class);
 		AbstractSolver.parameter("cdc.addConstraints", "BIN");
 		// solver.setAllSolutions(true);
 		try {

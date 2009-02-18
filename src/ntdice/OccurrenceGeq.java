@@ -1,9 +1,9 @@
 package ntdice;
 
-import cspfj.constraint.AbstractConstraint;
+import cspfj.constraint.Constraint;
 import cspfj.problem.Variable;
 
-public class OccurrenceGeq extends AbstractConstraint {
+public class OccurrenceGeq extends Constraint {
 
 	private final int value, count;
 

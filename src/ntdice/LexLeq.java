@@ -1,10 +1,10 @@
 package ntdice;
 
-import cspfj.constraint.AbstractConstraint;
+import cspfj.constraint.Constraint;
 import cspfj.filter.RevisionHandler;
 import cspfj.problem.Variable;
 
-public class LexLeq extends AbstractConstraint {
+public class LexLeq extends Constraint {
 
 	private final Variable[] v0, v1;
 

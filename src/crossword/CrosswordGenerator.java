@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.Set;
 import crossword.CrosswordGui.Cell;
 import cspfj.constraint.Constraint;
 import cspfj.constraint.extension.ExtensionConstraintDynamic;
-import cspfj.constraint.extension.TupleHashSet;
+import cspfj.constraint.extension.TupleSet;
 import cspfj.exception.FailedGenerationException;
 import cspfj.problem.ProblemGenerator;
 import cspfj.problem.Variable;
@@ -40,7 +39,7 @@ public class CrosswordGenerator implements ProblemGenerator {
 
 	private final Set<Cell> black;
 
-	private final Map<Integer, TupleHashSet> dicts;
+	private final Map<Integer, TupleSet> dicts;
 
 	private final Map<Integer, Cell> map;
 
@@ -55,10 +54,10 @@ public class CrosswordGenerator implements ProblemGenerator {
 		map = new HashMap<Integer, Cell>();
 	}
 
-	private static Map<Integer, TupleHashSet> loadDicts(final String file,
+	private static Map<Integer, TupleSet> loadDicts(final String file,
 			int max) throws FailedGenerationException {
 
-		final Map<Integer, TupleHashSet> dicts = new HashMap<Integer, TupleHashSet>();
+		final Map<Integer, TupleSet> dicts = new HashMap<Integer, TupleSet>();
 
 		try {
 			final BufferedReader reader = new BufferedReader(new FileReader(
@@ -74,10 +73,10 @@ public class CrosswordGenerator implements ProblemGenerator {
 					continue;
 				}
 
-				TupleHashSet ths = dicts.get(word.length());
+				TupleSet ths = dicts.get(word.length());
 
 				if (ths == null) {
-					ths = new TupleHashSet(false);
+					ths = new TupleSet(false);
 					dicts.put(word.length(), ths);
 				}
 

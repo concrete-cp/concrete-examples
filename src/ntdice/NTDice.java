@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import cspfj.MGACIter;
 import cspfj.ResultHandler;
 import cspfj.constraint.AbstractAC3Constraint;
-import cspfj.constraint.AbstractConstraint;
+import cspfj.constraint.Constraint;
 import cspfj.constraint.Constraint;
 import cspfj.exception.FailedGenerationException;
 import cspfj.filter.AC3WSlowQueue;
