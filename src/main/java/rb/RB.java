@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.cli.Option;
 
+import rb.RBGenerator;
 import rb.RBGenerator.Tightness;
 import rb.randomlists.RandomListGenerator.Structure;
 import concrete.AbstractLauncher;
