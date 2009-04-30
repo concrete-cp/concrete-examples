@@ -50,15 +50,7 @@ public class RBGenerator implements ProblemGenerator {
     final private int nbConstraints;
 
     /**
-     * Tightness Mode
-     * 
-     * 0 : tightness = nb of no goods
-     * 
-     * 1 : tightness = proportion of no goods
-     * 
-     * 2 : tightness = probability of no goods (real value between 0 and 1)
-     * 
-     * 4 : tightness = nb of supports
+     * Tightness Mode: NBNG, PROPORTION, PROBABILITY, NBSUP
      */
     public static enum Tightness {
         NBNG, PROPORTION, PROBABILITY, NBSUP
