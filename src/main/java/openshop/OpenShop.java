@@ -35,7 +35,7 @@ import cspfj.MGACIter;
 import cspfj.ResultHandler;
 import cspfj.Solver;
 import cspfj.exception.FailedGenerationException;
-import cspfj.filter.CDC;
+import cspfj.filter.DC1;
 import cspfj.problem.Problem;
 import cspfj.util.Chronometer;
 
@@ -121,9 +121,9 @@ public class OpenShop {
 			final Solver solver = new MGACIter(problem, rh);
 
 			if (cl.hasOption("cdc")) {
-				solver.setUsePrepro(CDC.class);
+				solver.setUsePrepro(DC1.class);
 			} else if (cl.hasOption("dc")) {
-				solver.setUsePrepro(CDC.class);
+				solver.setUsePrepro(DC1.class);
 				AbstractSolver.parameter("cdc.addConstraints", "true");
 			}
 

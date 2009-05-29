@@ -6,7 +6,7 @@ import cspfj.AbstractSolver;
 import cspfj.MGACRec;
 import cspfj.ResultHandler;
 import cspfj.Solver;
-import cspfj.filter.CDC;
+import cspfj.filter.DC1;
 import cspfj.problem.Problem;
 
 public class CrosswordResolver extends Thread {
