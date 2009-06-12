@@ -225,7 +225,7 @@ public class RBGenerator implements ProblemGenerator {
             return new ExtensionConstraint2D(variables, (Matrix2D) matrix,
                     false);
         }
-        return new ExtensionConstraintGeneral(variables, matrix, false);
+        return new ExtensionConstraintGeneral(matrix, false, variables);
     }
 
     private static Matrix randomMatrix(int[] sizes, int nbTuples, long seed,

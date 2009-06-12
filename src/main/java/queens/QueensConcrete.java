@@ -1,7 +1,6 @@
 package queens;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.script.ScriptException;
 
@@ -39,7 +38,7 @@ public class QueensConcrete {
             }
         }
 
-        final Problem cspfjProblem = Problem.load(new CspOM(problem));
+        final Problem cspfjProblem = Problem.load(new CspOM(problem, true));
         final Solver solver = new MGACIter(cspfjProblem);
         solver.runSolver();
         for (Variable v : cspfjProblem.getVariables()) {

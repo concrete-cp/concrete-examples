@@ -3,10 +3,10 @@ package crossword;
 import java.io.IOException;
 
 import cspfj.AbstractSolver;
-import cspfj.MGACRec;
 import cspfj.ResultHandler;
 import cspfj.Solver;
-import cspfj.filter.DC1;
+import cspfj.filter.DC2;
+import cspfj.ls.Tabu;
 import cspfj.problem.Problem;
 
 public class CrosswordResolver extends Thread {
@@ -18,9 +18,9 @@ public class CrosswordResolver extends Thread {
 	}
 	
 	public void run() {
-		final Solver solver = new MGACRec(problem, new ResultHandler());
+		final Solver solver = new Tabu(problem, new ResultHandler(), false);
 		
-		//solver.setUsePrepro(CDC.class);
+		solver.setUsePrepro(DC2.class);
 		AbstractSolver.parameter("cdc.addConstraints", "BIN");
 		// solver.setAllSolutions(true);
 		try {
