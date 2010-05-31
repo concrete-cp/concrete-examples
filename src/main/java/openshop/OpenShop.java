@@ -21,6 +21,7 @@ package openshop;
 
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,127 +31,123 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import cspfj.AbstractSolver;
 import cspfj.MGACIter;
-import cspfj.ResultHandler;
 import cspfj.Solver;
 import cspfj.exception.FailedGenerationException;
-import cspfj.filter.DC1;
+import cspfj.generator.ProblemGenerator;
 import cspfj.problem.Problem;
-import cspfj.util.Chronometer;
+import cspfj.problem.Variable;
+import cspom.CSPOM;
+import cspom.compiler.PredicateParseException;
+import cspom.compiler.ProblemCompiler;
 
 public class OpenShop {
-	public static void main(final String[] args) throws IOException,
-			FailedGenerationException {
-		Logger.getLogger("").setLevel(Level.INFO);
-		Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
-		final Options opt = new Options();
+    public static void main(final String[] args) throws IOException,
+            FailedGenerationException, PredicateParseException {
+        Logger.getLogger("").setLevel(Level.INFO);
+        Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
+        final Options opt = new Options();
 
-		opt.addOption("lb", true, "Lower Bound");
-		opt.addOption("ub", true, "Upper Bound");
-		opt.addOption("dc", false, "Dual Consistency");
-		opt.addOption("cdc", false, "Conservative Dual Consistency");
-		opt.addOption("js", false, "Job Shop");
-		opt.addOption("f", true, "Factor");
+        opt.addOption("lb", true, "Lower Bound");
+        opt.addOption("ub", true, "Upper Bound");
+        opt.addOption("js", false, "Job Shop");
 
-		final CommandLine cl;
-		try {
-			cl = new GnuParser().parse(opt, args);
-		} catch (ParseException e) {
-			final HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp("", opt);
-			System.exit(1);
-			throw new InvalidParameterException();
-		}
+        final CommandLine cl;
+        try {
+            cl = new GnuParser().parse(opt, args);
+        } catch (ParseException e) {
+            final HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("", opt);
+            System.exit(1);
+            throw new InvalidParameterException();
+        }
 
-		final OpenShopGenerator generator;
-		switch (cl.getArgs().length) {
-		case 1:
-			generator = new OpenShopGenerator(cl.getArgs()[0]);
-			break;
+        final OpenShopGenerator generator;
+        switch (cl.getArgs().length) {
+        case 1:
+            generator = new OpenShopGenerator(cl.getArgs()[0]);
+            break;
 
-		case 3:
-			generator = new OpenShopGenerator(Integer.valueOf(cl.getArgs()[0]),
-					Integer.valueOf(cl.getArgs()[1]), Integer.valueOf(cl
-							.getArgs()[2]), cl.hasOption("js"));
-			break;
+        case 3:
+            generator = new OpenShopGenerator(Integer.valueOf(cl.getArgs()[0]),
+                    Integer.valueOf(cl.getArgs()[1]), Integer.valueOf(cl
+                            .getArgs()[2]), cl.hasOption("js"));
+            break;
 
-		default:
-			final HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp("", opt);
-			System.exit(1);
-			throw new InvalidParameterException();
-		}
+        default:
+            final HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp(
+                    "OpenShop { filename | size durationSeed machineSeed }",
+                    opt);
+            System.exit(1);
+            throw new InvalidParameterException();
+        }
 
-		if (cl.hasOption("f")) {
-			generator.factor(Float.valueOf(cl.getOptionValue("f")));
-		}
+        System.out.println(generator);
 
-		System.out.println(generator);
+        int lb;
+        if (cl.hasOption("lb")) {
+            lb = Integer.valueOf(cl.getOptionValue("lb"));
+        } else {
+            lb = generator.getLB();
+        }
+        int ub;
+        if (cl.hasOption("ub")) {
+            ub = Integer.valueOf(cl.getOptionValue("ub"));
+        } else {
+            ub = generator.getUB();
+        }
 
-		int lb;
-		if (cl.hasOption("lb")) {
-			lb = Integer.valueOf(cl.getOptionValue("lb"));
-		} else {
-			lb = generator.getLB();
-		}
-		int ub;
-		if (cl.hasOption("ub")) {
-			ub = Integer.valueOf(cl.getOptionValue("ub"));
-		} else {
-			ub = generator.getUB();
-		}
+        long totalTime = 0;
 
-		float time = 0;
+        while (ub > lb) {
+            System.out.println("[" + lb + "," + ub + "]");
+            final int test = (ub + lb) / 2;
+            // final int test = ub - 1;
+            System.out.println("Test " + test);
 
-		final ResultHandler rh = new ResultHandler(false);
+            long time = -System.currentTimeMillis();
 
-		while (ub > lb) {
-			System.out.println("[" + lb + "," + ub + "]");
-			final int test = (ub + lb) / 2;
-			// final int test = ub - 1;
-			System.out.println("Test " + test);
+            generator.setUB(test);
+            final CSPOM cspom = generator.generate();
+            ProblemCompiler.compile(cspom);
+            final Problem problem = ProblemGenerator.generate(cspom);
+            // System.out.println(problem);
+            // generator.clear();
 
-			final Chronometer loadChrono = new Chronometer();
-			loadChrono.startChrono();
-			generator.setUB(test);
-			final Problem problem = Problem.load(generator, -1);
+            final Solver solver = new MGACIter(problem);
 
-			// generator.clear();
+            // if (cl.hasOption("cdc")) {
+            // solver.setUsePrepro(DC1.class);
+            // } else if (cl.hasOption("dc")) {
+            // solver.setUsePrepro(DC1.class);
+            // AbstractSolver.parameter("cdc.addConstraints", "true");
+            // }
 
-			final Solver solver = new MGACIter(problem, rh);
+            time += System.currentTimeMillis();
+            totalTime += time;
+            // solver.setUseSpace(SPACE.CLASSIC);
 
-			if (cl.hasOption("cdc")) {
-				solver.setUsePrepro(DC1.class);
-			} else if (cl.hasOption("dc")) {
-				solver.setUsePrepro(DC1.class);
-				AbstractSolver.parameter("cdc.addConstraints", "true");
-			}
+            final Map<Variable, Integer> solution = solver.nextSolution();
+            if (solution == null) {
+                System.out.println("UNSAT");
 
-			loadChrono.validateChrono();
-			rh.load(solver, loadChrono.getUserTimeNano());
+                lb = test + 1;
+            } else {
+                generator.display(solution);
 
-			// solver.setUseSpace(SPACE.CLASSIC);
+                ub = generator.evaluate(solution);
+            }
+            System.out.println();
+            solver.collectStatistics();
+            // time += solver.getUserTime();
+            System.out.println(lb + ", " + ub + " ("
+                    + solver.getStatistics().get("prepro-cpu") + " + "
+                    + solver.getStatistics().get("search-cpu") + "s, "
+                    + solver.getNbAssignments() + " nodes)");
 
-			if (solver.runSolver()) {
-				generator.display(solver.getSolution());
-
-				ub = generator.evaluate(solver.getSolution());
-			} else {
-				System.out.println("UNSAT");
-
-				lb = test + 1;
-			}
-			System.out.println();
-			solver.collectStatistics();
-			time += solver.getUserTime();
-			System.out.println(lb + ", " + ub + " ("
-					+ solver.getStatistics().get("prepro-cpu") + " + "
-					+ solver.getStatistics().get("search-cpu") + "s, "
-					+ solver.getNbAssignments() + " nodes)");
-
-		}
-		System.out.println(ub + "! (" + time + ")");
-	}
+        }
+        System.out.println(ub + "! (" + totalTime / 1000f + ")");
+    }
 
 }
