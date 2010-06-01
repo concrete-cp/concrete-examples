@@ -2,29 +2,24 @@ package crossword;
 
 import java.io.IOException;
 
-import cspfj.AbstractSolver;
-import cspfj.ResultHandler;
+import cspfj.MGACIter;
 import cspfj.Solver;
-import cspfj.filter.DC2;
-import cspfj.ls.Tabu;
 import cspfj.problem.Problem;
 
 public class CrosswordResolver extends Thread {
-	
+
 	private final Problem problem;
-	
+
 	public CrosswordResolver(Problem problem) {
 		this.problem = problem;
 	}
-	
+
 	public void run() {
-		final Solver solver = new Tabu(problem, new ResultHandler(), false);
-		
-		solver.setUsePrepro(DC2.class);
-		AbstractSolver.parameter("cdc.addConstraints", "BIN");
+		final Solver solver = new MGACIter(problem);
+
 		// solver.setAllSolutions(true);
 		try {
-			if (!solver.runSolver()) {
+			if (solver.nextSolution() == null) {
 				System.out.println("No crossword found");
 			}
 		} catch (IOException e) {

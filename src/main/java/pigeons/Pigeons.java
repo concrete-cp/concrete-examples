@@ -2,88 +2,50 @@ package pigeons;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import cspfj.MGACIter;
-import cspfj.ResultHandler;
 import cspfj.Solver;
-import cspfj.constraint.AbstractAC3Constraint;
-import cspfj.constraint.Constraint;
 import cspfj.exception.FailedGenerationException;
-import cspfj.problem.Problem;
-import cspfj.problem.ProblemGenerator;
-import cspfj.problem.Variable;
+import cspfj.generator.ProblemGenerator;
+import cspom.CSPOM;
+import cspom.DuplicateVariableException;
+import cspom.compiler.PredicateParseException;
+import cspom.compiler.ProblemCompiler;
+import cspom.variable.CSPOMVariable;
 
-public class Pigeons implements ProblemGenerator {
+public final class Pigeons {
 
-	final private int size;
+	private Pigeons() {
 
-	final private List<Variable> variables;
-
-	final private Collection<Constraint> constraints;
-
-	public Pigeons(int size) {
-		this.size = size;
-		variables = new ArrayList<Variable>(size);
-		constraints = new ArrayList<Constraint>();
 	}
 
-	public void generate() throws FailedGenerationException {
-		final int[] domain = new int[size - 1];
-
-		for (int i = size - 1; --i >= 0;) {
-			domain[i] = i;
+	public static CSPOM generate(int size) throws FailedGenerationException,
+			DuplicateVariableException, PredicateParseException {
+		final CSPOM problem = new CSPOM();
+		final List<CSPOMVariable> variables = new ArrayList<CSPOMVariable>(size);
+		for (int i = size; --i >= 0;) {
+			variables.add(problem.var("V" + i, 0, size - 2));
 		}
 
 		for (int i = size; --i >= 0;) {
-			variables.add(new Variable(domain.clone(), "V" + i));
-		}
-
-		for (int i = size; --i >= 0;) {
-			for (int j = size; --j >= i + 1;) {
-				constraints.add(diff(variables.get(i), variables.get(j)));
+			for (int j = i; --j >= 0;) {
+				problem.ctr("ne(" + variables.get(i) + ", " + variables.get(j)
+						+ ")");
 			}
 		}
-	}
-
-	private static Constraint diff(final Variable var1, final Variable var2)
-			throws FailedGenerationException {
-		return new DiffConstraint(new Variable[] { var1, var2 });
-	}
-
-	public List<Variable> getVariables() {
-		return variables;
-	}
-
-	public Collection<Constraint> getConstraints() {
-		return constraints;
+		return problem;
 	}
 
 	public static void main(final String[] args) throws NumberFormatException,
-			FailedGenerationException, IOException {
-		final Problem problem = Problem.load(new Pigeons(Integer
-				.parseInt(args[0])));
-
-		final ResultHandler rh = new ResultHandler();
-
-		final Solver solver = new MGACIter(problem, rh);
-		final boolean result = solver.runSolver();
+			FailedGenerationException, IOException, DuplicateVariableException,
+			PredicateParseException {
+		final CSPOM problem = generate(Integer.parseInt(args[0]));
+		ProblemCompiler.compile(problem);
+		final Solver solver = new MGACIter(ProblemGenerator.generate(problem));
+		final Map<String, Integer> result = solver.nextSolution();
 		System.out.println(result);
-		if (result) {
-			System.out.println(solver.getSolution());
-		}
-	}
-
-	private static class DiffConstraint extends AbstractAC3Constraint {
-		public DiffConstraint(Variable[] scope) {
-			super(scope);
-		}
-
-		@Override
-		public boolean check() {
-			return tuple[0] != tuple[1];
-		}
 
 	}
 

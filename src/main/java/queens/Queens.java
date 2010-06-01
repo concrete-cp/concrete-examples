@@ -1,77 +1,64 @@
 package queens;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import cspfj.MGACIter;
 import cspfj.Solver;
-import cspfj.constraint.AbstractAC3Constraint;
-import cspfj.constraint.Constraint;
 import cspfj.exception.FailedGenerationException;
-import cspfj.problem.Problem;
-import cspfj.problem.ProblemGenerator;
-import cspfj.problem.Variable;
+import cspfj.generator.ProblemGenerator;
+import cspom.CSPOM;
+import cspom.DuplicateVariableException;
+import cspom.compiler.PredicateParseException;
+import cspom.compiler.ProblemCompiler;
+import cspom.variable.CSPOMVariable;
 
-public class Queens implements ProblemGenerator {
+public final class Queens {
+	private final int size;
+	private final CSPOMVariable[] variables;
 
-    private final int size;
-    private final Collection<Constraint> constraints;
-    private final List<Variable> variables;
+	private Queens(final int size) {
+		this.size = size;
+		variables = new CSPOMVariable[size];
+	}
 
-    public Queens(int size) {
-        this.size = size;
-        constraints = new ArrayList<Constraint>();
-        variables = new ArrayList<Variable>();
-    }
+	public CSPOM generate() throws PredicateParseException,
+			DuplicateVariableException {
+		final CSPOM problem = new CSPOM();
 
-    @Override
-    public void generate() {
-        final int[] domain = new int[size];
-        for (int i = 0; i < size; i++) {
-            domain[i] = i;
-        }
-        for (int i = 0; i < size; i++) {
-            variables.add(new Variable(domain));
-        }
-        for (int i = 0; i < size; i++) {
-            for (int j = i + 1; j < size; j++) {
-                final int diff = Math.abs(i - j);
-                constraints.add(new AbstractAC3Constraint(variables
-                        .get(i), variables.get(j)) {
-                    @Override
-                    public boolean check() {
-                        return getValue(0) != getValue(1)
-                                && Math
-                                        .abs(getValue(0)
-                                                - getValue(1)) != diff;
-                    }
-                });
-            }
-        }
-    }
+		for (int i = size; --i >= 0;) {
+			variables[i] = problem.var("Q" + i, 1, size);
+		}
 
-    @Override
-    public Collection<Constraint> getConstraints() {
-        return constraints;
-    }
+		for (int j = size; --j >= 0;) {
+			for (int i = j; --i >= 0;) {
+				problem.ctr("ne(" + variables[i] + ", " + variables[j] + ")");
+				problem.ctr("ne(abs(sub(" + variables[i] + ", " + variables[j]
+						+ ")), " + (j - i) + ")");
+			}
+		}
 
-    @Override
-    public List<Variable> getVariables() {
-        return variables;
-    }
+		return problem;
+	}
 
-    public static void main(String[] args)
-            throws FailedGenerationException, IOException {
-        final ProblemGenerator generator = new Queens(Integer
-                .valueOf(args[0]));
-        final Solver solver = new MGACIter(Problem.load(generator));
-        solver.runSolver();
-        for (Variable v : generator.getVariables()) {
-            System.out
-                    .println(v + ": " + solver.getSolution().get(v));
-        }
-    }
+	public static void main(String[] args) throws FailedGenerationException,
+			NumberFormatException, PredicateParseException,
+			DuplicateVariableException, IOException {
+		Logger.getLogger("").setLevel(Level.WARNING);
+		long time = -System.currentTimeMillis();
+		final Queens queens = new Queens(Integer.valueOf(args[0]));
+		final CSPOM problem = queens.generate();
+		ProblemCompiler.compile(problem);
 
+		final Solver solver = new MGACIter(ProblemGenerator.generate(problem));
+
+		Map<String, Integer> solution = solver.nextSolution();
+		System.out.println(System.currentTimeMillis() + time);
+//		while (solution != null) {
+//			solution = solver.nextSolution();
+//		}
+//		System.out.println(System.currentTimeMillis() + time);
+	}
 }

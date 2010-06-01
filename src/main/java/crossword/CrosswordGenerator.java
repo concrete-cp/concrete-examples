@@ -9,17 +9,17 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import crossword.CrosswordGui.Cell;
-import cspfj.constraint.Constraint;
-import cspfj.constraint.extension.ExtensionConstraintDynamic;
-import cspfj.constraint.extension.TupleSet;
 import cspfj.exception.FailedGenerationException;
-import cspfj.problem.ProblemGenerator;
-import cspfj.problem.Variable;
+import cspfj.generator.ProblemGenerator;
+import cspfj.problem.Problem;
+import cspom.CSPOM;
+import cspom.extension.Extension;
+import cspom.extension.ExtensionConstraint;
+import cspom.variable.CSPOMVariable;
 
 /*
  * Created on 20 mai 08
@@ -28,162 +28,139 @@ import cspfj.problem.Variable;
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 
-public class CrosswordGenerator implements ProblemGenerator {
+public class CrosswordGenerator {
+	private final CSPOMVariable[][] variables;
 
-    private final Collection<Constraint> constraints;
+	private final int x;
 
-    private final Variable[][] variables;
+	private final int y;
 
-    private final int x;
+	private final Set<Cell> black;
 
-    private final int y;
+	private final Map<Integer, Extension<Integer>> dicts;
 
-    private final Set<Cell> black;
+	private final Map<String, Cell> map;
 
-    private final Map<Integer, TupleSet> dicts;
+	private final CSPOM problem;
 
-    private final Map<Integer, Cell> map;
+	public CrosswordGenerator(final int x, final int y, final Set<Cell> black)
+			throws FailedGenerationException {
+		variables = new CSPOMVariable[x][y];
+		this.x = x;
+		this.y = y;
+		this.black = black;
+		dicts = loadDicts(getClass().getResource("french"), Math.max(x, y));
+		map = new HashMap<String, Cell>();
+		problem = new CSPOM();
 
-    public CrosswordGenerator(final int x, final int y, final Set<Cell> black)
-            throws FailedGenerationException {
-        variables = new Variable[x][y];
-        this.x = x;
-        this.y = y;
-        constraints = new ArrayList<Constraint>();
-        this.black = black;
-        dicts = loadDicts(getClass().getResource("french"), Math.max(x, y));
-        map = new HashMap<Integer, Cell>();
-    }
+	}
 
-    private static Map<Integer, TupleSet> loadDicts(final URL file, int max)
-            throws FailedGenerationException {
+	private static Map<Integer, Extension<Integer>> loadDicts(final URL file,
+			int max) throws FailedGenerationException {
 
-        final Map<Integer, TupleSet> dicts = new HashMap<Integer, TupleSet>();
+		final Map<Integer, Extension<Integer>> dicts = new HashMap<Integer, Extension<Integer>>();
 
-        try {
-            final BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(file.openStream()));
+		try {
+			final BufferedReader reader = new BufferedReader(
+					new InputStreamReader(file.openStream()));
 
-            String line;
+			String line;
 
-            while ((line = reader.readLine()) != null) {
-                final String word = Normalizer.normalize(line.toUpperCase(),
-                        Normalizer.Form.NFD).replaceAll("[^A-Z]", "");
+			while ((line = reader.readLine()) != null) {
+				final String word = Normalizer.normalize(line.toUpperCase(),
+						Normalizer.Form.NFD).replaceAll("[^A-Z]", "");
 
-                if (word.length() < 2 || word.length() > max) {
-                    continue;
-                }
+				if (word.length() < 2 || word.length() > max) {
+					continue;
+				}
 
-                TupleSet ths = dicts.get(word.length());
+				Extension<Integer> ths = dicts.get(word.length());
 
-                if (ths == null) {
-                    ths = new TupleSet(false);
-                    dicts.put(word.length(), ths);
-                }
+				if (ths == null) {
+					ths = new Extension<Integer>(word.length(), false);
+					dicts.put(word.length(), ths);
+				}
 
-                final int[] tuple = new int[word.length()];
+				final Integer[] tuple = new Integer[word.length()];
 
-                for (int i = word.length(); --i >= 0;) {
-                    tuple[i] = word.charAt(i) - 65;
-                    assert tuple[i] >= 0 : word;
-                }
-                ths.set(tuple, true);
+				for (int i = word.length(); --i >= 0;) {
+					tuple[i] = word.charAt(i) - 65;
+					assert tuple[i] >= 0 : word;
+				}
+				ths.addTuple(tuple);
 
-            }
+			}
 
-        } catch (FileNotFoundException e) {
-            throw new FailedGenerationException(e);
-        } catch (IOException e) {
-            throw new FailedGenerationException(e);
-        }
+		} catch (FileNotFoundException e) {
+			throw new FailedGenerationException(e);
+		} catch (IOException e) {
+			throw new FailedGenerationException(e);
+		}
 
-        return dicts;
-    }
+		return dicts;
+	}
 
-    public static <E> E[][] transpose(final E[][] matrix, final E[][] transposed) {
-        for (int i = matrix.length; --i >= 0;) {
-            for (int j = matrix[i].length; --j >= 0;) {
-                transposed[j][i] = matrix[i][j];
-            }
-        }
+	public static <E> E[][] transpose(final E[][] matrix, final E[][] transposed) {
+		for (int i = matrix.length; --i >= 0;) {
+			for (int j = matrix[i].length; --j >= 0;) {
+				transposed[j][i] = matrix[i][j];
+			}
+		}
 
-        return transposed;
-    }
+		return transposed;
+	}
 
-    @Override
-    public void generate() throws FailedGenerationException {
-        final int[] domain = new int[26];
-        for (int i = domain.length; --i >= 0;) {
-            domain[i] = i;
-        }
+	public Problem generate() throws FailedGenerationException {
 
-        for (int i = x; --i >= 0;) {
-            for (int j = y; --j >= 0;) {
-                if (!black.contains(new Cell(i, j))) {
-                    variables[i][j] = new Variable(domain);
-                    map.put(variables[i][j].getId(), new Cell(i, j));
-                }
-            }
-        }
+		for (int i = x; --i >= 0;) {
+			for (int j = y; --j >= 0;) {
+				if (!black.contains(new Cell(i, j))) {
+					variables[i][j] = problem.var(0, 25);
+					map.put(variables[i][j].getName(), new Cell(i, j));
+				}
+			}
+		}
 
-        final Collection<Variable> currentWord = new ArrayList<Variable>(Math
-                .max(x, y));
+		final Collection<CSPOMVariable> currentWord = new ArrayList<CSPOMVariable>(
+				Math.max(x, y));
 
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
-                if (variables[i][j] == null) {
-                    newWord(currentWord);
-                } else {
-                    currentWord.add(variables[i][j]);
-                }
-            }
-            newWord(currentWord);
-        }
+		for (int i = 0; i < x; i++) {
+			for (int j = 0; j < y; j++) {
+				if (variables[i][j] == null) {
+					newWord(currentWord);
+				} else {
+					currentWord.add(variables[i][j]);
+				}
+			}
+			newWord(currentWord);
+		}
 
-        for (int j = 0; j < y; j++) {
-            for (int i = 0; i < x; i++) {
-                if (variables[i][j] == null) {
-                    newWord(currentWord);
-                } else {
-                    currentWord.add(variables[i][j]);
-                }
-            }
-            newWord(currentWord);
-        }
+		for (int j = 0; j < y; j++) {
+			for (int i = 0; i < x; i++) {
+				if (variables[i][j] == null) {
+					newWord(currentWord);
+				} else {
+					currentWord.add(variables[i][j]);
+				}
+			}
+			newWord(currentWord);
+		}
 
-    }
+		return ProblemGenerator.generate(problem);
+	}
 
-    private void newWord(Collection<Variable> word)
-            throws FailedGenerationException {
-        if (word.size() >= 2) {
-            constraints.add(new ExtensionConstraintDynamic(word
-                    .toArray(new Variable[word.size()]),
-                    dicts.get(word.size()), true));
-        }
-        word.clear();
-    }
+	private void newWord(Collection<CSPOMVariable> word)
+			throws FailedGenerationException {
+		if (word.size() >= 2) {
+			problem.addConstraint(new ExtensionConstraint<Integer>(dicts
+					.get(word.size()), word.toArray(new CSPOMVariable[word
+					.size()])));
+		}
+		word.clear();
+	}
 
-    @Override
-    public Collection<Constraint> getConstraints() {
-        return constraints;
-    }
-
-    @Override
-    public List<Variable> getVariables() {
-        final List<Variable> variables = new ArrayList<Variable>();
-        for (Variable[] vs : this.variables) {
-            for (Variable v : vs) {
-                if (v != null) {
-                    variables.add(v);
-                }
-
-            }
-        }
-        return variables;
-    }
-
-    public Cell whatCell(int varId) {
-        return map.get(varId);
-    }
+	public Cell whatCell(String varName) {
+		return map.get(varName);
+	}
 
 }

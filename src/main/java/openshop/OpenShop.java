@@ -42,112 +42,99 @@ import cspom.compiler.PredicateParseException;
 import cspom.compiler.ProblemCompiler;
 
 public class OpenShop {
-    public static void main(final String[] args) throws IOException,
-            FailedGenerationException, PredicateParseException {
-        Logger.getLogger("").setLevel(Level.INFO);
-        Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
-        final Options opt = new Options();
+	public static void main(final String[] args) throws IOException,
+			FailedGenerationException, PredicateParseException {
+		Logger.getLogger("").setLevel(Level.INFO);
+		Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
+		final Options opt = new Options();
 
-        opt.addOption("lb", true, "Lower Bound");
-        opt.addOption("ub", true, "Upper Bound");
-        opt.addOption("js", false, "Job Shop");
+		opt.addOption("lb", true, "Lower Bound");
+		opt.addOption("ub", true, "Upper Bound");
+		opt.addOption("js", false, "Job Shop");
 
-        final CommandLine cl;
-        try {
-            cl = new GnuParser().parse(opt, args);
-        } catch (ParseException e) {
-            final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("", opt);
-            System.exit(1);
-            throw new InvalidParameterException();
-        }
+		final CommandLine cl;
+		try {
+			cl = new GnuParser().parse(opt, args);
+		} catch (ParseException e) {
+			final HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp("", opt);
+			System.exit(1);
+			throw new InvalidParameterException();
+		}
 
-        final OpenShopGenerator generator;
-        switch (cl.getArgs().length) {
-        case 1:
-            generator = new OpenShopGenerator(cl.getArgs()[0]);
-            break;
+		final OpenShopGenerator generator;
+		switch (cl.getArgs().length) {
+		case 1:
+			generator = new OpenShopGenerator(cl.getArgs()[0]);
+			break;
 
-        case 3:
-            generator = new OpenShopGenerator(Integer.valueOf(cl.getArgs()[0]),
-                    Integer.valueOf(cl.getArgs()[1]), Integer.valueOf(cl
-                            .getArgs()[2]), cl.hasOption("js"));
-            break;
+		case 3:
+			generator = new OpenShopGenerator(Integer.valueOf(cl.getArgs()[0]),
+					Integer.valueOf(cl.getArgs()[1]), Integer.valueOf(cl
+							.getArgs()[2]), cl.hasOption("js"));
+			break;
 
-        default:
-            final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp(
-                    "OpenShop { filename | size durationSeed machineSeed }",
-                    opt);
-            System.exit(1);
-            throw new InvalidParameterException();
-        }
+		default:
+			final HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp(
+					"OpenShop { filename | size durationSeed machineSeed }",
+					opt);
+			System.exit(1);
+			throw new InvalidParameterException();
+		}
 
-        System.out.println(generator);
+		System.out.println(generator);
 
-        int lb;
-        if (cl.hasOption("lb")) {
-            lb = Integer.valueOf(cl.getOptionValue("lb"));
-        } else {
-            lb = generator.getLB();
-        }
-        int ub;
-        if (cl.hasOption("ub")) {
-            ub = Integer.valueOf(cl.getOptionValue("ub"));
-        } else {
-            ub = generator.getUB();
-        }
+		int lb;
+		if (cl.hasOption("lb")) {
+			lb = Integer.valueOf(cl.getOptionValue("lb"));
+		} else {
+			lb = generator.getLB();
+		}
+		int ub;
+		if (cl.hasOption("ub")) {
+			ub = Integer.valueOf(cl.getOptionValue("ub"));
+		} else {
+			ub = generator.getUB();
+		}
 
-        long totalTime = 0;
+		long totalTime = 0;
 
-        while (ub > lb) {
-            System.out.println("[" + lb + "," + ub + "]");
-            final int test = (ub + lb) / 2;
-            // final int test = ub - 1;
-            System.out.println("Test " + test);
+		while (ub > lb) {
+			System.out.println("[" + lb + "," + ub + "]");
+			final int test = (ub + lb) / 2;
+			System.out.println("Test " + test);
 
-            long time = -System.currentTimeMillis();
+			long time = -System.currentTimeMillis();
 
-            generator.setUB(test);
-            final CSPOM cspom = generator.generate();
-            ProblemCompiler.compile(cspom);
-            final Problem problem = ProblemGenerator.generate(cspom);
-            // System.out.println(problem);
-            // generator.clear();
+			generator.setUB(test);
+			final CSPOM cspom = generator.generate();
+			ProblemCompiler.compile(cspom);
+			final Problem problem = ProblemGenerator.generate(cspom);
 
-            final Solver solver = new MGACIter(problem);
+			final Solver solver = new MGACIter(problem);
 
-            // if (cl.hasOption("cdc")) {
-            // solver.setUsePrepro(DC1.class);
-            // } else if (cl.hasOption("dc")) {
-            // solver.setUsePrepro(DC1.class);
-            // AbstractSolver.parameter("cdc.addConstraints", "true");
-            // }
+			time += System.currentTimeMillis();
+			totalTime += time;
+			final Map<String, Integer> solution = solver.nextSolution();
+			if (solution == null) {
+				System.out.println("UNSAT");
 
-            time += System.currentTimeMillis();
-            totalTime += time;
-            // solver.setUseSpace(SPACE.CLASSIC);
+				lb = test + 1;
+			} else {
+				generator.display(solution);
 
-            final Map<Variable, Integer> solution = solver.nextSolution();
-            if (solution == null) {
-                System.out.println("UNSAT");
+				ub = generator.evaluate(solution);
+			}
+			System.out.println();
+			solver.collectStatistics();
+			System.out.println(lb + ", " + ub + " ("
+					+ solver.getStatistics().get("prepro-cpu") + " + "
+					+ solver.getStatistics().get("search-cpu") + "s, "
+					+ solver.getNbAssignments() + " nodes)");
 
-                lb = test + 1;
-            } else {
-                generator.display(solution);
-
-                ub = generator.evaluate(solution);
-            }
-            System.out.println();
-            solver.collectStatistics();
-            // time += solver.getUserTime();
-            System.out.println(lb + ", " + ub + " ("
-                    + solver.getStatistics().get("prepro-cpu") + " + "
-                    + solver.getStatistics().get("search-cpu") + "s, "
-                    + solver.getNbAssignments() + " nodes)");
-
-        }
-        System.out.println(ub + "! (" + totalTime / 1000f + ")");
-    }
+		}
+		System.out.println(ub + "! (" + totalTime / 1000f + ")");
+	}
 
 }

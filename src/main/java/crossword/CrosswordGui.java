@@ -23,222 +23,211 @@ import javax.swing.JTextField;
 
 import cspfj.exception.FailedGenerationException;
 import cspfj.problem.Problem;
+import cspfj.problem.Variable;
 
 public class CrosswordGui {
 
-    final JFrame frame;
+	final JFrame frame;
 
-    final JPanel grid;
+	final JPanel grid;
 
-    final JTextField[][] cell;
+	final JTextField[][] cell;
 
-    final int x, y;
+	final int x, y;
 
-    final Set<Cell> black;
+	final Set<Cell> black;
 
-    private final static Random RAND = new Random();
+	private final static Random RAND = new Random();
 
-    private CrosswordGenerator crossword;
+	private CrosswordGenerator crossword;
 
-    public CrosswordGui(int x, int y) {
-        this.x = x;
-        this.y = y;
-        frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	private Problem problem;
 
-        frame.getContentPane().setLayout(
-                new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+	public CrosswordGui(int x, int y) {
+		this.x = x;
+		this.y = y;
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        grid = new JPanel();
-        grid.setLayout(new BoxLayout(grid, BoxLayout.Y_AXIS));
+		frame.getContentPane().setLayout(
+				new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
-        cell = new JTextField[x][y];
+		grid = new JPanel();
+		grid.setLayout(new BoxLayout(grid, BoxLayout.Y_AXIS));
 
-        black = new HashSet<Cell>();
+		cell = new JTextField[x][y];
 
-        for (int i = 0; i < x; i++) {
-            JPanel row = new JPanel();
-            row.setLayout(new BoxLayout(row, BoxLayout.X_AXIS));
-            for (int j = 0; j < y; j++) {
-                cell[i][j] = new JTextField();
-                cell[i][j].setColumns(1);
-                cell[i][j].setBorder(BorderFactory.createMatteBorder(1, 1, 1,
-                        1, Color.BLACK));
-                cell[i][j].setHorizontalAlignment(JTextField.CENTER);
-                cell[i][j].setFont(cell[i][j].getFont().deriveFont(25F));
-                row.add(cell[i][j]);
+		black = new HashSet<Cell>();
 
-                if (RAND.nextFloat() < .15) {
-                    black.add(new Cell(i, j));
-                }
-            }
-            grid.add(row);
-        }
+		for (int i = 0; i < x; i++) {
+			JPanel row = new JPanel();
+			row.setLayout(new BoxLayout(row, BoxLayout.X_AXIS));
+			for (int j = 0; j < y; j++) {
+				cell[i][j] = new JTextField();
+				cell[i][j].setColumns(2);
+				cell[i][j].setBorder(BorderFactory.createMatteBorder(1, 1, 1,
+						1, Color.BLACK));
+				cell[i][j].setHorizontalAlignment(JTextField.CENTER);
+				cell[i][j].setFont(cell[i][j].getFont().deriveFont(25F));
+				row.add(cell[i][j]);
 
-        for (Cell c : black) {
-            cell[c.x][c.y].setBackground(Color.BLACK);
-        }
+				if (RAND.nextFloat() < .15) {
+					black.add(new Cell(i, j));
+				}
+			}
+			grid.add(row);
+		}
 
-        frame.getContentPane().add(grid);
+		for (Cell c : black) {
+			cell[c.x][c.y].setBackground(Color.BLACK);
+		}
 
-        JButton start = new JButton("start");
+		frame.getContentPane().add(grid);
 
-        start.addActionListener(new ActionListener() {
+		JButton start = new JButton("start");
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    solve();
-                } catch (FailedGenerationException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+		start.addActionListener(new ActionListener() {
 
-            }
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					solve();
+				} catch (FailedGenerationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
-        });
+			}
 
-        frame.getContentPane().add(start);
+		});
 
-        // Display the window.
-        frame.pack();
+		frame.getContentPane().add(start);
 
-        frame.setVisible(true);
+		// Display the window.
+		frame.pack();
 
-    }
+		frame.setVisible(true);
 
-    public void solve() throws FailedGenerationException, IOException {
-        Logger.getLogger("").addHandler(new Visualize());
-        // Logger.getLogger("").getHandlers()[0].setLevel(Level.FINER);
-        Logger.getLogger("").setLevel(Level.FINER);
-        crossword = new CrosswordGenerator(x, y, black);
-        final Problem problem = Problem.load(crossword);
-        new CrosswordResolver(problem).start();
-    }
+	}
 
-    public static void main(String args[]) {
+	public void solve() throws FailedGenerationException, IOException {
+		Logger.getLogger("").addHandler(new Visualize());
+		// Logger.getLogger("").getHandlers()[0].setLevel(Level.FINER);
+		Logger.getLogger("").setLevel(Level.FINER);
+		crossword = new CrosswordGenerator(x, y, black);
+		this.problem = crossword.generate();
+		new CrosswordResolver(problem).start();
+	}
 
-        new CrosswordGui(10, 10);
+	public static void main(String args[]) {
 
-    }
+		new CrosswordGui(10, 10);
 
-    private class Visualize extends Handler {
+	}
 
-        private final Matcher SYST_PATTERN = Pattern.compile(
-                "(\\d*) : X(\\d*)\\[\\d*\\] <- (\\d*)").matcher("");
+	private class Visualize extends Handler {
 
-        private final Matcher LOCAL_PATTERN = Pattern.compile(
-                "X(\\d*)\\[\\d*\\] <- (\\d*)").matcher("");
+		public Visualize() {
+		}
 
-        private final int[] history;
-        private int last = -1;
+		@Override
+		public void close() throws SecurityException {
+			// TODO Auto-generated method stub
 
-        public Visualize() {
-            history = new int[x * y];
-        }
+		}
 
-        @Override
-        public void close() throws SecurityException {
-            // TODO Auto-generated method stub
+		@Override
+		public void flush() {
+			// TODO Auto-generated method stub
 
-        }
+		}
 
-        @Override
-        public void flush() {
-            // TODO Auto-generated method stub
+		@Override
+		public void publish(LogRecord arg0) {
+			if (problem != null && "mac".equals(arg0.getSourceMethodName())) {
+				// SYST_PATTERN.reset(arg0.getMessage());
+				// if (SYST_PATTERN.find()) {
+				for (Variable v : problem.getVariables()) {
+					if (v.getDomainSize() == 1) {
+						setCell(v.getName(), v.getValue(v.getFirst()));
+					} else {
+						setCellNum(v.getName(), v.getDomainSize());
+					}
+				}
+				// }
+			}
+		}
 
-        }
+		private void setCell(String name, int value) {
+			final Cell varCell = crossword.whatCell(name);
+			if (value < 0) {
+				cell[varCell.x][varCell.y].setText("");
+			} else {
+				cell[varCell.x][varCell.y].setText(String
+						.valueOf((char) (value + 65)));
+			}
+			// cell[number / y][number % y].repaint();
+			// frame.repaint();
+			// try {
+			// Thread.sleep(100);
+			// } catch (InterruptedException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
+		}
 
-        @Override
-        public void publish(LogRecord arg0) {
-            if ("mac".equals(arg0.getSourceMethodName())) {
-                SYST_PATTERN.reset(arg0.getMessage());
-                if (SYST_PATTERN.find()) {
-                    int level = Integer.valueOf(SYST_PATTERN.group(1));
-                    int var = Integer.valueOf(SYST_PATTERN.group(2));
-                    int val = Integer.valueOf(SYST_PATTERN.group(3));
+		private void setCellNum(String name, int value) {
+			final Cell varCell = crossword.whatCell(name);
+			if (value < 0) {
+				cell[varCell.x][varCell.y].setText("");
+			} else {
+				cell[varCell.x][varCell.y].setText(String.valueOf(value));
+			}
+			// cell[number / y][number % y].repaint();
+			// frame.repaint();
+			// try {
+			// Thread.sleep(100);
+			// } catch (InterruptedException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
+		}
+	}
 
-                    for (int i = level; i <= last; i++) {
-                        setCell(history[i], -1);
-                    }
-                    setCell(var, val);
-                    last = level;
-                    history[last] = var;
-                }
-            } else if ("bestWalk".equals(arg0.getSourceMethodName())
-                    || "init".equals(arg0.getSourceMethodName())) {
-                LOCAL_PATTERN.reset(arg0.getMessage());
-                if (LOCAL_PATTERN.find()) {
-                    int var = Integer.valueOf(LOCAL_PATTERN.group(1));
-                    int val = Integer.valueOf(LOCAL_PATTERN.group(2));
+	public static class Cell {
+		private final int x, y;
 
-                    setCell(var, val);
-                }
-            } else if ("singletonTest".equals(arg0.getSourceMethodName())) {
-                LOCAL_PATTERN.reset(arg0.getMessage());
-                if (LOCAL_PATTERN.find()) {
-                    int var = Integer.valueOf(LOCAL_PATTERN.group(1));
-                    int val = Integer.valueOf(LOCAL_PATTERN.group(2));
-                    setCell(history[0], -1);
-                    setCell(var, val);
-                    history[0] = var;
-                }
-            }
-        }
+		public Cell(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
 
-        private void setCell(int number, int value) {
-            final Cell varCell = crossword.whatCell(number);
-            if (value < 0) {
-                cell[varCell.x][varCell.y].setText("");
-            } else {
-                cell[varCell.x][varCell.y].setText(String
-                        .valueOf((char) (value + 65)));
-            }
-            // cell[number / y][number % y].repaint();
-            // frame.repaint();
-            // try {
-            // Thread.sleep(100);
-            // } catch (InterruptedException e) {
-            // // TODO Auto-generated catch block
-            // e.printStackTrace();
-            // }
-        }
-    }
+		public int getX() {
+			return x;
+		}
 
-    public static class Cell {
-        private final int x, y;
+		public int getY() {
+			return y;
+		}
 
-        public Cell(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
+		public int hashCode() {
+			return 1000 * y + x;
+		}
 
-        public int getX() {
-            return x;
-        }
+		public boolean equals(Object object) {
+			if (object instanceof Cell) {
+				final Cell cell = (Cell) object;
+				return cell.x == x && cell.y == y;
+			}
+			return false;
+		}
 
-        public int getY() {
-            return y;
-        }
+		public String toString() {
+			return "(" + x + ", " + y + ")";
+		}
 
-        public int hashCode() {
-            return 1000 * y + x;
-        }
-
-        public boolean equals(Object object) {
-            if (object instanceof Cell) {
-                final Cell cell = (Cell) object;
-                return cell.x == x && cell.y == y;
-            }
-            return false;
-        }
-
-        public String toString() {
-            return "(" + x + ", " + y + ")";
-        }
-
-    }
+	}
 }
