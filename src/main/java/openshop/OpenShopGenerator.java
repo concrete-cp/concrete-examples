@@ -292,7 +292,7 @@ public class OpenShopGenerator {
 	private final static int C = 2836;
 	private final static int M = (0x1 << 31) - 1;
 	private static int seed = 1;
-	private static final int MAX = 10;
+	private static final int MAX = 99;
 
 	private static double nextRand() {
 		int rand = A * (seed % B) - (seed / B) * C;
