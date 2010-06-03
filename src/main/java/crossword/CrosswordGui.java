@@ -178,7 +178,7 @@ public class CrosswordGui {
 
 		@Override
 		public void restore(int level) {
-			for (int l = this.level; --l >= level;) {
+			for (int l = this.level + 1; --l >= level;) {
 				final BitVector modified = this.modified[l];
 				this.level = level;
 				for (int i = modified.nextSetBit(0); i >= 0; i = modified
