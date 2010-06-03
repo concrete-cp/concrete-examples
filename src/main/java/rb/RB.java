@@ -43,7 +43,7 @@ public final class RB extends AbstractLauncher {
 	private final AbstractResultWriter writer;
 
 	public RB(String[] argv) throws IOException {
-		super("RB", 12, 12, argv);
+		super(12, 12, argv);
 		nbVariables = Integer.valueOf(getArgs().get(0));
 
 		domainSize = Integer.valueOf(getArgs().get(1));

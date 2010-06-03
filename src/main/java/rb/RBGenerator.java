@@ -52,7 +52,7 @@ public class RBGenerator {
 	 * Tightness Mode: NBNG, PROPORTION, PROBABILITY, NBSUP
 	 */
 	public static enum Tightness {
-		NBNG, PROPORTION, PROBABILITY, NBSUP
+		NBNOGOODS, PROPORTION, PROBABILITY, NBSUPPORTS
 	}
 
 	final private Tightness tightnessMode;
@@ -138,21 +138,24 @@ public class RBGenerator {
 		final Map<CSPOMVariable, Integer> solution = (alwaysSatisfiable ? computeRandomSolution(variables)
 				: null);
 
-		int[] forcedTuple = (alwaysSatisfiable ? new int[arity] : null);
+		final int[] forcedTuple;
+		if (alwaysSatisfiable) {
+			forcedTuple = new int[arity];
+		} else {
+			forcedTuple = null;
+		}
 
-		ProportionRandomListGenerator r = new CoarseProportionRandomListGenerator(
+		final ProportionRandomListGenerator r = new CoarseProportionRandomListGenerator(
 				nbVariables, arity, seed);
 
-		int[][] activeConstraints = r.selectTuples(nbConstraints,
+		final int[][] activeConstraints = r.selectTuples(nbConstraints,
 				constraintGraphType, repetition, false);
 		for (int i = 0; i < activeConstraints.length; i++) {
-			CSPOMVariable[] involvedVariables = new CSPOMVariable[arity];
+			final CSPOMVariable[] involvedVariables = new CSPOMVariable[arity];
 			for (int j = 0; j < involvedVariables.length; j++) {
 				involvedVariables[j] = variables.get(activeConstraints[i][j]);
 				if (alwaysSatisfiable) {
 					forcedTuple[j] = solution.get(involvedVariables[j]);
-					// System.out.println("tuple["+j+"]="+solution[
-					// involvedVariables[j].getId()]);
 				}
 			}
 			cspom.addConstraint(buildExplicitConstraint(involvedVariables,
@@ -194,15 +197,15 @@ public class RBGenerator {
 			sizes[i] = variables[i].getDomain().getSize();
 		}
 
-		Extension<Integer> matrix;
+		final Extension<Integer> matrix;
 
 		switch (tightnessMode) {
-		case NBNG:
+		case NBNOGOODS:
 			matrix = randomMatrix(sizes, (int) tightness, seed,
 					incompatibilityGraphType, forcedTuple, false);
 			break;
 
-		case NBSUP:
+		case NBSUPPORTS:
 			matrix = randomMatrix(sizes, (int) tightness, seed,
 					incompatibilityGraphType, forcedTuple, true);
 			break;
@@ -235,7 +238,7 @@ public class RBGenerator {
 			double nbUnallowedTuples, long seed, Structure type,
 			int[] requiredSupport) throws FailedGenerationException {
 
-		double nbAllowedTuples = RandomListGenerator
+		final double nbAllowedTuples = RandomListGenerator
 				.computeNbArrangementsFrom(sizes)
 				- nbUnallowedTuples;
 
@@ -244,13 +247,17 @@ public class RBGenerator {
 		if (nbAllowedTuples > Integer.MAX_VALUE
 				&& nbUnallowedTuples > Integer.MAX_VALUE) {
 			throw new IllegalArgumentException(
-					"The number of allowed and unallowed tuples is greater than Interger.MAX_INT");
+					"The number of allowed and unallowed tuples is greater than Integer.MAX_INT");
 		}
 
 		final boolean supports = nbAllowedTuples < nbUnallowedTuples;
 
-		int nbTuples = supports ? (int) nbAllowedTuples
-				: (int) nbUnallowedTuples;
+		final int nbTuples;
+		if (supports) {
+			nbTuples = (int) nbAllowedTuples;
+		} else {
+			nbTuples = (int) nbUnallowedTuples;
+		}
 
 		ProportionRandomListGenerator r = new CoarseProportionRandomListGenerator(
 				sizes, seed); // new
