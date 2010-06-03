@@ -7,12 +7,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -21,9 +15,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import cspfj.constraint.AbstractArcGrainedConstraint;
 import cspfj.exception.FailedGenerationException;
+import cspfj.filter.RevisionHandler;
 import cspfj.problem.Problem;
 import cspfj.problem.Variable;
+import cspfj.util.BitVector;
 
 public class CrosswordGui {
 
@@ -114,11 +111,10 @@ public class CrosswordGui {
 	}
 
 	public void solve() throws FailedGenerationException, IOException {
-		Logger.getLogger("").addHandler(new Visualize());
-		// Logger.getLogger("").getHandlers()[0].setLevel(Level.FINER);
-		Logger.getLogger("").setLevel(Level.FINER);
 		crossword = new CrosswordGenerator(x, y, black);
 		this.problem = crossword.generate();
+		problem.addConstraint(new VisuConstraint(problem.getVariables()));
+		problem.prepareConstraints();
 		new CrosswordResolver(problem).start();
 	}
 
@@ -128,37 +124,15 @@ public class CrosswordGui {
 
 	}
 
-	private class Visualize extends Handler {
+	private class VisuConstraint extends AbstractArcGrainedConstraint {
 
-		public Visualize() {
-		}
+		private int level;
+		private final BitVector[] modified;
 
-		@Override
-		public void close() throws SecurityException {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void flush() {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void publish(LogRecord arg0) {
-			if (problem != null && "mac".equals(arg0.getSourceMethodName())) {
-				// SYST_PATTERN.reset(arg0.getMessage());
-				// if (SYST_PATTERN.find()) {
-				for (Variable v : problem.getVariables()) {
-					if (v.getDomainSize() == 1) {
-						setCell(v.getName(), v.getValue(v.getFirst()));
-					} else {
-						setCellNum(v.getName(), v.getDomainSize());
-					}
-				}
-				// }
-			}
+		public VisuConstraint(Variable[] variables) {
+			super(variables);
+			modified = new BitVector[variables.length];
+			modified[0] = BitVector.factory(getArity(), false);
 		}
 
 		private void setCell(String name, int value) {
@@ -169,14 +143,8 @@ public class CrosswordGui {
 				cell[varCell.x][varCell.y].setText(String
 						.valueOf((char) (value + 65)));
 			}
-			// cell[number / y][number % y].repaint();
-			// frame.repaint();
-			// try {
-			// Thread.sleep(100);
-			// } catch (InterruptedException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
+			cell[varCell.x][varCell.y].setForeground(Color.getHSBColor(2f
+					* level / getArity(), 1, 1));
 		}
 
 		private void setCellNum(String name, int value) {
@@ -186,14 +154,62 @@ public class CrosswordGui {
 			} else {
 				cell[varCell.x][varCell.y].setText(String.valueOf(value));
 			}
-			// cell[number / y][number % y].repaint();
-			// frame.repaint();
-			// try {
-			// Thread.sleep(100);
-			// } catch (InterruptedException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
+			cell[varCell.x][varCell.y].setForeground(Color.getHSBColor(2f
+					* level / getArity(), 1, 1));
+		}
+
+		@Override
+		public boolean check() {
+			return true;
+		}
+
+		@Override
+		public int getEvaluation(int reviseCount) {
+			return Integer.MAX_VALUE;
+		}
+
+		@Override
+		public void setLevel(int level) {
+			this.level = level;
+			if (modified[level] == null) {
+				modified[level] = BitVector.factory(getArity(), false);
+			}
+		}
+
+		@Override
+		public void restore(int level) {
+			for (int l = this.level; --l >= level;) {
+				final BitVector modified = this.modified[l];
+				this.level = level;
+				for (int i = modified.nextSetBit(0); i >= 0; i = modified
+						.nextSetBit(i + 1)) {
+					final Variable v = getVariable(i);
+					if (v.getDomainSize() == 1) {
+						setCell(v.getName(), v.getValue(v.getFirst()));
+					} else {
+						setCellNum(v.getName(), v.getDomainSize());
+					}
+				}
+				modified.fill(false);
+			}
+
+		}
+
+		@Override
+		public boolean revise(RevisionHandler revisator, int reviseCount) {
+			for (int i = getArity(); --i >= 0;) {
+				if (getRemovals(i) >= reviseCount) {
+					modified[level].set(i);
+					final Variable v = getVariable(i);
+					if (v.getDomainSize() == 1) {
+						setCell(v.getName(), v.getValue(v.getFirst()));
+					} else {
+						setCellNum(v.getName(), v.getDomainSize());
+					}
+				}
+			}
+
+			return true;
 		}
 	}
 

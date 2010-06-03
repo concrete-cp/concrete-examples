@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import cspfj.MGACIter;
 import cspfj.Solver;
+import cspfj.filter.AC3Constraint;
 import cspfj.problem.Problem;
 
 public class CrosswordResolver extends Thread {
@@ -15,7 +16,7 @@ public class CrosswordResolver extends Thread {
 	}
 
 	public void run() {
-		final Solver solver = new MGACIter(problem);
+		final Solver solver = new MGACIter(problem, new AC3Constraint(problem));
 
 		// solver.setAllSolutions(true);
 		try {
