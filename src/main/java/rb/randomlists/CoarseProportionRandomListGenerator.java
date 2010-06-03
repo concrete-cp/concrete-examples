@@ -1,6 +1,6 @@
 package rb.randomlists;
 
-import java.util.*;
+import java.util.Arrays;
 
 /**
  * This class allows generating integer random lists using a proportion model.

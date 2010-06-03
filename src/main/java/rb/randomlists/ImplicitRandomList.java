@@ -1,6 +1,6 @@
 package rb.randomlists;
 
-import java.security.*;
+import java.security.MessageDigest;
 
 /**
  * This class allows managing implicit lists of random values. Using two fixed

@@ -1,7 +1,11 @@
 package rb.randomlists;
 
-import java.util.*;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * This class allows generating integer random lists.

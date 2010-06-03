@@ -1,6 +1,6 @@
 package rb.randomlists;
 
-import java.util.*;
+import java.util.Comparator;
 
 /**
  * A comparator that allows to put arrays of integers in a lexicographic order.
