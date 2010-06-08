@@ -31,11 +31,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import cspfj.exception.FailedGenerationException;
-import cspfj.problem.Variable;
 import cspom.CSPOM;
 import cspom.compiler.PredicateParseException;
 import cspom.variable.CSPOMVariable;
-import cspom.variable.Interval;
 
 public class OpenShopGenerator {
 
