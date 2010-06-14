@@ -59,11 +59,14 @@ public final class Queens {
                     .generate(problem));
 
             Map<String, Integer> solution = solver.nextSolution();
-            System.out.println(System.currentTimeMillis() + time);
-            // while (solution != null) {
-            // solution = solver.nextSolution();
-            // }
-            // System.out.println(System.currentTimeMillis() + time);
+            int count = 0;
+            System.out.println((System.currentTimeMillis() + time) / 1000f);
+//            while (solution != null) {
+//                solution = solver.nextSolution();
+//                count++;
+//            }
+//            System.out.println(count + " in "
+//                    + (System.currentTimeMillis() + time) / 1e3f);
         }
     }
 }
