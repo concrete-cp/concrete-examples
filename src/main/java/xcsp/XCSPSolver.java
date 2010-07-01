@@ -135,7 +135,7 @@ public class XCSPSolver {
 
     public static void main(String[] args) throws CSPParseException,
             IOException, FailedGenerationException {
-        final String problem = "/home/vion/CPAI08/rlfapScens/scen11.xml.bz2";
+        final String problem = "/home/vion/CPAI08/rlfapScens/normalized-scen4.xml.bz2";
 
         Logger.getLogger("").setLevel(Level.WARNING);
         solve(problem);
