@@ -25,14 +25,12 @@ import cspom.constraint.CSPOMConstraint;
 public class XCSPSolver {
     private static int count(final String name) throws CSPParseException,
             IOException, FailedGenerationException {
-        final cspom.CSPOM cspomProblem = cspom.CSPOM.load(XCSPSolver.class
-                .getResource(name));
+        final cspom.CSPOM cspomProblem = cspom.CSPOM.load(name);
         ProblemCompiler.compile(cspomProblem);
         final Problem problem = ProblemGenerator.generate(cspomProblem);
         // System.out.println(problem);
 
-        final MGACIter solver = new MGACIter(problem, new CrossHeuristic(
-                new DDegOnDom(problem), new Lexico(false)));
+        final MGACIter solver = new MGACIter(problem);
 
         int count = 0;
         for (;; count++) {
@@ -137,7 +135,7 @@ public class XCSPSolver {
 
     public static void main(String[] args) throws CSPParseException,
             IOException, FailedGenerationException {
-        final String problem = "/home/vion/CPAI08/schurrLemma/normalized-lemma-12-9-mod.xml.bz2";
+        final String problem = "/home/vion/CPAI08/rlfapScens/scen11.xml.bz2";
 
         Logger.getLogger("").setLevel(Level.WARNING);
         solve(problem);

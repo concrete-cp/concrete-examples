@@ -1,0 +1,1865 @@
++----------------------------------------------------------------------
+|  File: profile.txt
+|  Date: 2010.06.21 17:37:36 PM
++----------------------------------------------------------------------
+
++------------------------------
+| Thread depth limit: Unlimited
++------------------------------
++------------------------------
+| Thread: 1
++------------------------------
+              Time            Percent    
+       ----------------- ---------------
+ Count    Total      Net   Total     Net  Location
+ =====    =====      ===   =====     ===  =========
+     1 948807,2      3,2   100,0          +--XCSPSolver:main	(xcsp)
+     1 948804,0     36,7   100,0          | +--XCSPSolver:count	(xcsp)
+     1   1872,6     17,2     0,2          | | +--CSPOM:load	(cspom)
+     1      0,2      0,2     0,0          | | | +--CSPOM:<init>	(cspom)
+     1    337,2      2,0     0,0          | | | +--CSPOM:problemInputStream	(cspom)
+     1    335,2      2,8     0,0          | | | | +--CBZip2InputStream:<init>	(org.apache.tools.bzip2)
+     1      0,1      0,0     0,0          | | | | | +--CRC:<init>	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | | +--CRC:initialiseCRC	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | +--CBZip2InputStream:bsSetStream	(org.apache.tools.bzip2)
+     1      7,6      0,1     0,0          | | | | | +--CBZip2InputStream:initialize	(org.apache.tools.bzip2)
+     2      0,1      0,0     0,0          | | | | | | +--CBZip2InputStream:bsGetUChar	(org.apache.tools.bzip2)
+     2      0,0      0,0     0,0          | | | | | | | +--CBZip2InputStream:bsR	(org.apache.tools.bzip2)
+     1      7,5      7,5     0,0          | | | | | | +--CBZip2InputStream:setDecompressStructureSizes	(org.apache.tools.bzip2)
+     1    312,6      0,2     0,0          | | | | | +--CBZip2InputStream:initBlock	(org.apache.tools.bzip2)
+     6      0,1      0,1     0,0          | | | | | | +--CBZip2InputStream:bsGetUChar	(org.apache.tools.bzip2)
+     6      0,0      0,0     0,0          | | | | | | | +--CBZip2InputStream:bsR	(org.apache.tools.bzip2)
+     1      0,1      0,0     0,0          | | | | | | +--CBZip2InputStream:bsGetInt32	(org.apache.tools.bzip2)
+     1      0,1      0,1     0,0          | | | | | | | +--CBZip2InputStream:bsGetint	(org.apache.tools.bzip2)
+     4      0,0      0,0     0,0          | | | | | | | | +--CBZip2InputStream:bsR	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | | +--CBZip2InputStream:bsR	(org.apache.tools.bzip2)
+     1    312,1    251,4     0,0          | | | | | | +--CBZip2InputStream:getAndMoveToFrontDecode	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | | | +--CBZip2InputStream:bsGetIntVS	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | | | | +--CBZip2InputStream:bsR	(org.apache.tools.bzip2)
+     1     31,5     28,2     0,0          | | | | | | | +--CBZip2InputStream:recvDecodingTables	(org.apache.tools.bzip2)
+  2264      3,1      3,1     0,0          | | | | | | | | +--CBZip2InputStream:bsR	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | | | | +--CBZip2InputStream:makeMaps	(org.apache.tools.bzip2)
+     6      0,2      0,2     0,0          | | | | | | | | +--CBZip2InputStream:hbCreateDecodeTables	(org.apache.tools.bzip2)
+ 46299     29,2     29,2     0,0          | | | | | | | +--CBZip2InputStream:bsR	(org.apache.tools.bzip2)
+     1      0,1      0,1     0,0          | | | | | | +--CRC:initialiseCRC	(org.apache.tools.bzip2)
+     1     12,1     12,0     0,0          | | | | | +--CBZip2InputStream:setupBlock	(org.apache.tools.bzip2)
+     1      0,1      0,1     0,0          | | | | | | +--CBZip2InputStream:setupNoRandPartA	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | | | +--CRC:updateCRC	(org.apache.tools.bzip2)
+     1      0,1      0,1     0,0          | | | +--XCSPParser:<init>	(cspom.xcsp)
+     1   1517,9    254,7     0,2          | | | +--XCSPParser:parse	(cspom.xcsp)
+173542    696,7    223,6     0,1          | | | | +--CBZip2InputStream:read	(org.apache.tools.bzip2)
+173540    473,1    228,0     0,0          | | | | | +--CBZip2InputStream:setupNoRandPartB	(org.apache.tools.bzip2)
+173540    245,1    213,8     0,0          | | | | | | +--CBZip2InputStream:setupNoRandPartA	(org.apache.tools.bzip2)
+173539     30,1     30,1     0,0          | | | | | | | +--CRC:updateCRC	(org.apache.tools.bzip2)
+     1      0,1      0,1     0,0          | | | | | | | +--CBZip2InputStream:endBlock	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | | | | +--CRC:getFinalCRC	(org.apache.tools.bzip2)
+     1      0,3      0,0     0,0          | | | | | | | +--CBZip2InputStream:initBlock	(org.apache.tools.bzip2)
+     6      0,1      0,0     0,0          | | | | | | | | +--CBZip2InputStream:bsGetUChar	(org.apache.tools.bzip2)
+     6      0,1      0,1     0,0          | | | | | | | | | +--CBZip2InputStream:bsR	(org.apache.tools.bzip2)
+     1      0,1      0,0     0,0          | | | | | | | | +--CBZip2InputStream:complete	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | | | | | +--CBZip2InputStream:bsGetInt32	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | | | | | | +--CBZip2InputStream:bsGetint	(org.apache.tools.bzip2)
+     4      0,0      0,0     0,0          | | | | | | | | | | | +--CBZip2InputStream:bsR	(org.apache.tools.bzip2)
+     1      0,1      0,1     0,0          | | | | | | | | | +--CBZip2InputStream:bsFinishedWithStream	(org.apache.tools.bzip2)
+     1      0,8      0,8     0,0          | | | | | | | +--CBZip2InputStream:setupBlock	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | | | | +--CBZip2InputStream:setupNoRandPartA	(org.apache.tools.bzip2)
+     1      0,0      0,0     0,0          | | | | | | | | | +--CRC:updateCRC	(org.apache.tools.bzip2)
+     1     33,1     29,9     0,0          | | | | +--XCSPParser:parseDomains	(cspom.xcsp)
+     1      3,2      2,6     0,0          | | | | | +--XCSPParser:parseDomain	(cspom.xcsp)
+     1      0,6      0,6     0,0          | | | | | | +--IntInterval:valueOf	(cspom.variable)
+     1      0,0      0,0     0,0          | | | | | | | +--IntInterval:<init>	(cspom.variable)
+     1     12,0     11,8     0,0          | | | | +--XCSPParser:parseVariables	(cspom.xcsp)
+    35      0,1      0,1     0,0          | | | | | +--CSPOMVariable:<init>	(cspom.variable)
+    35      0,2      0,2     0,0          | | | | | +--CSPOM:addVariable	(cspom)
+    35      0,0      0,0     0,0          | | | | | | +--CSPOMVariable:getName	(cspom.variable)
+     1    497,9     10,0     0,1          | | | | +--XCSPParser:parseRelations	(cspom.xcsp)
+   346    487,9    195,8     0,1          | | | | | +--XCSPParser:parseRelation	(cspom.xcsp)
+   346      3,6      2,2     0,0          | | | | | | +--Extension:<init>	(cspom.extension)
+   346      1,4      0,4     0,0          | | | | | | | +--TupleSet:<init>	(cspom.extension)
+   346      1,1      1,1     0,0          | | | | | | | | +--TupleSet:<init>	(cspom.extension)
+ 24912    288,4     26,8     0,0          | | | | | | +--Extension:addTuple	(cspom.extension)
+ 24912    261,7     22,4     0,0          | | | | | | | +--TupleSet:add	(cspom.extension)
+ 24912    239,2     78,4     0,0          | | | | | | | | +--TupleSet:add	(cspom.extension)
+ 24912      3,7      3,7     0,0          | | | | | | | | | +--TupleSet:indexFor	(cspom.extension)
+ 24912     32,7     29,1     0,0          | | | | | | | | | +--TupleSet:containsTuple	(cspom.extension)
+ 12997      1,9      1,9     0,0          | | | | | | | | | | +--TupleSet$Entry:access$1	(cspom.extension)
+ 12997      1,7      1,7     0,0          | | | | | | | | | | +--TupleSet$Entry:access$0	(cspom.extension)
+ 24912     28,7     24,0     0,0          | | | | | | | | | +--TupleSet$Entry:<init>	(cspom.extension)
+ 24912      4,8      4,8     0,0          | | | | | | | | | | +--TupleSet$Entry:<init>	(cspom.extension)
+   692     95,8      1,1     0,0          | | | | | | | | | +--TupleSet:resize	(cspom.extension)
+   692     94,7     80,8     0,0          | | | | | | | | | | +--TupleSet:transfer	(cspom.extension)
+ 25604      3,7      3,7     0,0          | | | | | | | | | | | +--TupleSet$Entry:access$0	(cspom.extension)
+ 25604      3,4      3,4     0,0          | | | | | | | | | | | +--TupleSet$Entry:access$3	(cspom.extension)
+ 25604      3,4      3,4     0,0          | | | | | | | | | | | +--TupleSet:indexFor	(cspom.extension)
+ 25604      3,4      3,4     0,0          | | | | | | | | | | | +--TupleSet$Entry:access$4	(cspom.extension)
+     1      0,3      0,3     0,0          | | | | +--XCSPParser:parsePredicates	(cspom.xcsp)
+     1     23,2      5,6     0,0          | | | | +--XCSPParser:parseConstraints	(cspom.xcsp)
+   346     17,6      6,4     0,0          | | | | | +--XCSPParser:addConstraint	(cspom.xcsp)
+   692      0,7      0,7     0,0          | | | | | | +--CSPOM:getVariable	(cspom)
+   346      4,1      0,4     0,0          | | | | | | +--ExtensionConstraint:<init>	(cspom.extension)
+   346      3,7      2,5     0,0          | | | | | | | +--AbstractConstraint:<init>	(cspom.constraint)
+   346      1,2      1,2     0,0          | | | | | | | | +--AbstractConstraint:computeHashCode	(cspom.constraint)
+   346      0,1      0,1     0,0          | | | | | | | | | +--AbstractConstraint:getDescription	(cspom.constraint)
+   346      6,3      2,6     0,0          | | | | | | +--CSPOM:addConstraint	(cspom)
+   346      1,0      0,9     0,0          | | | | | | | +--ExtensionConstraint:hashCode	(cspom.extension)
+   346      0,1      0,1     0,0          | | | | | | | | +--AbstractConstraint:getScope	(cspom.constraint)
+   346      0,1      0,1     0,0          | | | | | | | +--AbstractConstraint:iterator	(cspom.constraint)
+   692      2,6      2,2     0,0          | | | | | | | +--CSPOMVariable:registerConstraint	(cspom.variable)
+   692      0,2      0,2     0,0          | | | | | | | | +--AbstractConstraint:getPosition	(cspom.constraint)
+   692      0,1      0,1     0,0          | | | | | | | | +--ExtensionConstraint:hashCode	(cspom.extension)
+     1     30,6      0,0     0,0          | | +--ProblemCompiler:compile	(cspom.compiler)
+     1     10,5      9,4     0,0          | | | +--ProblemCompiler:<init>	(cspom.compiler)
+     1      0,0      0,0     0,0          | | | | +--ProblemCompiler$1:<init>	(cspom.compiler)
+     1      0,0      0,0     0,0          | | | | +--RemoveAnd:<init>	(cspom.compiler.patterns)
+     1      0,0      0,0     0,0          | | | | +--MergeEq:<init>	(cspom.compiler.patterns)
+     1      0,0      0,0     0,0          | | | | +--AllDiff$1:<init>	(cspom.compiler.patterns)
+     1      0,0      0,0     0,0          | | | | +--AllDiff$2:<init>	(cspom.compiler.patterns)
+     1      1,0      1,0     0,0          | | | | +--AllDiff:<init>	(cspom.compiler.patterns)
+     1      0,0      0,0     0,0          | | | | | +--CliqueDetector:<init>	(cspom.compiler.patterns)
+     1      0,0      0,0     0,0          | | | | +--DiffGe:<init>	(cspom.compiler.patterns)
+     1      0,0      0,0     0,0          | | | | +--AbsDiff:<init>	(cspom.compiler.patterns)
+     1      0,0      0,0     0,0          | | | | +--DeReify:<init>	(cspom.compiler.patterns)
+     1     20,1      1,6     0,0          | | | +--ProblemCompiler:compile	(cspom.compiler)
+     1      0,0      0,0     0,0          | | | | +--CSPOM:getConstraints	(cspom)
+   346      1,4      0,4     0,0          | | | | +--ProblemCompiler$1:poll	(cspom.compiler)
+   346      0,9      0,9     0,0          | | | | | +--ProblemCompiler$1:poll	(cspom.compiler)
+   346      0,1      0,1     0,0          | | | | | | +--ExtensionConstraint:hashCode	(cspom.extension)
+   346     16,9      8,5     0,0          | | | | +--ProblemCompiler:compileConstraint	(cspom.compiler)
+  2076      0,4      0,4     0,0          | | | | | +--CSPOM:getConstraints	(cspom)
+  2076      0,4      0,4     0,0          | | | | | +--ExtensionConstraint:hashCode	(cspom.extension)
+   346      0,6      0,5     0,0          | | | | | +--RemoveAnd:compile	(cspom.compiler.patterns)
+   346      0,1      0,1     0,0          | | | | | | +--AbstractConstraint:getDescription	(cspom.constraint)
+   346      0,5      0,5     0,0          | | | | | +--MergeEq:compile	(cspom.compiler.patterns)
+   346      0,1      0,1     0,0          | | | | | | +--AbstractConstraint:getDescription	(cspom.constraint)
+   346      4,5      0,9     0,0          | | | | | +--AllDiff:compile	(cspom.compiler.patterns)
+   346      1,8      0,4     0,0          | | | | | | +--AllDiff:dropSubsumedDiff	(cspom.compiler.patterns)
+   346      1,4      1,3     0,0          | | | | | | | +--AllDiff$2:is	(cspom.compiler.patterns)
+   346      0,1      0,1     0,0          | | | | | | | | +--AbstractConstraint:getDescription	(cspom.constraint)
+   346      1,8      0,4     0,0          | | | | | | +--AllDiff:alldiff	(cspom.compiler.patterns)
+   346      1,4      1,2     0,0          | | | | | | | +--AllDiff$1:is	(cspom.compiler.patterns)
+  1038      0,2      0,2     0,0          | | | | | | | | +--AbstractConstraint:getDescription	(cspom.constraint)
+   346      0,5      0,5     0,0          | | | | | +--DiffGe:compile	(cspom.compiler.patterns)
+   346      0,1      0,1     0,0          | | | | | | +--AbstractConstraint:getDescription	(cspom.constraint)
+   346      0,6      0,5     0,0          | | | | | +--AbsDiff:compile	(cspom.compiler.patterns)
+   346      0,1      0,1     0,0          | | | | | | +--AbstractConstraint:getDescription	(cspom.constraint)
+   346      1,0      1,0     0,0          | | | | | +--DeReify:compile	(cspom.compiler.patterns)
+     1      0,2      0,2     0,0          | | | | +--CSPOM:getVariables	(cspom)
+    35      0,0      0,0     0,0          | | | | +--CSPOMVariable:isAuxiliary	(cspom.variable)
+     1    465,8     15,7     0,0          | | +--ProblemGenerator:generate	(cspfj.generator)
+     1      0,0      0,0     0,0          | | | +--Problem:<init>	(cspfj.problem)
+     1      0,0      0,0     0,0          | | | +--CSPOM:getVariables	(cspom)
+    35      0,0      0,0     0,0          | | | +--CSPOMVariable:getName	(cspom.variable)
+    35      0,0      0,0     0,0          | | | +--CSPOMVariable:getDomain	(cspom.variable)
+    35     11,4      5,8     0,0          | | | +--ProblemGenerator:generateDomain	(cspfj.generator)
+    35      0,2      0,2     0,0          | | | | +--IntInterval:getValues	(cspom.variable)
+    35      0,2      0,2     0,0          | | | | +--IntLinkedList:intListToArray	(cspfj.util)
+    35      5,3      5,0     0,0          | | | | +--BitVectorDomain:<init>	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | | +--Arrays2:isOrdered	(cspfj.util)
+    35      0,3      0,2     0,0          | | | | | +--BitVector:factory	(cspfj.util)
+    35      0,1      0,1     0,0          | | | | | | +--SmallBitVector:<init>	(cspfj.util)
+    35      0,0      0,0     0,0          | | | | | | | +--BitVector:<init>	(cspfj.util)
+    35      2,2      2,2     0,0          | | | +--Problem:addVariable	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | +--Variable:<init>	(cspfj.problem)
+    16      0,1      0,1     0,0          | | | +--GeneratorManager:register	(cspfj.generator.constraint)
+     1      0,0      0,0     0,0          | | | +--GeneratorManager:<init>	(cspfj.generator.constraint)
+     1      0,0      0,0     0,0          | | | +--CSPOM:getConstraints	(cspom)
+   346    431,1      2,1     0,0          | | | +--GeneratorManager:generate	(cspfj.generator.constraint)
+   346      0,1      0,1     0,0          | | | | +--AbstractConstraint:getDescription	(cspom.constraint)
+     1      0,0      0,0     0,0          | | | | +--ExtensionGenerator:<init>	(cspfj.generator.constraint)
+     1      0,0      0,0     0,0          | | | | | +--AbstractGenerator:<init>	(cspfj.generator.constraint)
+   346    428,8     12,1     0,0          | | | | +--ExtensionGenerator:generate	(cspfj.generator.constraint)
+   346      0,1      0,1     0,0          | | | | | +--AbstractConstraint:getScope	(cspom.constraint)
+   346      3,2      2,4     0,0          | | | | | +--AbstractGenerator:getSolverVariables	(cspfj.generator.constraint)
+   692      0,1      0,1     0,0          | | | | | | +--CSPOMVariable:getName	(cspom.variable)
+   692      0,7      0,7     0,0          | | | | | | +--Problem:getVariable	(cspfj.problem)
+   692      0,1      0,1     0,0          | | | | | +--AbstractConstraint:getArity	(cspom.constraint)
+   692      0,1      0,1     0,0          | | | | | +--Variable:getDomain	(cspfj.problem)
+   346      0,1      0,1     0,0          | | | | | +--ExtensionConstraint:getRelation	(cspom.extension)
+   346    398,9      3,4     0,0          | | | | | +--ExtensionGenerator:generate	(cspfj.generator.constraint)
+   346      0,1      0,1     0,0          | | | | | | +--ExtensionGenerator$Signature:<init>	(cspfj.generator.constraint)
+   692      1,1      1,1     0,0          | | | | | | +--ExtensionGenerator$Signature:hashCode	(cspfj.generator.constraint)
+   346     38,9      3,2     0,0          | | | | | | +--ExtensionGenerator:bestMatrix	(cspfj.generator.constraint)
+   692      0,1      0,1     0,0          | | | | | | | +--Extension:init	(cspom.extension)
+   346      0,1      0,1     0,0          | | | | | | | +--Extension:getArity	(cspom.extension)
+   692      0,1      0,1     0,0          | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+   346     35,4     10,0     0,0          | | | | | | | +--Matrix2D:<init>	(cspfj.constraint.extension)
+ 11764     25,4     11,7     0,0          | | | | | | | | +--BitVector:factory	(cspfj.util)
+ 11764     13,7     11,4     0,0          | | | | | | | | | +--SmallBitVector:<init>	(cspfj.util)
+ 11764      2,3      2,3     0,0          | | | | | | | | | | +--BitVector:<init>	(cspfj.util)
+   346    355,3     90,5     0,0          | | | | | | +--ExtensionGenerator:fillMatrix	(cspfj.generator.constraint)
+   692     61,3     30,9     0,0          | | | | | | | +--ExtensionGenerator:indexMap	(cspfj.generator.constraint)
+   692      0,1      0,1     0,0          | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+   692      1,3      0,8     0,0          | | | | | | | | +--BitVectorDomain:first	(cspfj.problem)
+   692      0,5      0,5     0,0          | | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+ 11764      2,0      2,0     0,0          | | | | | | | | +--BitVectorDomain:value	(cspfj.problem)
+ 11764     26,9     22,1     0,0          | | | | | | | | +--BitVectorDomain:next	(cspfj.problem)
+ 11764      4,9      4,9     0,0          | | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+   346      0,1      0,1     0,0          | | | | | | | +--Extension:getTuples	(cspom.extension)
+   346      2,7      1,3     0,0          | | | | | | | +--TupleSet:iterator	(cspom.extension)
+   346      1,4      0,4     0,0          | | | | | | | | +--TupleSet$HashSetIterator:<init>	(cspom.extension)
+   346      1,0      0,8     0,0          | | | | | | | | | +--TupleSet$HashSetIterator:<init>	(cspom.extension)
+   346      0,1      0,1     0,0          | | | | | | | | | | +--TupleSet:access$1	(cspom.extension)
+   346      0,1      0,1     0,0          | | | | | | | | | | +--TupleSet:access$2	(cspom.extension)
+ 25258      3,4      3,4     0,0          | | | | | | | +--TupleSet$HashSetIterator:hasNext	(cspom.extension)
+ 24912     97,4     25,0     0,0          | | | | | | | +--TupleSet$HashSetIterator:next	(cspom.extension)
+ 24912     72,4     62,5     0,0          | | | | | | | | +--TupleSet$HashSetIterator:next	(cspom.extension)
+ 24912      3,9      3,9     0,0          | | | | | | | | | +--TupleSet$Entry:access$0	(cspom.extension)
+ 19660      2,6      2,6     0,0          | | | | | | | | | +--TupleSet:access$2	(cspom.extension)
+ 24912      3,5      3,5     0,0          | | | | | | | | | +--TupleSet$Entry:access$1	(cspom.extension)
+ 24912      3,2      3,2     0,0          | | | | | | | +--Extension:init	(cspom.extension)
+ 24912     96,9     41,8     0,0          | | | | | | | +--Matrix2D:set	(cspfj.constraint.extension)
+ 49824     55,0     48,1     0,0          | | | | | | | | +--BitVector:set	(cspfj.util)
+ 49824      7,0      7,0     0,0          | | | | | | | | | +--SmallBitVector:clear	(cspfj.util)
+     1      0,0      0,0     0,0          | | | | | +--AbstractConstraint$1:<init>	(cspfj.constraint)
+   346     13,5      4,1     0,0          | | | | | +--ExtensionConstraint2D:<init>	(cspfj.constraint.extension)
+   346      5,5      0,4     0,0          | | | | | | +--AbstractPVRConstraint:<init>	(cspfj.constraint)
+   346      5,1      0,8     0,0          | | | | | | | +--AbstractArcGrainedConstraint:<init>	(cspfj.constraint)
+   346      4,2      0,4     0,0          | | | | | | | | +--AbstractConstraint:<init>	(cspfj.constraint)
+   346      3,8      3,2     0,0          | | | | | | | | | +--AbstractConstraint:<init>	(cspfj.constraint)
+   346      0,5      0,5     0,0          | | | | | | | | | | +--TupleManager:<init>	(cspfj.constraint.extension)
+   346      0,1      0,1     0,0          | | | | | | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+   346      0,1      0,1     0,0          | | | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+   346      0,1      0,1     0,0          | | | | | | +--AbstractConstraint:getTuple	(cspfj.constraint)
+   346      3,8      1,7     0,0          | | | | | | +--MatrixManager2D:<init>	(cspfj.constraint.extension)
+   346      1,9      1,6     0,0          | | | | | | | +--AbstractMatrixManager:<init>	(cspfj.constraint.extension)
+   692      0,1      0,1     0,0          | | | | | | | | +--Variable:getDomain	(cspfj.problem)
+   692      0,1      0,1     0,0          | | | | | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+   692      0,1      0,1     0,0          | | | | | | | +--Variable:getDomain	(cspfj.problem)
+   692      0,1      0,1     0,0          | | | | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+   346      0,7      0,4     0,0          | | | | | +--AbstractGenerator:addConstraint	(cspfj.generator.constraint)
+   346      0,2      0,2     0,0          | | | | | | +--Problem:addConstraint	(cspfj.problem)
+     1      0,3      0,2     0,0          | | | +--Problem:prepareVariables	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | +--Variable:getDomain	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | +--Variable:getId	(cspfj.problem)
+     1      4,9      2,5     0,0          | | | +--Problem:prepareConstraints	(cspfj.problem)
+     1      0,0      0,0     0,0          | | | | +--Problem$1:<init>	(cspfj.problem)
+   345      1,1      0,4     0,0          | | | | +--Problem$1:compare	(cspfj.problem)
+   345      0,7      0,6     0,0          | | | | | +--Problem$1:compare	(cspfj.problem)
+   690      0,1      0,1     0,0          | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+     1      0,0      0,0     0,0          | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+     2      0,0      0,0     0,0          | | | | +--Problem:getVariables	(cspfj.problem)
+   762      0,1      0,1     0,0          | | | | +--Variable:getId	(cspfj.problem)
+     1      0,0      0,0     0,0          | | | | +--Problem:getConstraints	(cspfj.problem)
+   346      0,1      0,1     0,0          | | | | +--AbstractConstraint:getScope	(cspfj.constraint)
+    35      1,0      0,8     0,0          | | | | +--Variable:setInvolvingConstraints	(cspfj.problem)
+   692      0,2      0,2     0,0          | | | | | +--AbstractConstraint:getPosition	(cspfj.constraint)
+     3      0,0      0,0     0,0          | | +--NoGoodLearner$LearnMethod:<init>	(cspfj.problem)
+     1     24,9      2,0     0,0          | | +--MGACIter:<init>	(cspfj)
+     1      0,6      0,0     0,0          | | | +--WDegOnDom:<init>	(cspfj.heuristic)
+     1      0,5      0,5     0,0          | | | | +--AbstractVariableHeuristic:<init>	(cspfj.heuristic)
+     1      0,0      0,0     0,0          | | | | | +--TieManager:<init>	(cspfj.util)
+     1      0,0      0,0     0,0          | | | | | | +--TieManager:clear	(cspfj.util)
+     1      0,0      0,0     0,0          | | | +--Lexico:<init>	(cspfj.heuristic)
+     1      0,0      0,0     0,0          | | | +--CrossHeuristic:<init>	(cspfj.heuristic)
+     1     22,3      1,8     0,0          | | | +--MGACIter:<init>	(cspfj)
+     1      4,1      3,1     0,0          | | | | +--AC3:<init>	(cspfj.filter)
+     1      0,0      0,0     0,0          | | | | | +--AC3$1:<init>	(cspfj.filter)
+     1      0,0      0,0     0,0          | | | | | +--AC3$2:<init>	(cspfj.filter)
+     1      0,0      0,0     0,0          | | | | | +--Problem:getNbVariables	(cspfj.problem)
+     1      1,1      1,1     0,0          | | | | | +--FibonacciHeap:<init>	(cspfj.priorityqueues)
+     1     16,4     16,3     0,0          | | | | +--MGACIter:<init>	(cspfj)
+     1      0,0      0,0     0,0          | | | | | +--AbstractSolver:<init>	(cspfj)
+     1      0,0      0,0     0,0          | | | | | +--Problem:getMaxBacktracks	(cspfj.problem)
+     1      0,0      0,0     0,0          | | | | | +--AbstractSolver:setMaxBacktracks	(cspfj)
+     1      0,0      0,0     0,0          | | | | | +--NoGoodLearner:<init>	(cspfj.problem)
+     3 946362,5     12,2    99,7          | | +--MGACIter:nextSolution	(cspfj)
+     1    594,5      2,6     0,1          | | | +--AbstractSolver:preprocess	(cspfj)
+     1    591,6      0,5     0,1          | | | | +--AC3:reduceAll	(cspfj.filter)
+     1      0,0      0,0     0,0          | | | | | +--FibonacciHeap:clear	(cspfj.priorityqueues)
+     1      0,0      0,0     0,0          | | | | | +--Problem:getVariables	(cspfj.problem)
+    35      1,1      0,0     0,0          | | | | | +--FibonacciHeap:offer	(cspfj.priorityqueues)
+    35      1,0      0,6     0,0          | | | | | | +--FibonacciHeap:offer	(cspfj.priorityqueues)
+    35      0,0      0,0     0,0          | | | | | | | +--Variable:getId	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | | | | +--FibonacciHeap:ensureCapacity	(cspfj.priorityqueues)
+    35      0,1      0,0     0,0          | | | | | | | +--FibonacciHeap$FibonacciHeapNode:<init>	(cspfj.priorityqueues)
+    35      0,1      0,1     0,0          | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:<init>	(cspfj.priorityqueues)
+    35      0,0      0,0     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:clear	(cspfj.priorityqueues)
+    35      0,0      0,0     0,0          | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$2	(cspfj.priorityqueues)
+    35      0,1      0,0     0,0          | | | | | | | +--AC3$2:getKey	(cspfj.filter)
+    35      0,1      0,0     0,0          | | | | | | | | +--AC3$2:getKey	(cspfj.filter)
+    35      0,1      0,0     0,0          | | | | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$6	(cspfj.priorityqueues)
+    35      0,0      0,0     0,0          | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$7	(cspfj.priorityqueues)
+    35      0,0      0,0     0,0          | | | | | | | +--FibonacciHeap$FibonacciHeapNode:clear	(cspfj.priorityqueues)
+    35      0,2      0,1     0,0          | | | | | | | +--FibonacciHeap:insert	(cspfj.priorityqueues)
+     1      0,0      0,0     0,0          | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$3	(cspfj.priorityqueues)
+     1      0,0      0,0     0,0          | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$4	(cspfj.priorityqueues)
+    34      0,0      0,0     0,0          | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:add	(cspfj.priorityqueues)
+    68      0,0      0,0     0,0          | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$2	(cspfj.priorityqueues)
+    35      0,0      0,0     0,0          | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$0	(cspfj.priorityqueues)
+     1      0,0      0,0     0,0          | | | | | +--Problem:getConstraints	(cspfj.problem)
+   346      0,2      0,2     0,0          | | | | | +--AbstractArcGrainedConstraint:fillRemovals	(cspfj.constraint)
+     1    589,8      0,3     0,1          | | | | | +--AC3:reduce	(cspfj.filter)
+    36      0,0      0,0     0,0          | | | | | | +--FibonacciHeap:isEmpty	(cspfj.priorityqueues)
+    35      2,1      0,1     0,0          | | | | | | +--FibonacciHeap:poll	(cspfj.priorityqueues)
+    35      2,0      0,2     0,0          | | | | | | | +--FibonacciHeap:poll	(cspfj.priorityqueues)
+    35      1,8      0,6     0,0          | | | | | | | | +--FibonacciHeap:removeMin	(cspfj.priorityqueues)
+    52      0,0      0,0     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$8	(cspfj.priorityqueues)
+    35      0,0      0,0     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:remove	(cspfj.priorityqueues)
+   128      0,0      0,0     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$10	(cspfj.priorityqueues)
+    34      1,0      0,9     0,0          | | | | | | | | | +--FibonacciHeap:consolidate	(cspfj.priorityqueues)
+   175      0,0      0,0     0,0          | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$10	(cspfj.priorityqueues)
+   144      0,0      0,0     0,0          | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$12	(cspfj.priorityqueues)
+   288      0,1      0,1     0,0          | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$2	(cspfj.priorityqueues)
+    59      0,0      0,0     0,0          | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:link	(cspfj.priorityqueues)
+    59      0,0      0,0     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$9	(cspfj.priorityqueues)
+    34      0,0      0,0     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$11	(cspfj.priorityqueues)
+    34      0,0      0,0     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$3	(cspfj.priorityqueues)
+    34      0,0      0,0     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$4	(cspfj.priorityqueues)
+    35      0,0      0,0     0,0          | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$0	(cspfj.priorityqueues)
+    35      0,0      0,0     0,0          | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$13	(cspfj.priorityqueues)
+    35    587,4      2,4     0,1          | | | | | | +--AC3:reduce	(cspfj.filter)
+    35      0,0      0,0     0,0          | | | | | | | +--Variable:getInvolvingConstraints	(cspfj.problem)
+   692      0,1      0,1     0,0          | | | | | | | +--AbstractConstraint:isEntailed	(cspfj.constraint)
+   692      0,3      0,3     0,0          | | | | | | | +--AbstractArcGrainedConstraint:hasNoRemovals	(cspfj.constraint)
+   346    584,2      3,2     0,1          | | | | | | | +--AbstractPVRConstraint:revise	(cspfj.constraint)
+   346      1,3      1,1     0,0          | | | | | | | | +--AbstractPVRConstraint:skipRevision	(cspfj.constraint)
+   346      0,1      0,1     0,0          | | | | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+   692      0,1      0,1     0,0          | | | | | | | | | +--AbstractArcGrainedConstraint:getRemovals	(cspfj.constraint)
+   692      0,1      0,1     0,0          | | | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+   692      0,2      0,2     0,0          | | | | | | | | +--AbstractConstraint:getVariable	(cspfj.constraint)
+   692    578,6      1,0     0,1          | | | | | | | | +--ExtensionConstraint2D:revise	(cspfj.constraint.extension)
+   692    577,6      1,3     0,1          | | | | | | | | | +--AbstractMatrixManager:supportCondition	(cspfj.constraint.extension)
+   346    574,5      1,3     0,1          | | | | | | | | | | +--AbstractMatrixManager:countConflicts	(cspfj.constraint.extension)
+   346    572,3    170,5     0,1          | | | | | | | | | | | +--AbstractMatrixManager:nbConflicts	(cspfj.constraint.extension)
+   346      3,1      1,4     0,0          | | | | | | | | | | | | +--AbstractMatrixManager:currentSize	(cspfj.constraint.extension)
+  1384      1,7      1,5     0,0          | | | | | | | | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+  1384      0,3      0,3     0,0          | | | | | | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+   692      0,1      0,1     0,0          | | | | | | | | | | | | +--Variable:getDomain	(cspfj.problem)
+   692      0,1      0,1     0,0          | | | | | | | | | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+   346      0,1      0,1     0,0          | | | | | | | | | | | | +--Matrix2D:isEmpty	(cspfj.constraint.extension)
+   346    177,8      1,2     0,0          | | | | | | | | | | | | +--MatrixManager2D:toString	(cspfj.constraint.extension)
+   346    176,6     81,1     0,0          | | | | | | | | | | | | | +--Matrix2D:toString	(cspfj.constraint.extension)
+ 99994     95,5     83,0     0,0          | | | | | | | | | | | | | | +--Matrix2D:check	(cspfj.constraint.extension)
+ 99994     12,5     12,5     0,0          | | | | | | | | | | | | | | | +--SmallBitVector:get	(cspfj.util)
+   346      1,7      1,5     0,0          | | | | | | | | | | | | +--AbstractMatrixManager:firstT	(cspfj.constraint.extension)
+   692      0,1      0,1     0,0          | | | | | | | | | | | | | +--Variable:getDomain	(cspfj.problem)
+   692      0,1      0,1     0,0          | | | | | | | | | | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+ 99994    187,6     91,4     0,0          | | | | | | | | | | | | +--AbstractMatrixManager:check	(cspfj.constraint.extension)
+ 99994     96,1     83,5     0,0          | | | | | | | | | | | | | +--Matrix2D:check	(cspfj.constraint.extension)
+ 99994     12,7     12,7     0,0          | | | | | | | | | | | | | | +--SmallBitVector:get	(cspfj.util)
+ 99994     31,2     29,6     0,0          | | | | | | | | | | | | +--AbstractMatrixManager:nextT	(cspfj.constraint.extension)
+  6228      0,8      0,8     0,0          | | | | | | | | | | | | | +--Variable:getDomain	(cspfj.problem)
+  6228      0,8      0,8     0,0          | | | | | | | | | | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+   346      0,9      0,9     0,0          | | | | | | | | | | | +--AbstractMatrixManager:updateMaxConflicts	(cspfj.constraint.extension)
+   692      1,9      1,0     0,0          | | | | | | | | | | +--AbstractMatrixManager:getOtherSize	(cspfj.constraint.extension)
+   692      0,9      0,8     0,0          | | | | | | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+   692      0,1      0,1     0,0          | | | | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+   692      0,8      0,7     0,0          | | | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+   692      0,1      0,1     0,0          | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+   346      0,3      0,3     0,0          | | | | | | | +--AbstractArcGrainedConstraint:fillRemovals	(cspfj.constraint)
+     1      0,2      0,2     0,0          | | | | +--AC3:getStatistics	(cspfj.filter)
+     1      0,0      0,0     0,0          | | | | +--Problem:getVariables	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | +--Variable:getDomain	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | +--Variable:getDomainSize	(cspfj.problem)
+    35      0,0      0,0     0,0          | | | | | +--BitVectorDomain:size	(cspfj.problem)
+     1      0,0      0,0     0,0          | | | | +--AbstractAC3Constraint:getChecks	(cspfj.constraint)
+     1      0,0      0,0     0,0          | | | | +--AbstractConstraint:getPresenceChecks	(cspfj.constraint)
+     1      0,0      0,0     0,0          | | | | +--MatrixManager2D:getChecks	(cspfj.constraint.extension)
+     1      0,0      0,0     0,0          | | | | +--MatrixManager2D:getPresenceChecks	(cspfj.constraint.extension)
+     1      0,0      0,0     0,0          | | | +--CrossHeuristic:compute	(cspfj.heuristic)
+     1      0,0      0,0     0,0          | | | | +--Lexico:compute	(cspfj.heuristic)
+     1      0,0      0,0     0,0          | | | +--AbstractSolver:statistic	(cspfj)
+     1      0,0      0,0     0,0          | | | +--AbstractSolver:getMaxBacktracks	(cspfj)
+     1      0,0      0,0     0,0          | | | +--Problem:getConstraints	(cspfj.problem)
+   346      0,1      0,1     0,0          | | | +--AbstractConstraint:isEntailed	(cspfj.constraint)
+    19      0,0      0,0     0,0          | | | +--AbstractSolver:setMaxBacktracks	(cspfj)
+    38      0,0      0,0     0,0          | | | +--AbstractSolver:getNbBacktracks	(cspfj)
+    19 945565,1   1188,3    99,7     0,1  | | | +--MGACIter:mac	(cspfj)
+ 27638  31467,7    238,5     3,3          | | | | +--CrossHeuristic:selectPair	(cspfj.heuristic)
+ 27638  30978,5   1976,1     3,3     0,2  | | | | | +--AbstractVariableHeuristic:selectVariable	(cspfj.heuristic)
+ 27638     57,0     57,0     0,0          | | | | | | +--TieManager:clear	(cspfj.util)
+ 27638     22,6     22,6     0,0          | | | | | | +--Problem:getVariables	(cspfj.problem)
+967330    973,9    829,2     0,1          | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+967330    144,7    144,7     0,0          | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+805418  27808,5   1225,8     2,9     0,1  | | | | | | +--WDegOnDom:getScore	(cspfj.heuristic)
+805418  25806,5  21616,9     2,7     2,3  | | | | | | | +--WDeg:wDeg	(cspfj.heuristic)
+805418    121,3    121,3     0,0          | | | | | | | | +--Variable:getInvolvingConstraints	(cspfj.problem)
+15331966   2315,6   2315,6     0,2     0,2  | | | | | | | | +--AbstractConstraint:isEntailed	(cspfj.constraint)
+12482012   1752,7   1752,7     0,2     0,2  | | | | | | | | +--AbstractConstraint:getWeight	(cspfj.constraint)
+805418    776,3    657,8     0,1          | | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+805418    118,5    118,5     0,0          | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+805418    134,4    134,4     0,0          | | | | | | +--TieManager:newValue	(cspfj.util)
+ 27638      5,9      5,9     0,0          | | | | | | +--TieManager:getBestValue	(cspfj.util)
+ 27634    231,8    122,2     0,0          | | | | | +--Lexico:selectIndex	(cspfj.heuristic)
+ 27634    109,6     72,6     0,0          | | | | | | +--Variable:getFirst	(cspfj.problem)
+ 27634     37,0     31,5     0,0          | | | | | | | +--BitVectorDomain:first	(cspfj.problem)
+ 27634      5,5      5,5     0,0          | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+ 27634     18,9     18,9     0,0          | | | | | +--Pair:<init>	(cspfj.heuristic)
+ 27634      7,8      7,8     0,0          | | | | +--Pair:getVariable	(cspfj.heuristic)
+ 27634     10,0     10,0     0,0          | | | | +--Pair:getIndex	(cspfj.heuristic)
+ 27634      7,4      7,4     0,0          | | | | +--Problem:getCurrentLevel	(cspfj.problem)
+ 27634    378,8     61,3     0,0          | | | | +--Variable:toString	(cspfj.problem)
+ 27634    317,5    191,3     0,0          | | | | | +--BitVectorDomain:toString	(cspfj.problem)
+ 27634     36,9     29,1     0,0          | | | | | | +--BitVectorDomain:first	(cspfj.problem)
+ 27634      7,8      7,8     0,0          | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+ 70501     13,3     13,3     0,0          | | | | | | +--BitVectorDomain:value	(cspfj.problem)
+ 70903     75,9     61,3     0,0          | | | | | | +--BitVectorDomain:next	(cspfj.problem)
+ 70903     14,6     14,6     0,0          | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+   121      0,0      0,0     0,0          | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+ 27634      8,2      8,2     0,0          | | | | +--Variable:getDomain	(cspfj.problem)
+ 27634      4,9      4,9     0,0          | | | | +--BitVectorDomain:value	(cspfj.problem)
+ 27634      7,7      7,7     0,0          | | | | +--AbstractSolver:getNbBacktracks	(cspfj)
+ 27634      8,0      8,0     0,0          | | | | +--AbstractSolver:getMaxBacktracks	(cspfj)
+ 27634  11634,4     46,3     1,2          | | | | +--Problem:push	(cspfj.problem)
+ 27634  11588,2   7914,6     1,2     0,8  | | | | | +--Problem:setLevel	(cspfj.problem)
+967190   2373,7    803,4     0,3          | | | | | | +--Variable:setLevel	(cspfj.problem)
+967190   1570,3   1239,1     0,2     0,1  | | | | | | | +--BitVectorDomain:setLevel	(cspfj.problem)
+967190    198,5    198,5     0,0          | | | | | | | | +--BitVectorDomain:ensureCapacity	(cspfj.problem)
+588203    132,7    132,7     0,0          | | | | | | | | +--SmallBitVector:copyTo	(cspfj.util)
+9701036   1299,9   1299,9     0,1     0,1  | | | | | | +--AbstractConstraint:setLevel	(cspfj.constraint)
+ 27634    489,2     66,4     0,1          | | | | +--Variable:setSingle	(cspfj.problem)
+ 27634    422,8    176,2     0,0          | | | | | +--BitVectorDomain:setSingle	(cspfj.problem)
+ 27634    157,9     84,6     0,0          | | | | | | +--SmallBitVector:setSingle	(cspfj.util)
+ 27634     73,3     73,3     0,0          | | | | | | | +--SmallBitVector:set	(cspfj.util)
+ 27634     88,8     39,8     0,0          | | | | | | +--BitVector:factory	(cspfj.util)
+ 27634     48,9     41,0     0,0          | | | | | | | +--SmallBitVector:<init>	(cspfj.util)
+ 27634      7,9      7,9     0,0          | | | | | | | | +--BitVector:<init>	(cspfj.util)
+ 27634      9,4      9,4     0,0          | | | | +--AbstractSolver:incrementNbAssignments	(cspfj)
+ 55176 815130,6   2193,3    85,9     0,2  | | | | +--AC3:reduceAfter	(cspfj.filter)
+ 55176   1869,5   1601,6     0,2     0,2  | | | | | +--FibonacciHeap:clear	(cspfj.priorityqueues)
+1931160    267,8    267,8     0,0          | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$0	(cspfj.priorityqueues)
+ 55176    955,9     58,5     0,1          | | | | | +--FibonacciHeap:offer	(cspfj.priorityqueues)
+ 55176    897,4    505,0     0,1          | | | | | | +--FibonacciHeap:offer	(cspfj.priorityqueues)
+ 55176     13,1     13,1     0,0          | | | | | | | +--Variable:getId	(cspfj.problem)
+ 55176     14,0     14,0     0,0          | | | | | | | +--FibonacciHeap:ensureCapacity	(cspfj.priorityqueues)
+ 55176     11,0     11,0     0,0          | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$2	(cspfj.priorityqueues)
+ 55176    174,9     46,7     0,0          | | | | | | | +--AC3$2:getKey	(cspfj.filter)
+ 55176    128,2     58,0     0,0          | | | | | | | | +--AC3$2:getKey	(cspfj.filter)
+ 55176     70,2     59,7     0,0          | | | | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+ 55176     10,5     10,5     0,0          | | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+ 55176      9,2      9,2     0,0          | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$6	(cspfj.priorityqueues)
+ 55176     10,4     10,4     0,0          | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$7	(cspfj.priorityqueues)
+ 55176      8,2      8,2     0,0          | | | | | | | +--FibonacciHeap$FibonacciHeapNode:clear	(cspfj.priorityqueues)
+ 55176    142,4    113,2     0,0          | | | | | | | +--FibonacciHeap:insert	(cspfj.priorityqueues)
+ 55176     15,5     15,5     0,0          | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$3	(cspfj.priorityqueues)
+ 55176     13,7     13,7     0,0          | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$4	(cspfj.priorityqueues)
+ 55176      9,2      9,2     0,0          | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$0	(cspfj.priorityqueues)
+ 55176     10,7     10,7     0,0          | | | | | +--Variable:getInvolvingConstraints	(cspfj.problem)
+1325232    194,5    194,5     0,0          | | | | | +--Variable:getPositionInConstraint	(cspfj.problem)
+1325232    296,0    296,0     0,0          | | | | | +--AbstractArcGrainedConstraint:setRemovals	(cspfj.constraint)
+ 55176 809610,9   1433,7    85,3     0,2  | | | | | +--AC3:reduce	(cspfj.filter)
+563065     92,9     92,9     0,0          | | | | | | +--FibonacciHeap:isEmpty	(cspfj.priorityqueues)
+535446  18793,0    457,6     2,0          | | | | | | +--FibonacciHeap:poll	(cspfj.priorityqueues)
+535446  18335,4   1530,1     1,9     0,2  | | | | | | | +--FibonacciHeap:poll	(cspfj.priorityqueues)
+535446  16652,1   5691,5     1,8     0,6  | | | | | | | | +--FibonacciHeap:removeMin	(cspfj.priorityqueues)
+870312    126,6    126,6     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$8	(cspfj.priorityqueues)
+535446     86,9     86,9     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:remove	(cspfj.priorityqueues)
+1796095    254,2    254,2     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$10	(cspfj.priorityqueues)
+453483  10080,7   8611,3     1,1     0,9  | | | | | | | | | +--FibonacciHeap:consolidate	(cspfj.priorityqueues)
+2617242    366,9    366,9     0,0          | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$10	(cspfj.priorityqueues)
+2163224    309,8    309,8     0,0          | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$12	(cspfj.priorityqueues)
+4326448    597,0    597,0     0,1          | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$2	(cspfj.priorityqueues)
+1213242    195,7    195,7     0,0          | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:link	(cspfj.priorityqueues)
+807166    112,6    112,6     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$9	(cspfj.priorityqueues)
+669732    104,1    104,1     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$11	(cspfj.priorityqueues)
+669732     98,2     98,2     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$3	(cspfj.priorityqueues)
+669732     97,2     97,2     0,0          | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$4	(cspfj.priorityqueues)
+535446     76,6     76,6     0,0          | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$0	(cspfj.priorityqueues)
+535446     76,6     76,6     0,0          | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$13	(cspfj.priorityqueues)
+535446 789291,3  25821,1    83,2     2,7  | | | | | | +--AC3:reduce	(cspfj.filter)
+535446     79,4     79,4     0,0          | | | | | | | +--Variable:getInvolvingConstraints	(cspfj.problem)
+10629153   1580,3   1580,3     0,2     0,2  | | | | | | | +--AbstractConstraint:isEntailed	(cspfj.constraint)
+8109006   1670,8   1670,8     0,2     0,2  | | | | | | | +--AbstractArcGrainedConstraint:hasNoRemovals	(cspfj.constraint)
+6600585 759141,0  48271,6    80,0     5,1  | | | | | | | +--AbstractPVRConstraint:revise	(cspfj.constraint)
+6600585  19207,3  16231,6     2,0     1,7  | | | | | | | | +--AbstractPVRConstraint:skipRevision	(cspfj.constraint)
+6600585   1043,2   1043,2     0,1     0,1  | | | | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+13201170   1932,6   1932,6     0,2     0,2  | | | | | | | | | +--AbstractArcGrainedConstraint:getRemovals	(cspfj.constraint)
+13173613   1894,3   1894,3     0,2     0,2  | | | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+13173613   2004,7   2004,7     0,2     0,2  | | | | | | | | +--AbstractConstraint:getVariable	(cspfj.constraint)
+13173613 532447,9 102943,3    56,1    10,8  | | | | | | | | +--ExtensionConstraint2D:revise	(cspfj.constraint.extension)
+13173613  37462,9  13343,5     3,9     1,4  | | | | | | | | | +--AbstractMatrixManager:supportCondition	(cspfj.constraint.extension)
+13173613  24119,4  11413,2     2,5     1,2  | | | | | | | | | | +--AbstractMatrixManager:getOtherSize	(cspfj.constraint.extension)
+13173613  12706,2  10884,0     1,3     1,1  | | | | | | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+13173613   1822,2   1822,2     0,2     0,2  | | | | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+10375726   1480,8   1480,8     0,2     0,2  | | | | | | | | | +--AbstractConstraint:getVariable	(cspfj.constraint)
+10375726  19289,5   9145,5     2,0     1,0  | | | | | | | | | +--Variable:getFirst	(cspfj.problem)
+10375726  10143,9   8652,0     1,1     0,9  | | | | | | | | | | +--BitVectorDomain:first	(cspfj.problem)
+10375726   1492,0   1492,0     0,2     0,2  | | | | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+53116367 270828,5  45977,9    28,5     4,8  | | | | | | | | | +--MatrixManager2D:hasSupport	(cspfj.constraint.extension)
+53116367 224850,6 117460,8    23,7    12,4  | | | | | | | | | | +--MatrixManager2D:hasSupportNR	(cspfj.constraint.extension)
+53116367   8359,9   8359,9     0,9     0,9  | | | | | | | | | | | +--Matrix2D:getBitVector	(cspfj.constraint.extension)
+53116367  50225,7  43032,4     5,3     4,5  | | | | | | | | | | | +--Variable:getBitDomain	(cspfj.problem)
+53116367   7193,3   7193,3     0,8     0,8  | | | | | | | | | | | | +--BitVectorDomain:getBitVector	(cspfj.problem)
+53116367  48804,2  41290,1     5,1     4,4  | | | | | | | | | | | +--SmallBitVector:intersects	(cspfj.util)
+53116367   7514,1   7514,1     0,8     0,8  | | | | | | | | | | | | +--SmallBitVector:intersects	(cspfj.util)
+53116367  93422,5  43593,8     9,8     4,6  | | | | | | | | | +--Variable:getNext	(cspfj.problem)
+53116367  49828,7  42327,8     5,3     4,5  | | | | | | | | | | +--BitVectorDomain:next	(cspfj.problem)
+53116367   7500,9   7500,9     0,8     0,8  | | | | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+2578836   7020,5   2292,7     0,7     0,2  | | | | | | | | | +--Variable:remove	(cspfj.problem)
+2578836   4727,9   3127,8     0,5     0,3  | | | | | | | | | | +--BitVectorDomain:remove	(cspfj.problem)
+2578836    362,7    362,7     0,0          | | | | | | | | | | | +--SmallBitVector:clear	(cspfj.util)
+616559   1160,8    557,2     0,1          | | | | | | | | | | | +--BitVector:factory	(cspfj.util)
+616559    603,7    514,3     0,1          | | | | | | | | | | | | +--SmallBitVector:<init>	(cspfj.util)
+616559     89,4     89,4     0,0          | | | | | | | | | | | | | +--BitVector:<init>	(cspfj.util)
+466314     76,5     76,5     0,0          | | | | | | | | | | | +--SmallBitVector:prevSetBit	(cspfj.util)
+14726631  14462,4  12319,6     1,5     1,3  | | | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+14726631   2142,8   2142,8     0,2     0,2  | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+1553018  98402,8  61399,4    10,4     6,5  | | | | | | | | +--AC3$1:revised	(cspfj.filter)
+1553018    225,0    225,0     0,0          | | | | | | | | | +--AC3:access$0	(cspfj.filter)
+1553018  22634,9   1304,4     2,4     0,1  | | | | | | | | | +--FibonacciHeap:offer	(cspfj.priorityqueues)
+1553018  21330,5  10032,5     2,2     1,1  | | | | | | | | | | +--FibonacciHeap:offer	(cspfj.priorityqueues)
+1553018    219,5    219,5     0,0          | | | | | | | | | | | +--Variable:getId	(cspfj.problem)
+1553018    242,0    242,0     0,0          | | | | | | | | | | | +--FibonacciHeap:ensureCapacity	(cspfj.priorityqueues)
+1553018    240,2    240,2     0,0          | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$2	(cspfj.priorityqueues)
+1553018   3899,5   1147,2     0,4     0,1  | | | | | | | | | | | +--AC3$2:getKey	(cspfj.filter)
+1553018   2752,3   1260,6     0,3     0,1  | | | | | | | | | | | | +--AC3$2:getKey	(cspfj.filter)
+1553018   1491,7   1271,9     0,2     0,1  | | | | | | | | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+1553018    219,8    219,8     0,0          | | | | | | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+1553018    226,0    226,0     0,0          | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$6	(cspfj.priorityqueues)
+1553018    224,9    224,9     0,0          | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$7	(cspfj.priorityqueues)
+908330    133,9    133,9     0,0          | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:clear	(cspfj.priorityqueues)
+908330   2681,2   2270,8     0,3     0,2  | | | | | | | | | | | +--FibonacciHeap:insert	(cspfj.priorityqueues)
+ 54344     13,0     13,0     0,0          | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$3	(cspfj.priorityqueues)
+ 54344     13,2     13,2     0,0          | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$4	(cspfj.priorityqueues)
+853986    143,2    143,2     0,0          | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:add	(cspfj.priorityqueues)
+1707972    241,0    241,0     0,0          | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$2	(cspfj.priorityqueues)
+908330    126,3    126,3     0,0          | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$0	(cspfj.priorityqueues)
+644688   3304,5   2612,4     0,3     0,3  | | | | | | | | | | | +--FibonacciHeap:decreaseKey	(cspfj.priorityqueues)
+644688    102,2    102,2     0,0          | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$1	(cspfj.priorityqueues)
+2154206    300,8    300,8     0,0          | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:access$2	(cspfj.priorityqueues)
+ 96504    207,0    207,0     0,0          | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:cut	(cspfj.priorityqueues)
+ 96504     82,1     77,4     0,0          | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:cascadingCut	(cspfj.priorityqueues)
+  4659      2,8      2,8     0,0          | | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:cut	(cspfj.priorityqueues)
+  4659      1,9      1,7     0,0          | | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:cascadingCut	(cspfj.priorityqueues)
+   230      0,1      0,1     0,0          | | | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:cut	(cspfj.priorityqueues)
+   230      0,1      0,1     0,0          | | | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:cascadingCut	(cspfj.priorityqueues)
+     6      0,0      0,0     0,0          | | | | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:cut	(cspfj.priorityqueues)
+     6      0,0      0,0     0,0          | | | | | | | | | | | | | | | +--FibonacciHeap$FibonacciHeapNode:cascadingCut	(cspfj.priorityqueues)
+1553018    216,5    216,5     0,0          | | | | | | | | | +--Variable:getInvolvingConstraints	(cspfj.problem)
+28515649   4104,1   4104,1     0,4     0,4  | | | | | | | | | +--Variable:getPositionInConstraint	(cspfj.problem)
+28515649   3855,1   3855,1     0,4     0,4  | | | | | | | | | +--AC3:access$1	(cspfj.filter)
+28515649   5967,8   5967,8     0,6     0,6  | | | | | | | | | +--AbstractArcGrainedConstraint:setRemovals	(cspfj.constraint)
+1837353  42449,8   2385,5     4,5     0,3  | | | | | | | | +--AbstractConstraint:entail	(cspfj.constraint)
+1837353  40064,3   5905,8     4,2     0,6  | | | | | | | | | +--ExtensionConstraint2D:toString	(cspfj.constraint.extension)
+3674706    521,6    521,6     0,1          | | | | | | | | | | +--AbstractConstraint:getVariable	(cspfj.constraint)
+3674706  33636,9   3786,6     3,5     0,4  | | | | | | | | | | +--Variable:toString	(cspfj.problem)
+3674706  29850,4  16307,8     3,1     1,7  | | | | | | | | | | | +--BitVectorDomain:toString	(cspfj.problem)
+3674706   3408,3   2901,4     0,4     0,3  | | | | | | | | | | | | +--BitVectorDomain:first	(cspfj.problem)
+3674706    506,9    506,9     0,1          | | | | | | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+8638077   1201,4   1201,4     0,1     0,1  | | | | | | | | | | | | +--BitVectorDomain:value	(cspfj.problem)
+9537480   8888,6   7551,8     0,9     0,8  | | | | | | | | | | | | +--BitVectorDomain:next	(cspfj.problem)
+9537480   1336,8   1336,8     0,1     0,1  | | | | | | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+320176     44,3     44,3     0,0          | | | | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+6573028    974,8    974,8     0,1     0,1  | | | | | | | +--AbstractArcGrainedConstraint:fillRemovals	(cspfj.constraint)
+ 27557     23,8     23,8     0,0          | | | | | | | +--AbstractConstraint:incWeight	(cspfj.constraint)
+ 27559  85212,0    868,8     9,0          | | | | +--MGACIter:backtrack	(cspfj)
+ 27558  83753,2     63,7     8,8          | | | | | +--Problem:pop	(cspfj.problem)
+ 27558  83689,5   8172,9     8,8     0,9  | | | | | | +--Problem:restoreLevel	(cspfj.problem)
+964530   2552,9    880,6     0,3          | | | | | | | +--Variable:restoreLevel	(cspfj.problem)
+964530   1672,3   1421,9     0,2     0,1  | | | | | | | | +--BitVectorDomain:restoreLevel	(cspfj.problem)
+623063     93,5     93,5     0,0          | | | | | | | | | +--SmallBitVector:copyTo	(cspfj.util)
+964530    135,2    135,2     0,0          | | | | | | | | | +--SmallBitVector:prevSetBit	(cspfj.util)
+ 20716     21,7     21,7     0,0          | | | | | | | | | +--SmallBitVector:fill	(cspfj.util)
+9674691  72963,7   3335,1     7,7     0,4  | | | | | | | +--AbstractConstraint:restore	(cspfj.constraint)
+1835267  69628,7   5814,2     7,3     0,6  | | | | | | | | +--ExtensionConstraint2D:toString	(cspfj.constraint.extension)
+3670534    591,8    591,8     0,1          | | | | | | | | | +--AbstractConstraint:getVariable	(cspfj.constraint)
+3670534  63222,7   3649,7     6,7     0,4  | | | | | | | | | +--Variable:toString	(cspfj.problem)
+3670534  59572,9  32267,5     6,3     3,4  | | | | | | | | | | +--BitVectorDomain:toString	(cspfj.problem)
+3670534   3321,5   2811,8     0,4     0,3  | | | | | | | | | | | +--BitVectorDomain:first	(cspfj.problem)
+3670534    509,6    509,6     0,1          | | | | | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+17171948   2359,8   2359,8     0,2     0,2  | | | | | | | | | | | +--BitVectorDomain:value	(cspfj.problem)
+22903791  21430,7  18261,2     2,3     1,9  | | | | | | | | | | | +--BitVectorDomain:next	(cspfj.problem)
+22903791   3169,5   3169,5     0,3     0,3  | | | | | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+1402553    193,5    193,5     0,0          | | | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+ 27558     10,8     10,8     0,0          | | | | | +--Problem:getCurrentLevel	(cspfj.problem)
+137774     24,2     24,2     0,0          | | | | | +--Pair:getVariable	(cspfj.heuristic)
+ 27558    290,6     34,1     0,0          | | | | | +--Variable:toString	(cspfj.problem)
+ 27558    256,4    134,8     0,0          | | | | | | +--BitVectorDomain:toString	(cspfj.problem)
+ 27558     33,2     27,4     0,0          | | | | | | | +--BitVectorDomain:first	(cspfj.problem)
+ 27558      5,8      5,8     0,0          | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+ 70188     13,2     13,2     0,0          | | | | | | | +--BitVectorDomain:value	(cspfj.problem)
+ 70405     75,2     61,8     0,0          | | | | | | | +--BitVectorDomain:next	(cspfj.problem)
+ 70405     13,3     13,3     0,0          | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+    98      0,1      0,1     0,0          | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+ 55116     12,9     12,9     0,0          | | | | | +--Pair:getIndex	(cspfj.heuristic)
+ 27558     52,9     45,7     0,0          | | | | | +--Variable:getValue	(cspfj.problem)
+ 27558      7,2      7,2     0,0          | | | | | | +--BitVectorDomain:value	(cspfj.problem)
+ 27558     33,4     26,2     0,0          | | | | | +--Variable:getDomainSize	(cspfj.problem)
+ 27558      7,2      7,2     0,0          | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+ 27558    132,4     79,2     0,0          | | | | | +--Variable:remove	(cspfj.problem)
+ 27558     53,3     42,1     0,0          | | | | | | +--BitVectorDomain:remove	(cspfj.problem)
+ 27558      8,3      8,3     0,0          | | | | | | | +--SmallBitVector:clear	(cspfj.util)
+  1110      2,9      1,4     0,0          | | | | | | | +--BitVector:factory	(cspfj.util)
+  1110      1,6      1,3     0,0          | | | | | | | | +--SmallBitVector:<init>	(cspfj.util)
+  1110      0,2      0,2     0,0          | | | | | | | | | +--BitVector:<init>	(cspfj.util)
+ 27558     32,8     32,4     0,0          | | | | | +--AbstractSolver:checkBacktracks	(cspfj)
+    16      0,4      0,4     0,0          | | | | | | +--MaxBacktracksExceededException:<init>	(cspfj.exception)
+     2      0,5      0,3     0,0          | | | | +--AbstractSolver:solution	(cspfj)
+     2      0,0      0,0     0,0          | | | | | +--Problem:getVariables	(cspfj.problem)
+    70      0,0      0,0     0,0          | | | | | +--Variable:getName	(cspfj.problem)
+    70      0,1      0,1     0,0          | | | | | +--Variable:getFirst	(cspfj.problem)
+    70      0,1      0,1     0,0          | | | | | | +--BitVectorDomain:first	(cspfj.problem)
+    70      0,0      0,0     0,0          | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+    70      0,1      0,1     0,0          | | | | | +--Variable:getValue	(cspfj.problem)
+    70      0,0      0,0     0,0          | | | | | | +--BitVectorDomain:value	(cspfj.problem)
+    16     31,0      7,4     0,0          | | | +--NoGoodLearner:noGoods	(cspfj.problem)
+    32      0,0      0,0     0,0          | | | | +--Problem:getMaxArity	(cspfj.problem)
+    16      0,0      0,0     0,0          | | | | +--Pair:getIndex	(cspfj.heuristic)
+    16      0,0      0,0     0,0          | | | | +--Pair:getVariable	(cspfj.heuristic)
+    16      0,0      0,0     0,0          | | | | +--Problem:getVariables	(cspfj.problem)
+  1088      0,2      0,2     0,0          | | | | +--Variable:getDomain	(cspfj.problem)
+  1088      3,0      1,1     0,0          | | | | +--BitVectorDomain:getAtLevel	(cspfj.problem)
+  1081      1,9      0,9     0,0          | | | | | +--BitVector:factory	(cspfj.util)
+  1081      1,0      0,8     0,0          | | | | | | +--SmallBitVector:<init>	(cspfj.util)
+  1081      0,2      0,2     0,0          | | | | | | | +--BitVector:<init>	(cspfj.util)
+   544      1,1      0,5     0,0          | | | | +--SmallBitVector:xor	(cspfj.util)
+   544      0,5      0,4     0,0          | | | | | +--SmallBitVector:<init>	(cspfj.util)
+   544      0,1      0,1     0,0          | | | | | | +--BitVector:<init>	(cspfj.util)
+   544      0,1      0,1     0,0          | | | | +--SmallBitVector:isEmpty	(cspfj.util)
+     7      1,2      0,1     0,0          | | | | +--NoGoodLearner:learnConstraint	(cspfj.problem)
+     7      0,9      0,7     0,0          | | | | | +--NoGoodLearner:findDynamicConstraint	(cspfj.problem)
+     7      0,0      0,0     0,0          | | | | | | +--Variable:getDynamicConstraints	(cspfj.problem)
+   118      0,0      0,0     0,0          | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+   118      0,2      0,2     0,0          | | | | | | +--AbstractConstraint:getScopeSet	(cspfj.constraint)
+     2      0,0      0,0     0,0          | | | | | +--Variable:getDomain	(cspfj.problem)
+     2      0,0      0,0     0,0          | | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+     1      0,1      0,0     0,0          | | | | | +--Matrix2D:<init>	(cspfj.constraint.extension)
+    34      0,1      0,0     0,0          | | | | | | +--BitVector:factory	(cspfj.util)
+    34      0,0      0,0     0,0          | | | | | | | +--SmallBitVector:<init>	(cspfj.util)
+    34      0,0      0,0     0,0          | | | | | | | | +--BitVector:<init>	(cspfj.util)
+     1      0,1      0,0     0,0          | | | | | +--ExtensionConstraint2D:<init>	(cspfj.constraint.extension)
+     1      0,0      0,0     0,0          | | | | | | +--AbstractPVRConstraint:<init>	(cspfj.constraint)
+     1      0,0      0,0     0,0          | | | | | | | +--AbstractArcGrainedConstraint:<init>	(cspfj.constraint)
+     1      0,0      0,0     0,0          | | | | | | | | +--AbstractConstraint:<init>	(cspfj.constraint)
+     1      0,0      0,0     0,0          | | | | | | | | | +--AbstractConstraint:<init>	(cspfj.constraint)
+     1      0,0      0,0     0,0          | | | | | | | | | | +--TupleManager:<init>	(cspfj.constraint.extension)
+     1      0,0      0,0     0,0          | | | | | | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+     1      0,0      0,0     0,0          | | | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+     1      0,0      0,0     0,0          | | | | | | +--AbstractConstraint:getTuple	(cspfj.constraint)
+     1      0,0      0,0     0,0          | | | | | | +--MatrixManager2D:<init>	(cspfj.constraint.extension)
+     1      0,0      0,0     0,0          | | | | | | | +--AbstractMatrixManager:<init>	(cspfj.constraint.extension)
+     2      0,0      0,0     0,0          | | | | | | | | +--Variable:getDomain	(cspfj.problem)
+     2      0,0      0,0     0,0          | | | | | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+     2      0,0      0,0     0,0          | | | | | | | +--Variable:getDomain	(cspfj.problem)
+     2      0,0      0,0     0,0          | | | | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+     7      0,0      0,0     0,0          | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+     7      0,1      0,1     0,0          | | | | +--NoGoodLearner:makeBase	(cspfj.problem)
+     7      0,0      0,0     0,0          | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+    14      0,0      0,0     0,0          | | | | | +--AbstractConstraint:getVariable	(cspfj.constraint)
+    16      0,0      0,0     0,0          | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+     9      0,5      0,1     0,0          | | | | +--ExtensionConstraint2D:removeTuples	(cspfj.constraint.extension)
+     9      0,0      0,0     0,0          | | | | | +--TupleManager:setFirstTuple	(cspfj.constraint.extension)
+     9      0,4      0,0     0,0          | | | | | +--ExtensionConstraint2D:removeTuple	(cspfj.constraint.extension)
+     9      0,4      0,0     0,0          | | | | | | +--AbstractMatrixManager:removeTuple	(cspfj.constraint.extension)
+     9      0,4      0,1     0,0          | | | | | | | +--AbstractMatrixManager:set	(cspfj.constraint.extension)
+     9      0,0      0,0     0,0          | | | | | | | | +--Matrix2D:check	(cspfj.constraint.extension)
+     9      0,0      0,0     0,0          | | | | | | | | | +--SmallBitVector:get	(cspfj.util)
+     4      0,2      0,0     0,0          | | | | | | | | +--MatrixManager2D:unshareMatrix	(cspfj.constraint.extension)
+     4      0,2      0,0     0,0          | | | | | | | | | +--AbstractMatrixManager:unshareMatrix	(cspfj.constraint.extension)
+     4      0,2      0,0     0,0          | | | | | | | | | | +--Matrix2D:clone	(cspfj.constraint.extension)
+     4      0,2      0,1     0,0          | | | | | | | | | | | +--Matrix2D:clone	(cspfj.constraint.extension)
+   136      0,1      0,1     0,0          | | | | | | | | | | | | +--BitVector:clone	(cspfj.util)
+     9      0,1      0,0     0,0          | | | | | | | | +--Matrix2D:set	(cspfj.constraint.extension)
+    18      0,0      0,0     0,0          | | | | | | | | | +--BitVector:set	(cspfj.util)
+    18      0,0      0,0     0,0          | | | | | | | | | | +--SmallBitVector:clear	(cspfj.util)
+     9      0,0      0,0     0,0          | | | | | | | | +--AbstractMatrixManager:addConflict	(cspfj.constraint.extension)
+     9      0,0      0,0     0,0          | | | | | +--TupleManager:setNextTuple	(cspfj.constraint.extension)
+     7      0,0      0,0     0,0          | | | | +--AbstractConstraint:hashCode	(cspfj.constraint)
+     7      0,0      0,0     0,0          | | | | +--AbstractConstraint:getId	(cspfj.constraint)
+     7      0,0      0,0     0,0          | | | | +--Problem:getMaxCId	(cspfj.problem)
+     7      0,2      0,0     0,0          | | | | +--ExtensionConstraint2D:toString	(cspfj.constraint.extension)
+    14      0,0      0,0     0,0          | | | | | +--AbstractConstraint:getVariable	(cspfj.constraint)
+    14      0,1      0,0     0,0          | | | | | +--Variable:toString	(cspfj.problem)
+    14      0,1      0,1     0,0          | | | | | | +--BitVectorDomain:toString	(cspfj.problem)
+    14      0,0      0,0     0,0          | | | | | | | +--BitVectorDomain:first	(cspfj.problem)
+    14      0,0      0,0     0,0          | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+    26      0,0      0,0     0,0          | | | | | | | +--BitVectorDomain:value	(cspfj.problem)
+    28      0,0      0,0     0,0          | | | | | | | +--BitVectorDomain:next	(cspfj.problem)
+    28      0,0      0,0     0,0          | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+     1      0,0      0,0     0,0          | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+     7      0,0      0,0     0,0          | | | | +--Problem:addConstraint	(cspfj.problem)
+     5     17,2      6,9     0,0          | | | | +--Problem:prepareConstraints	(cspfj.problem)
+     5      0,0      0,0     0,0          | | | | | +--Problem$1:<init>	(cspfj.problem)
+  1743      4,9      1,7     0,0          | | | | | +--Problem$1:compare	(cspfj.problem)
+  1743      3,2      2,7     0,0          | | | | | | +--Problem$1:compare	(cspfj.problem)
+  3486      0,5      0,5     0,0          | | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+     5      0,0      0,0     0,0          | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+    10      0,0      0,0     0,0          | | | | | +--Problem:getVariables	(cspfj.problem)
+  3846      0,5      0,5     0,0          | | | | | +--Variable:getId	(cspfj.problem)
+     5      0,0      0,0     0,0          | | | | | +--Problem:getConstraints	(cspfj.problem)
+  1748      0,3      0,3     0,0          | | | | | +--AbstractConstraint:getScope	(cspfj.constraint)
+   175      4,5      3,6     0,0          | | | | | +--Variable:setInvolvingConstraints	(cspfj.problem)
+  3496      0,8      0,8     0,0          | | | | | | +--AbstractConstraint:getPosition	(cspfj.constraint)
+     5      0,0      0,0     0,0          | | | | +--Problem:getNbConstraints	(cspfj.problem)
+    16    156,3      5,8     0,0          | | | +--Problem:reset	(cspfj.problem)
+   560      1,8      0,6     0,0          | | | | +--Variable:reset	(cspfj.problem)
+   560      1,3      1,0     0,0          | | | | | +--BitVectorDomain:restoreLevel	(cspfj.problem)
+   537      0,1      0,1     0,0          | | | | | | +--SmallBitVector:fill	(cspfj.util)
+   560      0,1      0,1     0,0          | | | | | | +--SmallBitVector:prevSetBit	(cspfj.util)
+     9      0,0      0,0     0,0          | | | | | | +--SmallBitVector:copyTo	(cspfj.util)
+    16      0,0      0,0     0,0          | | | | +--Problem:getConstraints	(cspfj.problem)
+  5554    148,7      3,0     0,0          | | | | +--AbstractConstraint:restore	(cspfj.constraint)
+  1925    145,7      6,5     0,0          | | | | | +--ExtensionConstraint2D:toString	(cspfj.constraint.extension)
+  3850      0,6      0,6     0,0          | | | | | | +--AbstractConstraint:getVariable	(cspfj.constraint)
+  3850    138,6      4,2     0,0          | | | | | | +--Variable:toString	(cspfj.problem)
+  3850    134,4     66,5     0,0          | | | | | | | +--BitVectorDomain:toString	(cspfj.problem)
+  3850      3,5      3,0     0,0          | | | | | | | | +--BitVectorDomain:first	(cspfj.problem)
+  3850      0,5      0,5     0,0          | | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+ 23100      3,1      3,1     0,0          | | | | | | | | +--BitVectorDomain:value	(cspfj.problem)
+ 65266     60,7     52,2     0,0          | | | | | | | | +--BitVectorDomain:next	(cspfj.problem)
+ 65266      8,6      8,6     0,0          | | | | | | | | | +--SmallBitVector:nextSetBit	(cspfj.util)
+  3850      0,5      0,5     0,0          | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+    16      3,2      0,6     0,0          | | | +--AC3:reduceAfter	(cspfj.filter)
+    16      0,6      0,5     0,0          | | | | +--FibonacciHeap:clear	(cspfj.priorityqueues)
+   560      0,1      0,1     0,0          | | | | | +--FibonacciHeap$FibonacciHeapNode:access$0	(cspfj.priorityqueues)
+    16      0,1      0,1     0,0          | | | | +--AC3:reduce	(cspfj.filter)
+    16      0,0      0,0     0,0          | | | | | +--FibonacciHeap:isEmpty	(cspfj.priorityqueues)
+    14      0,0      0,0     0,0          | | | | +--AbstractArcGrainedConstraint:fillRemovals	(cspfj.constraint)
+     7      1,8      0,1     0,0          | | | | +--AbstractPVRConstraint:revise	(cspfj.constraint)
+     7      0,0      0,0     0,0          | | | | | +--AbstractPVRConstraint:skipRevision	(cspfj.constraint)
+     7      0,0      0,0     0,0          | | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+    14      0,0      0,0     0,0          | | | | | | +--AbstractArcGrainedConstraint:getRemovals	(cspfj.constraint)
+    14      0,0      0,0     0,0          | | | | | +--AbstractConstraint:getArity	(cspfj.constraint)
+    14      0,0      0,0     0,0          | | | | | +--AbstractConstraint:getVariable	(cspfj.constraint)
+    14      1,7      0,0     0,0          | | | | | +--ExtensionConstraint2D:revise	(cspfj.constraint.extension)
+    14      1,7      0,1     0,0          | | | | | | +--AbstractMatrixManager:supportCondition	(cspfj.constraint.extension)
+    14      0,0      0,0     0,0          | | | | | | | +--AbstractMatrixManager:getOtherSize	(cspfj.constraint.extension)
+    14      0,0      0,0     0,0          | | | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+    14      0,0      0,0     0,0          | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+     1      1,6      0,0     0,0          | | | | | | | +--AbstractMatrixManager:countConflicts	(cspfj.constraint.extension)
+     1      1,5      0,4     0,0          | | | | | | | | +--AbstractMatrixManager:nbConflicts	(cspfj.constraint.extension)
+     1      0,0      0,0     0,0          | | | | | | | | | +--AbstractMatrixManager:currentSize	(cspfj.constraint.extension)
+     4      0,0      0,0     0,0          | | | | | | | | | | +--Variable:getDomainSize	(cspfj.problem)
+     4      0,0      0,0     0,0          | | | | | | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+     2      0,0      0,0     0,0          | | | | | | | | | +--Variable:getDomain	(cspfj.problem)
+     2      0,0      0,0     0,0          | | | | | | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+     1      0,0      0,0     0,0          | | | | | | | | | +--Matrix2D:isEmpty	(cspfj.constraint.extension)
+     1      0,5      0,0     0,0          | | | | | | | | | +--MatrixManager2D:toString	(cspfj.constraint.extension)
+     1      0,5      0,2     0,0          | | | | | | | | | | +--Matrix2D:toString	(cspfj.constraint.extension)
+   289      0,3      0,2     0,0          | | | | | | | | | | | +--Matrix2D:check	(cspfj.constraint.extension)
+   289      0,0      0,0     0,0          | | | | | | | | | | | | +--SmallBitVector:get	(cspfj.util)
+     1      0,0      0,0     0,0          | | | | | | | | | +--AbstractMatrixManager:firstT	(cspfj.constraint.extension)
+     2      0,0      0,0     0,0          | | | | | | | | | | +--Variable:getDomain	(cspfj.problem)
+     2      0,0      0,0     0,0          | | | | | | | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+   289      0,5      0,2     0,0          | | | | | | | | | +--AbstractMatrixManager:check	(cspfj.constraint.extension)
+   289      0,3      0,2     0,0          | | | | | | | | | | +--Matrix2D:check	(cspfj.constraint.extension)
+   289      0,0      0,0     0,0          | | | | | | | | | | | +--SmallBitVector:get	(cspfj.util)
+   289      0,1      0,1     0,0          | | | | | | | | | +--AbstractMatrixManager:nextT	(cspfj.constraint.extension)
+    18      0,0      0,0     0,0          | | | | | | | | | | +--Variable:getDomain	(cspfj.problem)
+    18      0,0      0,0     0,0          | | | | | | | | | | +--BitVectorDomain:maxSize	(cspfj.problem)
+     1      0,0      0,0     0,0          | | | | | | | | +--AbstractMatrixManager:updateMaxConflicts	(cspfj.constraint.extension)
+    14      0,0      0,0     0,0          | | | | | +--Variable:getDomainSize	(cspfj.problem)
+    14      0,0      0,0     0,0          | | | | | | +--BitVectorDomain:size	(cspfj.problem)
+    19      0,2      0,2     0,0          | | | +--AbstractSolver:increaseStatistic	(cspfj)
+     2     11,0      5,2     0,0          | | +--CSPOM:control	(cspom)
+  1384      0,3      0,3     0,0          | | | +--AbstractConstraint:getArity	(cspom.constraint)
+  1384      0,4      0,4     0,0          | | | +--AbstractConstraint:getVariable	(cspom.constraint)
+  1384      0,9      0,9     0,0          | | | +--CSPOMVariable:getName	(cspom.variable)
+   692      4,2      0,7     0,0          | | | +--ExtensionConstraint:evaluate	(cspom.extension)
+   692      3,5      0,7     0,0          | | | | +--Extension:evaluate	(cspom.extension)
+   692      2,8      0,7     0,0          | | | | | +--TupleSet:contains	(cspom.extension)
+   692      2,1      1,3     0,0          | | | | | | +--TupleSet:containsTuple	(cspom.extension)
+   692      0,1      0,1     0,0          | | | | | | | +--TupleSet:indexFor	(cspom.extension)
+   692      0,8      0,6     0,0          | | | | | | | +--TupleSet:containsTuple	(cspom.extension)
+   355      0,1      0,1     0,0          | | | | | | | | +--TupleSet$Entry:access$1	(cspom.extension)
+   355      0,1      0,1     0,0          | | | | | | | | +--TupleSet$Entry:access$0	(cspom.extension)
+
++--------------------------------------
+| Most expensive methods (by net time)
+| Frame Count Limit: Unlimited
++--------------------------------------
+
+               Net
+          ------------
+ Count     Time    Pct  Location
+ =====     ====    ===  ========
+53116367 117460,8   12,4  cspfj.constraint.extension.MatrixManager2D:hasSupportNR
+13173613 102943,3   10,8  cspfj.constraint.extension.ExtensionConstraint2D:revise
+1553018  61399,4    6,5  cspfj.filter.AC3$1:revised
+6600585  48271,6    5,1  cspfj.constraint.AbstractPVRConstraint:revise
+53116367  45977,9    4,8  cspfj.constraint.extension.MatrixManager2D:hasSupport
+53116367  43593,8    4,6  cspfj.problem.Variable:getNext
+53116367  43032,4    4,5  cspfj.problem.Variable:getBitDomain
+53116367  42327,8    4,5  cspfj.problem.BitVectorDomain:next
+53116367  41290,1    4,4  cspfj.util.SmallBitVector:intersects
+3670534  32267,5    3,4  cspfj.problem.BitVectorDomain:toString
+535446  25821,1    2,7  cspfj.filter.AC3:reduce
+805418  21616,9    2,3  cspfj.heuristic.WDeg:wDeg
+22903791  18261,2    1,9  cspfj.problem.BitVectorDomain:next
+3674706  16307,8    1,7  cspfj.problem.BitVectorDomain:toString
+6600585  16231,6    1,7  cspfj.constraint.AbstractPVRConstraint:skipRevision
+13173613  13343,5    1,4  cspfj.constraint.extension.AbstractMatrixManager:supportCondition
+14726631  12319,6    1,3  cspfj.problem.Variable:getDomainSize
+13173613  11413,2    1,2  cspfj.constraint.extension.AbstractMatrixManager:getOtherSize
+13173613  10884,0    1,1  cspfj.problem.Variable:getDomainSize
+1553018  10032,5    1,1  cspfj.priorityqueues.FibonacciHeap:offer
+10375726   9145,5    1,0  cspfj.problem.Variable:getFirst
+10375726   8652,0    0,9  cspfj.problem.BitVectorDomain:first
+453483   8611,3    0,9  cspfj.priorityqueues.FibonacciHeap:consolidate
+53116367   8359,9    0,9  cspfj.constraint.extension.Matrix2D:getBitVector
+ 27558   8172,9    0,9  cspfj.problem.Problem:restoreLevel
+ 27634   7914,6    0,8  cspfj.problem.Problem:setLevel
+9537480   7551,8    0,8  cspfj.problem.BitVectorDomain:next
+53116367   7514,1    0,8  cspfj.util.SmallBitVector:intersects
+53116367   7500,9    0,8  cspfj.util.SmallBitVector:nextSetBit
+53116367   7193,3    0,8  cspfj.problem.BitVectorDomain:getBitVector
+28515649   5967,8    0,6  cspfj.constraint.AbstractArcGrainedConstraint:setRemovals
+1837353   5905,8    0,6  cspfj.constraint.extension.ExtensionConstraint2D:toString
+1835267   5814,2    0,6  cspfj.constraint.extension.ExtensionConstraint2D:toString
+535446   5691,5    0,6  cspfj.priorityqueues.FibonacciHeap:removeMin
+28515649   4104,1    0,4  cspfj.problem.Variable:getPositionInConstraint
+28515649   3855,1    0,4  cspfj.filter.AC3:access$1
+3674706   3786,6    0,4  cspfj.problem.Variable:toString
+3670534   3649,7    0,4  cspfj.problem.Variable:toString
+9674691   3335,1    0,4  cspfj.constraint.AbstractConstraint:restore
+22903791   3169,5    0,3  cspfj.util.SmallBitVector:nextSetBit
+2578836   3127,8    0,3  cspfj.problem.BitVectorDomain:remove
+3674706   2901,4    0,3  cspfj.problem.BitVectorDomain:first
+3670534   2811,8    0,3  cspfj.problem.BitVectorDomain:first
+644688   2612,4    0,3  cspfj.priorityqueues.FibonacciHeap:decreaseKey
+1837353   2385,5    0,3  cspfj.constraint.AbstractConstraint:entail
+17171948   2359,8    0,2  cspfj.problem.BitVectorDomain:value
+15331966   2315,6    0,2  cspfj.constraint.AbstractConstraint:isEntailed
+2578836   2292,7    0,2  cspfj.problem.Variable:remove
+908330   2270,8    0,2  cspfj.priorityqueues.FibonacciHeap:insert
+ 55176   2193,3    0,2  cspfj.filter.AC3:reduceAfter
+14726631   2142,8    0,2  cspfj.problem.BitVectorDomain:size
+13173613   2004,7    0,2  cspfj.constraint.AbstractConstraint:getVariable
+ 27638   1976,1    0,2  cspfj.heuristic.AbstractVariableHeuristic:selectVariable
+13201170   1932,6    0,2  cspfj.constraint.AbstractArcGrainedConstraint:getRemovals
+13173613   1894,3    0,2  cspfj.constraint.AbstractConstraint:getArity
+13173613   1822,2    0,2  cspfj.problem.BitVectorDomain:size
+12482012   1752,7    0,2  cspfj.constraint.AbstractConstraint:getWeight
+8109006   1670,8    0,2  cspfj.constraint.AbstractArcGrainedConstraint:hasNoRemovals
+ 55176   1601,6    0,2  cspfj.priorityqueues.FibonacciHeap:clear
+10629153   1580,3    0,2  cspfj.constraint.AbstractConstraint:isEntailed
+535446   1530,1    0,2  cspfj.priorityqueues.FibonacciHeap:poll
+10375726   1492,0    0,2  cspfj.util.SmallBitVector:nextSetBit
+10375726   1480,8    0,2  cspfj.constraint.AbstractConstraint:getVariable
+ 55176   1433,7    0,2  cspfj.filter.AC3:reduce
+964530   1421,9    0,1  cspfj.problem.BitVectorDomain:restoreLevel
+9537480   1336,8    0,1  cspfj.util.SmallBitVector:nextSetBit
+1553018   1304,4    0,1  cspfj.priorityqueues.FibonacciHeap:offer
+9701036   1299,9    0,1  cspfj.constraint.AbstractConstraint:setLevel
+1553018   1271,9    0,1  cspfj.problem.Variable:getDomainSize
+1553018   1260,6    0,1  cspfj.filter.AC3$2:getKey
+967190   1239,1    0,1  cspfj.problem.BitVectorDomain:setLevel
+805418   1225,8    0,1  cspfj.heuristic.WDegOnDom:getScore
+8638077   1201,4    0,1  cspfj.problem.BitVectorDomain:value
+    19   1188,3    0,1  cspfj.MGACIter:mac
+1553018   1147,2    0,1  cspfj.filter.AC3$2:getKey
+6600585   1043,2    0,1  cspfj.constraint.AbstractConstraint:getArity
+6573028    974,8    0,1  cspfj.constraint.AbstractArcGrainedConstraint:fillRemovals
+964530    880,6    0,1  cspfj.problem.Variable:restoreLevel
+ 27559    868,8    0,1  cspfj.MGACIter:backtrack
+967330    829,2    0,1  cspfj.problem.Variable:getDomainSize
+967190    803,4    0,1  cspfj.problem.Variable:setLevel
+805418    657,8    0,1  cspfj.problem.Variable:getDomainSize
+4326448    597,0    0,1  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$2
+3670534    591,8    0,1  cspfj.constraint.AbstractConstraint:getVariable
+616559    557,2    0,1  cspfj.util.BitVector:factory
+3674706    521,6    0,1  cspfj.constraint.AbstractConstraint:getVariable
+616559    514,3    0,1  cspfj.util.SmallBitVector:<init>
+3670534    509,6    0,1  cspfj.util.SmallBitVector:nextSetBit
+3674706    506,9    0,1  cspfj.util.SmallBitVector:nextSetBit
+ 55176    505,0    0,1  cspfj.priorityqueues.FibonacciHeap:offer
+535446    457,6    0,0  cspfj.priorityqueues.FibonacciHeap:poll
+2617242    366,9    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$10
+2578836    362,7    0,0  cspfj.util.SmallBitVector:clear
+2163224    309,8    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$12
+2154206    300,8    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$2
+1325232    296,0    0,0  cspfj.constraint.AbstractArcGrainedConstraint:setRemovals
+1931160    267,8    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$0
+     1    254,7    0,0  cspom.xcsp.XCSPParser:parse
+1796095    254,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$10
+     1    251,4    0,0  org.apache.tools.bzip2.CBZip2InputStream:getAndMoveToFrontDecode
+1553018    242,0    0,0  cspfj.priorityqueues.FibonacciHeap:ensureCapacity
+1707972    241,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$2
+1553018    240,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$2
+ 27638    238,5    0,0  cspfj.heuristic.CrossHeuristic:selectPair
+173540    228,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:setupNoRandPartB
+1553018    226,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$6
+1553018    225,0    0,0  cspfj.filter.AC3:access$0
+1553018    224,9    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$7
+173542    223,6    0,0  org.apache.tools.bzip2.CBZip2InputStream:read
+1553018    219,8    0,0  cspfj.problem.BitVectorDomain:size
+1553018    219,5    0,0  cspfj.problem.Variable:getId
+1553018    216,5    0,0  cspfj.problem.Variable:getInvolvingConstraints
+173540    213,8    0,0  org.apache.tools.bzip2.CBZip2InputStream:setupNoRandPartA
+ 96504    207,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:cut
+967190    198,5    0,0  cspfj.problem.BitVectorDomain:ensureCapacity
+   346    195,8    0,0  cspom.xcsp.XCSPParser:parseRelation
+1213242    195,7    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:link
+1325232    194,5    0,0  cspfj.problem.Variable:getPositionInConstraint
+1402553    193,5    0,0  cspfj.problem.BitVectorDomain:size
+ 27634    191,3    0,0  cspfj.problem.BitVectorDomain:toString
+ 27634    176,2    0,0  cspfj.problem.BitVectorDomain:setSingle
+   346    170,5    0,0  cspfj.constraint.extension.AbstractMatrixManager:nbConflicts
+967330    144,7    0,0  cspfj.problem.BitVectorDomain:size
+853986    143,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:add
+964530    135,2    0,0  cspfj.util.SmallBitVector:prevSetBit
+ 27558    134,8    0,0  cspfj.problem.BitVectorDomain:toString
+805418    134,4    0,0  cspfj.util.TieManager:newValue
+908330    133,9    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:clear
+588203    132,7    0,0  cspfj.util.SmallBitVector:copyTo
+870312    126,6    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$8
+908330    126,3    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$0
+ 27634    122,2    0,0  cspfj.heuristic.Lexico:selectIndex
+805418    121,3    0,0  cspfj.problem.Variable:getInvolvingConstraints
+805418    118,5    0,0  cspfj.problem.BitVectorDomain:size
+ 55176    113,2    0,0  cspfj.priorityqueues.FibonacciHeap:insert
+807166    112,6    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$9
+669732    104,1    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$11
+644688    102,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$1
+669732     98,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$3
+669732     97,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$4
+623063     93,5    0,0  cspfj.util.SmallBitVector:copyTo
+563065     92,9    0,0  cspfj.priorityqueues.FibonacciHeap:isEmpty
+ 99994     91,4    0,0  cspfj.constraint.extension.AbstractMatrixManager:check
+   346     90,5    0,0  cspfj.generator.constraint.ExtensionGenerator:fillMatrix
+616559     89,4    0,0  cspfj.util.BitVector:<init>
+535446     86,9    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:remove
+ 27634     84,6    0,0  cspfj.util.SmallBitVector:setSingle
+ 99994     83,5    0,0  cspfj.constraint.extension.Matrix2D:check
+ 99994     83,0    0,0  cspfj.constraint.extension.Matrix2D:check
+   346     81,1    0,0  cspfj.constraint.extension.Matrix2D:toString
+   692     80,8    0,0  cspom.extension.TupleSet:transfer
+535446     79,4    0,0  cspfj.problem.Variable:getInvolvingConstraints
+ 27558     79,2    0,0  cspfj.problem.Variable:remove
+ 24912     78,4    0,0  cspom.extension.TupleSet:add
+ 96504     77,4    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:cascadingCut
+535446     76,6    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$0
+535446     76,6    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$13
+466314     76,5    0,0  cspfj.util.SmallBitVector:prevSetBit
+ 27634     73,3    0,0  cspfj.util.SmallBitVector:set
+ 27634     72,6    0,0  cspfj.problem.Variable:getFirst
+  3850     66,5    0,0  cspfj.problem.BitVectorDomain:toString
+ 27634     66,4    0,0  cspfj.problem.Variable:setSingle
+ 27558     63,7    0,0  cspfj.problem.Problem:pop
+ 24912     62,5    0,0  cspom.extension.TupleSet$HashSetIterator:next
+ 70405     61,8    0,0  cspfj.problem.BitVectorDomain:next
+ 70903     61,3    0,0  cspfj.problem.BitVectorDomain:next
+ 27634     61,3    0,0  cspfj.problem.Variable:toString
+ 55176     59,7    0,0  cspfj.problem.Variable:getDomainSize
+ 55176     58,5    0,0  cspfj.priorityqueues.FibonacciHeap:offer
+ 55176     58,0    0,0  cspfj.filter.AC3$2:getKey
+ 27638     57,0    0,0  cspfj.util.TieManager:clear
+ 65266     52,2    0,0  cspfj.problem.BitVectorDomain:next
+ 49824     48,1    0,0  cspfj.util.BitVector:set
+ 55176     46,7    0,0  cspfj.filter.AC3$2:getKey
+ 27634     46,3    0,0  cspfj.problem.Problem:push
+ 27558     45,7    0,0  cspfj.problem.Variable:getValue
+320176     44,3    0,0  cspfj.problem.BitVectorDomain:size
+ 27558     42,1    0,0  cspfj.problem.BitVectorDomain:remove
+ 24912     41,8    0,0  cspfj.constraint.extension.Matrix2D:set
+ 27634     41,0    0,0  cspfj.util.SmallBitVector:<init>
+ 27634     39,8    0,0  cspfj.util.BitVector:factory
+     1     36,7    0,0  xcsp.XCSPSolver:count
+ 27558     34,1    0,0  cspfj.problem.Variable:toString
+ 27558     32,4    0,0  cspfj.AbstractSolver:checkBacktracks
+ 27634     31,5    0,0  cspfj.problem.BitVectorDomain:first
+   692     30,9    0,0  cspfj.generator.constraint.ExtensionGenerator:indexMap
+173539     30,1    0,0  org.apache.tools.bzip2.CRC:updateCRC
+     1     29,9    0,0  cspom.xcsp.XCSPParser:parseDomains
+ 99994     29,6    0,0  cspfj.constraint.extension.AbstractMatrixManager:nextT
+ 46299     29,2    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsR
+ 27634     29,1    0,0  cspfj.problem.BitVectorDomain:first
+ 24912     29,1    0,0  cspom.extension.TupleSet:containsTuple
+     1     28,2    0,0  org.apache.tools.bzip2.CBZip2InputStream:recvDecodingTables
+ 27558     27,4    0,0  cspfj.problem.BitVectorDomain:first
+ 24912     26,8    0,0  cspom.extension.Extension:addTuple
+ 27558     26,2    0,0  cspfj.problem.Variable:getDomainSize
+ 24912     25,0    0,0  cspom.extension.TupleSet$HashSetIterator:next
+137774     24,2    0,0  cspfj.heuristic.Pair:getVariable
+ 24912     24,0    0,0  cspom.extension.TupleSet$Entry:<init>
+ 27557     23,8    0,0  cspfj.constraint.AbstractConstraint:incWeight
+ 27638     22,6    0,0  cspfj.problem.Problem:getVariables
+ 24912     22,4    0,0  cspom.extension.TupleSet:add
+ 11764     22,1    0,0  cspfj.problem.BitVectorDomain:next
+ 20716     21,7    0,0  cspfj.util.SmallBitVector:fill
+ 27634     18,9    0,0  cspfj.heuristic.Pair:<init>
+     1     17,2    0,0  cspom.CSPOM:load
+     1     16,3    0,0  cspfj.MGACIter:<init>
+     1     15,7    0,0  cspfj.generator.ProblemGenerator:generate
+ 55176     15,5    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$3
+ 70903     14,6    0,0  cspfj.util.SmallBitVector:nextSetBit
+ 55176     14,0    0,0  cspfj.priorityqueues.FibonacciHeap:ensureCapacity
+ 55176     13,7    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$4
+ 70501     13,3    0,0  cspfj.problem.BitVectorDomain:value
+ 70405     13,3    0,0  cspfj.util.SmallBitVector:nextSetBit
+ 54344     13,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$4
+ 70188     13,2    0,0  cspfj.problem.BitVectorDomain:value
+ 55176     13,1    0,0  cspfj.problem.Variable:getId
+ 54344     13,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$3
+ 55116     12,9    0,0  cspfj.heuristic.Pair:getIndex
+ 99994     12,7    0,0  cspfj.util.SmallBitVector:get
+ 99994     12,5    0,0  cspfj.util.SmallBitVector:get
+     3     12,2    0,0  cspfj.MGACIter:nextSolution
+   346     12,1    0,0  cspfj.generator.constraint.ExtensionGenerator:generate
+     1     12,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:setupBlock
+     1     11,8    0,0  cspom.xcsp.XCSPParser:parseVariables
+ 11764     11,7    0,0  cspfj.util.BitVector:factory
+ 11764     11,4    0,0  cspfj.util.SmallBitVector:<init>
+ 55176     11,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$2
+ 27558     10,8    0,0  cspfj.problem.Problem:getCurrentLevel
+ 55176     10,7    0,0  cspfj.problem.Variable:getInvolvingConstraints
+ 55176     10,5    0,0  cspfj.problem.BitVectorDomain:size
+ 55176     10,4    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$7
+ 27634     10,0    0,0  cspfj.heuristic.Pair:getIndex
+   346     10,0    0,0  cspfj.constraint.extension.Matrix2D:<init>
+     1     10,0    0,0  cspom.xcsp.XCSPParser:parseRelations
+ 27634      9,4    0,0  cspfj.AbstractSolver:incrementNbAssignments
+     1      9,4    0,0  cspom.compiler.ProblemCompiler:<init>
+ 55176      9,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$0
+ 55176      9,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$6
+ 65266      8,6    0,0  cspfj.util.SmallBitVector:nextSetBit
+   346      8,5    0,0  cspom.compiler.ProblemCompiler:compileConstraint
+ 27558      8,3    0,0  cspfj.util.SmallBitVector:clear
+ 55176      8,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:clear
+ 27634      8,2    0,0  cspfj.problem.Variable:getDomain
+ 27634      8,0    0,0  cspfj.AbstractSolver:getMaxBacktracks
+ 27634      7,9    0,0  cspfj.util.BitVector:<init>
+ 27634      7,8    0,0  cspfj.heuristic.Pair:getVariable
+ 27634      7,8    0,0  cspfj.util.SmallBitVector:nextSetBit
+ 27634      7,7    0,0  cspfj.AbstractSolver:getNbBacktracks
+     1      7,5    0,0  org.apache.tools.bzip2.CBZip2InputStream:setDecompressStructureSizes
+ 27634      7,4    0,0  cspfj.problem.Problem:getCurrentLevel
+    16      7,4    0,0  cspfj.problem.NoGoodLearner:noGoods
+ 27558      7,2    0,0  cspfj.problem.BitVectorDomain:size
+ 27558      7,2    0,0  cspfj.problem.BitVectorDomain:value
+ 49824      7,0    0,0  cspfj.util.SmallBitVector:clear
+     5      6,9    0,0  cspfj.problem.Problem:prepareConstraints
+  1925      6,5    0,0  cspfj.constraint.extension.ExtensionConstraint2D:toString
+   346      6,4    0,0  cspom.xcsp.XCSPParser:addConstraint
+ 27638      5,9    0,0  cspfj.util.TieManager:getBestValue
+ 27558      5,8    0,0  cspfj.util.SmallBitVector:nextSetBit
+    35      5,8    0,0  cspfj.generator.ProblemGenerator:generateDomain
+    16      5,8    0,0  cspfj.problem.Problem:reset
+     1      5,6    0,0  cspom.xcsp.XCSPParser:parseConstraints
+ 27634      5,5    0,0  cspfj.util.SmallBitVector:nextSetBit
+     2      5,2    0,0  cspom.CSPOM:control
+    35      5,0    0,0  cspfj.problem.BitVectorDomain:<init>
+ 27634      4,9    0,0  cspfj.problem.BitVectorDomain:value
+ 11764      4,9    0,0  cspfj.util.SmallBitVector:nextSetBit
+ 24912      4,8    0,0  cspom.extension.TupleSet$Entry:<init>
+  3850      4,2    0,0  cspfj.problem.Variable:toString
+   346      4,1    0,0  cspfj.constraint.extension.ExtensionConstraint2D:<init>
+ 24912      3,9    0,0  cspom.extension.TupleSet$Entry:access$0
+ 24912      3,7    0,0  cspom.extension.TupleSet:indexFor
+ 25604      3,7    0,0  cspom.extension.TupleSet$Entry:access$0
+   175      3,6    0,0  cspfj.problem.Variable:setInvolvingConstraints
+ 24912      3,5    0,0  cspom.extension.TupleSet$Entry:access$1
+ 25604      3,4    0,0  cspom.extension.TupleSet:indexFor
+   346      3,4    0,0  cspfj.generator.constraint.ExtensionGenerator:generate
+ 25604      3,4    0,0  cspom.extension.TupleSet$Entry:access$4
+ 25604      3,4    0,0  cspom.extension.TupleSet$Entry:access$3
+ 25258      3,4    0,0  cspom.extension.TupleSet$HashSetIterator:hasNext
+   346      3,2    0,0  cspfj.constraint.AbstractConstraint:<init>
+   346      3,2    0,0  cspfj.constraint.AbstractPVRConstraint:revise
+   346      3,2    0,0  cspfj.generator.constraint.ExtensionGenerator:bestMatrix
+     1      3,2    0,0  xcsp.XCSPSolver:main
+ 24912      3,2    0,0  cspom.extension.Extension:init
+ 23100      3,1    0,0  cspfj.problem.BitVectorDomain:value
+     1      3,1    0,0  cspfj.filter.AC3:<init>
+  2264      3,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsR
+  5554      3,0    0,0  cspfj.constraint.AbstractConstraint:restore
+  3850      3,0    0,0  cspfj.problem.BitVectorDomain:first
+  4659      2,8    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:cut
+     1      2,8    0,0  org.apache.tools.bzip2.CBZip2InputStream:<init>
+  1743      2,7    0,0  cspfj.problem.Problem$1:compare
+   346      2,6    0,0  cspom.CSPOM:addConstraint
+     1      2,6    0,0  cspfj.AbstractSolver:preprocess
+ 19660      2,6    0,0  cspom.extension.TupleSet:access$2
+     1      2,6    0,0  cspom.xcsp.XCSPParser:parseDomain
+     1      2,5    0,0  cspfj.problem.Problem:prepareConstraints
+   346      2,5    0,0  cspom.constraint.AbstractConstraint:<init>
+    35      2,4    0,0  cspfj.filter.AC3:reduce
+   346      2,4    0,0  cspfj.generator.constraint.AbstractGenerator:getSolverVariables
+ 11764      2,3    0,0  cspfj.util.BitVector:<init>
+   692      2,2    0,0  cspom.variable.CSPOMVariable:registerConstraint
+    35      2,2    0,0  cspfj.problem.Problem:addVariable
+   346      2,2    0,0  cspom.extension.Extension:<init>
+   346      2,1    0,0  cspfj.generator.constraint.GeneratorManager:generate
+ 11764      2,0    0,0  cspfj.problem.BitVectorDomain:value
+     1      2,0    0,0  cspom.CSPOM:problemInputStream
+     1      2,0    0,0  cspfj.MGACIter:<init>
+ 12997      1,9    0,0  cspom.extension.TupleSet$Entry:access$1
+     1      1,8    0,0  cspfj.MGACIter:<init>
+   346      1,7    0,0  cspfj.constraint.extension.MatrixManager2D:<init>
+ 12997      1,7    0,0  cspom.extension.TupleSet$Entry:access$0
+  4659      1,7    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:cascadingCut
+  1743      1,7    0,0  cspfj.problem.Problem$1:compare
+   346      1,6    0,0  cspfj.constraint.extension.AbstractMatrixManager:<init>
+     1      1,6    0,0  cspom.compiler.ProblemCompiler:compile
+  1384      1,5    0,0  cspfj.problem.Variable:getDomainSize
+   346      1,5    0,0  cspfj.constraint.extension.AbstractMatrixManager:firstT
+   346      1,4    0,0  cspfj.constraint.extension.AbstractMatrixManager:currentSize
+  1110      1,4    0,0  cspfj.util.BitVector:factory
+  1110      1,3    0,0  cspfj.util.SmallBitVector:<init>
+   346      1,3    0,0  cspom.extension.TupleSet:iterator
+   346      1,3    0,0  cspfj.constraint.extension.AbstractMatrixManager:countConflicts
+   692      1,3    0,0  cspfj.constraint.extension.AbstractMatrixManager:supportCondition
+   346      1,3    0,0  cspom.compiler.patterns.AllDiff$2:is
+   692      1,3    0,0  cspom.extension.TupleSet:containsTuple
+   346      1,2    0,0  cspfj.constraint.extension.MatrixManager2D:toString
+   346      1,2    0,0  cspom.compiler.patterns.AllDiff$1:is
+   346      1,2    0,0  cspom.constraint.AbstractConstraint:computeHashCode
+   692      1,1    0,0  cspfj.generator.constraint.ExtensionGenerator$Signature:hashCode
+   346      1,1    0,0  cspfj.constraint.AbstractPVRConstraint:skipRevision
+   692      1,1    0,0  cspom.extension.TupleSet:resize
+   346      1,1    0,0  cspom.extension.TupleSet:<init>
+  1088      1,1    0,0  cspfj.problem.BitVectorDomain:getAtLevel
+     1      1,1    0,0  cspfj.priorityqueues.FibonacciHeap:<init>
+   346      1,0    0,0  cspom.compiler.patterns.DeReify:compile
+   560      1,0    0,0  cspfj.problem.BitVectorDomain:restoreLevel
+     1      1,0    0,0  cspom.compiler.patterns.AllDiff:<init>
+   692      1,0    0,0  cspfj.constraint.extension.ExtensionConstraint2D:revise
+   692      1,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:getOtherSize
+   346      0,9    0,0  cspom.extension.ExtensionConstraint:hashCode
+  1384      0,9    0,0  cspom.variable.CSPOMVariable:getName
+  1081      0,9    0,0  cspfj.util.BitVector:factory
+   346      0,9    0,0  cspfj.constraint.extension.AbstractMatrixManager:updateMaxConflicts
+    34      0,9    0,0  cspfj.priorityqueues.FibonacciHeap:consolidate
+   346      0,9    0,0  cspom.compiler.ProblemCompiler$1:poll
+   346      0,9    0,0  cspom.compiler.patterns.AllDiff:compile
+    35      0,8    0,0  cspfj.problem.Variable:setInvolvingConstraints
+   346      0,8    0,0  cspfj.constraint.AbstractArcGrainedConstraint:<init>
+   692      0,8    0,0  cspfj.problem.BitVectorDomain:first
+  1081      0,8    0,0  cspfj.util.SmallBitVector:<init>
+  3496      0,8    0,0  cspfj.constraint.AbstractConstraint:getPosition
+     1      0,8    0,0  org.apache.tools.bzip2.CBZip2InputStream:setupBlock
+   346      0,8    0,0  cspom.extension.TupleSet$HashSetIterator:<init>
+  6228      0,8    0,0  cspfj.problem.BitVectorDomain:maxSize
+   692      0,8    0,0  cspfj.problem.Variable:getDomainSize
+  6228      0,8    0,0  cspfj.problem.Variable:getDomain
+   692      0,7    0,0  cspom.CSPOM:getVariable
+   692      0,7    0,0  cspom.extension.ExtensionConstraint:evaluate
+   692      0,7    0,0  cspfj.problem.Variable:getDomainSize
+   692      0,7    0,0  cspom.extension.TupleSet:contains
+   692      0,7    0,0  cspfj.problem.Problem:getVariable
+     7      0,7    0,0  cspfj.problem.NoGoodLearner:findDynamicConstraint
+   692      0,7    0,0  cspom.extension.Extension:evaluate
+    16      0,6    0,0  cspfj.filter.AC3:reduceAfter
+   345      0,6    0,0  cspfj.problem.Problem$1:compare
+  3850      0,6    0,0  cspfj.constraint.AbstractConstraint:getVariable
+   692      0,6    0,0  cspom.extension.TupleSet:containsTuple
+    35      0,6    0,0  cspfj.priorityqueues.FibonacciHeap:removeMin
+     1      0,6    0,0  cspom.variable.IntInterval:valueOf
+    35      0,6    0,0  cspfj.priorityqueues.FibonacciHeap:offer
+   560      0,6    0,0  cspfj.problem.Variable:reset
+   544      0,5    0,0  cspfj.util.SmallBitVector:xor
+  3846      0,5    0,0  cspfj.problem.Variable:getId
+     1      0,5    0,0  cspfj.filter.AC3:reduceAll
+  3850      0,5    0,0  cspfj.util.SmallBitVector:nextSetBit
+     1      0,5    0,0  cspfj.heuristic.AbstractVariableHeuristic:<init>
+  3850      0,5    0,0  cspfj.problem.BitVectorDomain:size
+    16      0,5    0,0  cspfj.priorityqueues.FibonacciHeap:clear
+   346      0,5    0,0  cspom.compiler.patterns.RemoveAnd:compile
+  3486      0,5    0,0  cspfj.constraint.AbstractConstraint:getArity
+   346      0,5    0,0  cspom.compiler.patterns.MergeEq:compile
+   346      0,5    0,0  cspom.compiler.patterns.AbsDiff:compile
+   346      0,5    0,0  cspfj.constraint.extension.TupleManager:<init>
+   346      0,5    0,0  cspom.compiler.patterns.DiffGe:compile
+   692      0,5    0,0  cspfj.util.SmallBitVector:nextSetBit
+   346      0,4    0,0  cspom.compiler.patterns.AllDiff:alldiff
+   346      0,4    0,0  cspom.compiler.patterns.AllDiff:dropSubsumedDiff
+   346      0,4    0,0  cspom.extension.ExtensionConstraint:<init>
+  1384      0,4    0,0  cspom.constraint.AbstractConstraint:getVariable
+   346      0,4    0,0  cspfj.constraint.AbstractPVRConstraint:<init>
+   544      0,4    0,0  cspfj.util.SmallBitVector:<init>
+   346      0,4    0,0  cspfj.generator.constraint.AbstractGenerator:addConstraint
+     1      0,4    0,0  cspfj.constraint.extension.AbstractMatrixManager:nbConflicts
+   346      0,4    0,0  cspom.compiler.ProblemCompiler$1:poll
+   346      0,4    0,0  cspom.extension.TupleSet$HashSetIterator:<init>
+    16      0,4    0,0  cspfj.exception.MaxBacktracksExceededException:<init>
+   346      0,4    0,0  cspfj.constraint.AbstractConstraint:<init>
+   345      0,4    0,0  cspfj.problem.Problem$1:compare
+  2076      0,4    0,0  cspom.extension.ExtensionConstraint:hashCode
+   346      0,4    0,0  cspom.extension.TupleSet:<init>
+  2076      0,4    0,0  cspom.CSPOM:getConstraints
+  1748      0,3    0,0  cspfj.constraint.AbstractConstraint:getScope
+     1      0,3    0,0  cspom.xcsp.XCSPParser:parsePredicates
+   692      0,3    0,0  cspfj.constraint.AbstractArcGrainedConstraint:hasNoRemovals
+     2      0,3    0,0  cspfj.AbstractSolver:solution
+     1      0,3    0,0  cspfj.filter.AC3:reduce
+   346      0,3    0,0  cspfj.constraint.AbstractArcGrainedConstraint:fillRemovals
+  1384      0,3    0,0  cspfj.problem.BitVectorDomain:size
+  1384      0,3    0,0  cspom.constraint.AbstractConstraint:getArity
+   289      0,2    0,0  cspfj.constraint.extension.Matrix2D:check
+     1      0,2    0,0  cspfj.problem.Problem:prepareVariables
+   346      0,2    0,0  cspfj.problem.Problem:addConstraint
+   289      0,2    0,0  cspfj.constraint.extension.Matrix2D:check
+   289      0,2    0,0  cspfj.constraint.extension.AbstractMatrixManager:check
+  1110      0,2    0,0  cspfj.util.BitVector:<init>
+     1      0,2    0,0  cspom.CSPOM:getVariables
+   118      0,2    0,0  cspfj.constraint.AbstractConstraint:getScopeSet
+  1088      0,2    0,0  cspfj.problem.Variable:getDomain
+    35      0,2    0,0  cspfj.priorityqueues.FibonacciHeap:poll
+     1      0,2    0,0  org.apache.tools.bzip2.CBZip2InputStream:initBlock
+    35      0,2    0,0  cspom.variable.IntInterval:getValues
+   692      0,2    0,0  cspom.constraint.AbstractConstraint:getPosition
+    35      0,2    0,0  cspfj.util.BitVector:factory
+     1      0,2    0,0  cspfj.constraint.extension.Matrix2D:toString
+     1      0,2    0,0  cspom.CSPOM:<init>
+    35      0,2    0,0  cspfj.util.IntLinkedList:intListToArray
+    35      0,2    0,0  cspom.CSPOM:addVariable
+    19      0,2    0,0  cspfj.AbstractSolver:increaseStatistic
+   346      0,2    0,0  cspfj.constraint.AbstractArcGrainedConstraint:fillRemovals
+  1038      0,2    0,0  cspom.constraint.AbstractConstraint:getDescription
+     6      0,2    0,0  org.apache.tools.bzip2.CBZip2InputStream:hbCreateDecodeTables
+   692      0,2    0,0  cspfj.constraint.AbstractConstraint:getVariable
+  1081      0,2    0,0  cspfj.util.BitVector:<init>
+     1      0,2    0,0  cspfj.filter.AC3:getStatistics
+   692      0,2    0,0  cspfj.constraint.AbstractConstraint:getPosition
+   692      0,1    0,0  cspfj.constraint.AbstractConstraint:isEntailed
+   692      0,1    0,0  cspom.extension.ExtensionConstraint:hashCode
+     6      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsR
+   692      0,1    0,0  cspfj.problem.BitVectorDomain:maxSize
+   692      0,1    0,0  cspfj.problem.Variable:getDomain
+   560      0,1    0,0  cspfj.util.SmallBitVector:prevSetBit
+   346      0,1    0,0  cspom.constraint.AbstractConstraint:iterator
+   692      0,1    0,0  cspfj.problem.BitVectorDomain:maxSize
+   692      0,1    0,0  cspfj.problem.BitVectorDomain:maxSize
+   692      0,1    0,0  cspom.extension.Extension:init
+   692      0,1    0,0  cspom.variable.CSPOMVariable:getName
+   346      0,1    0,0  cspfj.generator.constraint.ExtensionGenerator$Signature:<init>
+   692      0,1    0,0  cspfj.problem.BitVectorDomain:size
+     4      0,1    0,0  cspfj.constraint.extension.Matrix2D:clone
+   692      0,1    0,0  cspfj.problem.Variable:getDomain
+   692      0,1    0,0  cspfj.problem.Variable:getDomain
+   692      0,1    0,0  cspfj.constraint.AbstractArcGrainedConstraint:getRemovals
+   692      0,1    0,0  cspom.constraint.AbstractConstraint:getArity
+   762      0,1    0,0  cspfj.problem.Variable:getId
+   692      0,1    0,0  cspfj.problem.BitVectorDomain:size
+   692      0,1    0,0  cspfj.problem.BitVectorDomain:size
+   537      0,1    0,0  cspfj.util.SmallBitVector:fill
+   692      0,1    0,0  cspfj.constraint.AbstractConstraint:getArity
+    35      0,1    0,0  cspfj.priorityqueues.FibonacciHeap:insert
+   692      0,1    0,0  cspfj.problem.Variable:getDomain
+   692      0,1    0,0  cspfj.problem.BitVectorDomain:size
+   690      0,1    0,0  cspfj.constraint.AbstractConstraint:getArity
+   544      0,1    0,0  cspfj.util.SmallBitVector:isEmpty
+   692      0,1    0,0  cspfj.problem.BitVectorDomain:maxSize
+   230      0,1    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:cut
+     7      0,1    0,0  cspfj.problem.NoGoodLearner:learnConstraint
+   692      0,1    0,0  cspom.extension.TupleSet:indexFor
+     1      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:endBlock
+   692      0,1    0,0  cspfj.problem.Variable:getDomain
+     1      0,1    0,0  cspom.xcsp.XCSPParser:<init>
+     6      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetUChar
+    16      0,1    0,0  cspfj.filter.AC3:reduce
+   560      0,1    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$0
+    35      0,1    0,0  cspom.variable.CSPOMVariable:<init>
+   346      0,1    0,0  cspom.extension.ExtensionConstraint:hashCode
+     1      0,1    0,0  org.apache.tools.bzip2.CRC:initialiseCRC
+   544      0,1    0,0  cspfj.util.BitVector:<init>
+    16      0,1    0,0  cspfj.generator.constraint.GeneratorManager:register
+   230      0,1    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:cascadingCut
+   346      0,1    0,0  cspom.constraint.AbstractConstraint:getDescription
+   346      0,1    0,0  cspom.constraint.AbstractConstraint:getDescription
+     1      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsFinishedWithStream
+     1      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:setupNoRandPartA
+     7      0,1    0,0  cspfj.problem.NoGoodLearner:makeBase
+   346      0,1    0,0  cspfj.constraint.extension.Matrix2D:isEmpty
+   346      0,1    0,0  cspfj.constraint.AbstractConstraint:getTuple
+   346      0,1    0,0  cspom.constraint.AbstractConstraint:getDescription
+   355      0,1    0,0  cspom.extension.TupleSet$Entry:access$1
+   346      0,1    0,0  cspom.constraint.AbstractConstraint:getScope
+     1      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:initialize
+   346      0,1    0,0  cspom.extension.Extension:getTuples
+   346      0,1    0,0  cspom.extension.TupleSet:access$1
+   346      0,1    0,0  cspfj.constraint.AbstractConstraint:getArity
+   346      0,1    0,0  cspfj.constraint.AbstractConstraint:getArity
+   288      0,1    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$2
+   346      0,1    0,0  cspfj.constraint.AbstractConstraint:getArity
+   346      0,1    0,0  cspom.extension.ExtensionConstraint:getRelation
+   346      0,1    0,0  cspom.constraint.AbstractConstraint:getDescription
+    35      0,1    0,0  cspfj.priorityqueues.FibonacciHeap:poll
+    14      0,1    0,0  cspfj.constraint.extension.AbstractMatrixManager:supportCondition
+   346      0,1    0,0  cspom.extension.Extension:getArity
+   346      0,1    0,0  cspom.extension.TupleSet:access$2
+   346      0,1    0,0  cspom.constraint.AbstractConstraint:getDescription
+   346      0,1    0,0  cspom.constraint.AbstractConstraint:getDescription
+   346      0,1    0,0  cspom.constraint.AbstractConstraint:getScope
+   289      0,1    0,0  cspfj.constraint.extension.AbstractMatrixManager:nextT
+     7      0,1    0,0  cspfj.constraint.AbstractPVRConstraint:revise
+   346      0,1    0,0  cspom.constraint.AbstractConstraint:getDescription
+   346      0,1    0,0  cspfj.constraint.AbstractConstraint:getScope
+    70      0,1    0,0  cspfj.problem.Variable:getFirst
+   346      0,1    0,0  cspfj.constraint.AbstractConstraint:isEntailed
+     1      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetint
+    70      0,1    0,0  cspfj.problem.Variable:getValue
+     9      0,1    0,0  cspfj.constraint.extension.ExtensionConstraint2D:removeTuples
+     9      0,1    0,0  cspfj.constraint.extension.AbstractMatrixManager:set
+    70      0,1    0,0  cspfj.problem.BitVectorDomain:first
+    35      0,1    0,0  cspfj.util.SmallBitVector:<init>
+    14      0,1    0,0  cspfj.problem.BitVectorDomain:toString
+    35      0,1    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:<init>
+    98      0,1    0,0  cspfj.problem.BitVectorDomain:size
+   355      0,1    0,0  cspom.extension.TupleSet$Entry:access$0
+   136      0,1    0,0  cspfj.util.BitVector:clone
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap:offer
+    35      0,0    0,0  cspfj.problem.Variable:getDomainSize
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:<init>
+   289      0,0    0,0  cspfj.util.SmallBitVector:get
+     1      0,0    0,0  cspfj.problem.Problem:getMaxBacktracks
+    35      0,0    0,0  cspfj.filter.AC3$2:getKey
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:makeMaps
+   289      0,0    0,0  cspfj.util.SmallBitVector:get
+     1      0,0    0,0  org.apache.tools.bzip2.CRC:<init>
+    35      0,0    0,0  cspfj.filter.AC3$2:getKey
+     2      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetUChar
+    35      0,0    0,0  cspfj.util.Arrays2:isOrdered
+     1      0,0    0,0  cspfj.problem.Problem:<init>
+    35      0,0    0,0  cspfj.problem.Variable:getDomainSize
+    59      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$9
+   175      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$10
+    14      0,0    0,0  cspfj.constraint.AbstractArcGrainedConstraint:fillRemovals
+     6      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsR
+     2      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsR
+   144      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$12
+     6      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:cut
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsSetStream
+     7      0,0    0,0  cspfj.constraint.extension.ExtensionConstraint2D:toString
+    35      0,0    0,0  cspfj.problem.Variable:<init>
+   128      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$10
+    59      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:link
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetInt32
+     1      0,0    0,0  cspfj.generator.constraint.ExtensionGenerator:<init>
+     1      0,0    0,0  org.apache.tools.bzip2.CRC:initialiseCRC
+    34      0,0    0,0  cspfj.util.BitVector:factory
+    34      0,0    0,0  cspfj.util.SmallBitVector:<init>
+     1      0,0    0,0  cspom.compiler.ProblemCompiler:compile
+    28      0,0    0,0  cspfj.problem.BitVectorDomain:next
+     7      0,0    0,0  cspfj.constraint.AbstractPVRConstraint:skipRevision
+   118      0,0    0,0  cspfj.constraint.AbstractConstraint:getArity
+     1      0,0    0,0  cspom.compiler.ProblemCompiler$1:<init>
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetIntVS
+     4      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsR
+   121      0,0    0,0  cspfj.problem.BitVectorDomain:size
+     1      0,0    0,0  cspfj.constraint.extension.Matrix2D:<init>
+     9      0,0    0,0  cspfj.constraint.extension.Matrix2D:set
+     9      0,0    0,0  cspfj.constraint.extension.ExtensionConstraint2D:removeTuple
+    38      0,0    0,0  cspfj.AbstractSolver:getNbBacktracks
+    52      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$8
+     1      0,0    0,0  cspfj.AbstractSolver:setMaxBacktracks
+    35      0,0    0,0  cspfj.util.BitVector:<init>
+     1      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:countConflicts
+    14      0,0    0,0  cspfj.problem.Variable:toString
+     1      0,0    0,0  cspom.compiler.patterns.RemoveAnd:<init>
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:remove
+    14      0,0    0,0  cspfj.constraint.extension.ExtensionConstraint2D:revise
+    35      0,0    0,0  cspom.variable.CSPOMVariable:getName
+    32      0,0    0,0  cspfj.problem.Problem:getMaxArity
+    19      0,0    0,0  cspfj.AbstractSolver:setMaxBacktracks
+     1      0,0    0,0  cspom.compiler.patterns.CliqueDetector:<init>
+    18      0,0    0,0  cspfj.util.BitVector:set
+    35      0,0    0,0  cspom.variable.CSPOMVariable:isAuxiliary
+    70      0,0    0,0  cspfj.problem.Variable:getName
+    36      0,0    0,0  cspfj.priorityqueues.FibonacciHeap:isEmpty
+     9      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:removeTuple
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsR
+     1      0,0    0,0  cspom.compiler.patterns.MergeEq:<init>
+    14      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:getOtherSize
+     3      0,0    0,0  cspfj.problem.NoGoodLearner$LearnMethod:<init>
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsR
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:setupNoRandPartA
+     1      0,0    0,0  cspom.compiler.patterns.AllDiff$1:<init>
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:clear
+     1      0,0    0,0  org.apache.tools.bzip2.CRC:updateCRC
+     4      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:unshareMatrix
+    14      0,0    0,0  cspfj.problem.BitVectorDomain:first
+    14      0,0    0,0  cspfj.problem.Variable:getDomainSize
+     9      0,0    0,0  cspfj.constraint.extension.Matrix2D:check
+     1      0,0    0,0  cspfj.generator.constraint.GeneratorManager:<init>
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:initBlock
+     1      0,0    0,0  cspfj.problem.NoGoodLearner:<init>
+    14      0,0    0,0  cspfj.problem.Variable:getDomainSize
+     1      0,0    0,0  cspom.compiler.patterns.DeReify:<init>
+     1      0,0    0,0  cspfj.constraint.AbstractConstraint$1:<init>
+     1      0,0    0,0  cspfj.heuristic.WDegOnDom:<init>
+     1      0,0    0,0  cspfj.problem.Problem$1:<init>
+    68      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$2
+     1      0,0    0,0  cspom.compiler.patterns.DiffGe:<init>
+    70      0,0    0,0  cspfj.problem.BitVectorDomain:value
+     5      0,0    0,0  cspfj.problem.Problem:getNbConstraints
+     1      0,0    0,0  cspom.compiler.patterns.AbsDiff:<init>
+     1      0,0    0,0  cspom.variable.IntInterval:<init>
+    34      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:add
+     9      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:addConflict
+     4      0,0    0,0  cspfj.constraint.extension.MatrixManager2D:unshareMatrix
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$0
+     1      0,0    0,0  cspfj.filter.AC3$2:<init>
+     1      0,0    0,0  cspfj.util.TieManager:<init>
+    34      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$11
+     1      0,0    0,0  cspfj.constraint.AbstractAC3Constraint:getChecks
+     1      0,0    0,0  cspom.compiler.patterns.AllDiff$2:<init>
+     7      0,0    0,0  cspfj.problem.Problem:addConstraint
+     4      0,0    0,0  cspfj.constraint.extension.Matrix2D:clone
+    70      0,0    0,0  cspfj.util.SmallBitVector:nextSetBit
+    35      0,0    0,0  cspfj.problem.Variable:getDomain
+    16      0,0    0,0  cspfj.util.SmallBitVector:nextSetBit
+    34      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$4
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$2
+    35      0,0    0,0  cspfj.problem.Variable:getId
+    35      0,0    0,0  cspom.variable.CSPOMVariable:getName
+     1      0,0    0,0  cspfj.AbstractSolver:<init>
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$6
+    35      0,0    0,0  cspfj.problem.BitVectorDomain:maxSize
+    18      0,0    0,0  cspfj.util.SmallBitVector:clear
+    34      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$3
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap:ensureCapacity
+    35      0,0    0,0  cspfj.problem.Variable:getInvolvingConstraints
+    35      0,0    0,0  cspom.variable.CSPOMVariable:getDomain
+     1      0,0    0,0  cspfj.priorityqueues.FibonacciHeap:clear
+     1      0,0    0,0  cspfj.heuristic.Lexico:<init>
+     1      0,0    0,0  cspfj.generator.constraint.AbstractGenerator:<init>
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$13
+    14      0,0    0,0  cspfj.constraint.AbstractConstraint:getVariable
+     1      0,0    0,0  cspfj.filter.AC3$1:<init>
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$7
+     6      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetUChar
+    16      0,0    0,0  cspfj.heuristic.Pair:getIndex
+    35      0,0    0,0  cspfj.problem.BitVectorDomain:maxSize
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:clear
+     1      0,0    0,0  cspfj.heuristic.CrossHeuristic:compute
+     9      0,0    0,0  cspfj.constraint.extension.TupleManager:setFirstTuple
+    16      0,0    0,0  cspfj.priorityqueues.FibonacciHeap:isEmpty
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:complete
+    35      0,0    0,0  cspfj.problem.BitVectorDomain:size
+    35      0,0    0,0  cspfj.problem.Variable:getDomain
+    35      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$0
+     1      0,0    0,0  cspfj.constraint.AbstractConstraint:<init>
+    35      0,0    0,0  cspfj.problem.Variable:getId
+     2      0,0    0,0  cspfj.problem.Variable:getDomain
+     1      0,0    0,0  cspfj.heuristic.CrossHeuristic:<init>
+    16      0,0    0,0  cspfj.problem.Problem:getConstraints
+    35      0,0    0,0  cspfj.problem.BitVectorDomain:size
+    16      0,0    0,0  cspfj.problem.Problem:getVariables
+     1      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:firstT
+     2      0,0    0,0  cspfj.problem.BitVectorDomain:maxSize
+     7      0,0    0,0  cspfj.problem.Variable:getDynamicConstraints
+     1      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:currentSize
+     1      0,0    0,0  cspfj.util.TieManager:clear
+     9      0,0    0,0  cspfj.constraint.extension.TupleManager:setNextTuple
+     1      0,0    0,0  org.apache.tools.bzip2.CRC:getFinalCRC
+    16      0,0    0,0  cspfj.heuristic.Pair:getVariable
+     5      0,0    0,0  cspfj.problem.Problem$1:<init>
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetint
+     1      0,0    0,0  cspfj.constraint.AbstractConstraint:getPresenceChecks
+     1      0,0    0,0  cspfj.constraint.extension.MatrixManager2D:toString
+    26      0,0    0,0  cspfj.problem.BitVectorDomain:value
+     1      0,0    0,0  cspfj.problem.Problem:getVariables
+     7      0,0    0,0  cspfj.problem.Problem:getMaxCId
+    34      0,0    0,0  cspfj.util.BitVector:<init>
+     7      0,0    0,0  cspfj.constraint.AbstractConstraint:hashCode
+    10      0,0    0,0  cspfj.problem.Problem:getVariables
+     9      0,0    0,0  cspfj.util.SmallBitVector:copyTo
+    28      0,0    0,0  cspfj.util.SmallBitVector:nextSetBit
+     1      0,0    0,0  cspfj.constraint.extension.MatrixManager2D:getPresenceChecks
+     4      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsR
+     1      0,0    0,0  cspfj.constraint.extension.MatrixManager2D:getChecks
+     1      0,0    0,0  cspom.CSPOM:getVariables
+     1      0,0    0,0  cspfj.constraint.extension.MatrixManager2D:<init>
+    14      0,0    0,0  cspfj.constraint.AbstractConstraint:getVariable
+     1      0,0    0,0  cspom.CSPOM:getConstraints
+     1      0,0    0,0  cspfj.problem.Problem:getVariables
+     7      0,0    0,0  cspfj.constraint.AbstractConstraint:getId
+     1      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:<init>
+     4      0,0    0,0  cspfj.problem.Variable:getDomainSize
+     1      0,0    0,0  cspfj.AbstractSolver:statistic
+     7      0,0    0,0  cspfj.constraint.AbstractConstraint:getArity
+     5      0,0    0,0  cspfj.constraint.AbstractConstraint:getArity
+     1      0,0    0,0  cspfj.constraint.extension.ExtensionConstraint2D:<init>
+     6      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:cascadingCut
+    14      0,0    0,0  cspfj.constraint.AbstractArcGrainedConstraint:getRemovals
+    18      0,0    0,0  cspfj.problem.Variable:getDomain
+     1      0,0    0,0  cspom.CSPOM:getConstraints
+    14      0,0    0,0  cspfj.util.SmallBitVector:nextSetBit
+    18      0,0    0,0  cspfj.problem.BitVectorDomain:maxSize
+     7      0,0    0,0  cspfj.constraint.AbstractConstraint:getArity
+    14      0,0    0,0  cspfj.problem.BitVectorDomain:size
+     1      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$4
+     1      0,0    0,0  cspfj.problem.Problem:getNbVariables
+    14      0,0    0,0  cspfj.constraint.AbstractConstraint:getArity
+     1      0,0    0,0  cspfj.AbstractSolver:getMaxBacktracks
+     1      0,0    0,0  cspfj.problem.Problem:getConstraints
+     1      0,0    0,0  org.apache.tools.bzip2.CRC:updateCRC
+    14      0,0    0,0  cspfj.problem.BitVectorDomain:size
+    14      0,0    0,0  cspfj.constraint.AbstractConstraint:getVariable
+     5      0,0    0,0  cspfj.problem.Problem:getConstraints
+     9      0,0    0,0  cspfj.util.SmallBitVector:get
+     2      0,0    0,0  cspfj.problem.Problem:getVariables
+     7      0,0    0,0  cspfj.constraint.AbstractConstraint:getArity
+     1      0,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$3
+     2      0,0    0,0  cspfj.problem.Problem:getVariables
+     1      0,0    0,0  cspfj.heuristic.Lexico:compute
+     1      0,0    0,0  cspfj.problem.Problem:getConstraints
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetInt32
+     1      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:updateMaxConflicts
+     1      0,0    0,0  cspfj.constraint.extension.TupleManager:<init>
+     2      0,0    0,0  cspfj.problem.BitVectorDomain:maxSize
+     1      0,0    0,0  cspfj.problem.Problem:getConstraints
+     1      0,0    0,0  cspfj.constraint.AbstractPVRConstraint:<init>
+     1      0,0    0,0  cspfj.constraint.AbstractConstraint:getArity
+     1      0,0    0,0  cspfj.constraint.AbstractArcGrainedConstraint:<init>
+     1      0,0    0,0  cspfj.constraint.AbstractConstraint:<init>
+     1      0,0    0,0  cspfj.problem.BitVectorDomain:size
+     2      0,0    0,0  cspfj.problem.Variable:getDomain
+     2      0,0    0,0  cspfj.problem.Variable:getDomain
+     1      0,0    0,0  cspfj.constraint.AbstractConstraint:getTuple
+     1      0,0    0,0  cspfj.constraint.extension.Matrix2D:isEmpty
+     2      0,0    0,0  cspfj.problem.Variable:getDomain
+     2      0,0    0,0  cspfj.problem.Variable:getDomain
+     4      0,0    0,0  cspfj.problem.BitVectorDomain:size
+     2      0,0    0,0  cspfj.problem.BitVectorDomain:maxSize
+     1      0,0    0,0  cspfj.constraint.AbstractConstraint:getArity
+     1      0,0    0,0  cspfj.constraint.AbstractConstraint:getArity
+     2      0,0    0,0  cspfj.problem.BitVectorDomain:maxSize
+     2      0,0    0,0  cspfj.problem.BitVectorDomain:maxSize
+
++--------------------------------------+
+| Most expensive methods summarized    |
++--------------------------------------+
+
+               Net
+          ------------
+ Count     Time    Pct  Location
+ =====     ====    ===  ========
+53116367 117460,8   12,4  cspfj.constraint.extension.MatrixManager2D:hasSupportNR
+13174319 102944,3   10,8  cspfj.constraint.extension.ExtensionConstraint2D:revise
+85776004  68338,1    7,2  cspfj.problem.BitVectorDomain:next
+1553018  61399,4    6,5  cspfj.filter.AC3$1:revised
+7404296  48968,0    5,2  cspfj.problem.BitVectorDomain:toString
+106232734  48804,2    5,1  cspfj.util.SmallBitVector:intersects
+6600938  48274,9    5,1  cspfj.constraint.AbstractPVRConstraint:revise
+53116367  45977,9    4,8  cspfj.constraint.extension.MatrixManager2D:hasSupport
+53116367  43593,8    4,6  cspfj.problem.Variable:getNext
+53116367  43032,4    4,5  cspfj.problem.Variable:getBitDomain
+590674  27257,6    2,9  cspfj.filter.AC3:reduce
+31311614  26051,5    2,7  cspfj.problem.Variable:getDomainSize
+805418  21616,9    2,3  cspfj.heuristic.WDeg:wDeg
+6600938  16232,7    1,7  cspfj.constraint.AbstractPVRConstraint:skipRevision
+103584438  14577,3    1,5  cspfj.util.SmallBitVector:nextSetBit
+17808418  14457,1    1,5  cspfj.problem.BitVectorDomain:first
+13174319  13344,9    1,4  cspfj.constraint.extension.AbstractMatrixManager:supportCondition
+3216458  11901,0    1,3  cspfj.priorityqueues.FibonacciHeap:offer
+3674552  11726,4    1,2  cspfj.constraint.extension.ExtensionConstraint2D:toString
+13174319  11414,2    1,2  cspfj.constraint.extension.AbstractMatrixManager:getOtherSize
+10403430   9218,2    1,0  cspfj.problem.Variable:getFirst
+453517   8612,2    0,9  cspfj.priorityqueues.FibonacciHeap:consolidate
+53116367   8359,9    0,9  cspfj.constraint.extension.Matrix2D:getBitVector
+ 27558   8172,9    0,9  cspfj.problem.Problem:restoreLevel
+ 27634   7914,6    0,8  cspfj.problem.Problem:setLevel
+7404296   7536,0    0,8  cspfj.problem.Variable:toString
+53116367   7193,3    0,8  cspfj.problem.BitVectorDomain:getBitVector
+29840881   6263,7    0,7  cspfj.constraint.AbstractArcGrainedConstraint:setRemovals
+535481   5692,1    0,6  cspfj.priorityqueues.FibonacciHeap:removeMin
+33039797   4704,9    0,5  cspfj.problem.BitVectorDomain:size
+30899163   4599,7    0,5  cspfj.constraint.AbstractConstraint:getVariable
+29840881   4298,6    0,5  cspfj.problem.Variable:getPositionInConstraint
+25962157   3896,1    0,4  cspfj.constraint.AbstractConstraint:isEntailed
+28515649   3855,1    0,4  cspfj.filter.AC3:access$1
+26040866   3604,8    0,4  cspfj.problem.BitVectorDomain:value
+9680245   3338,1    0,4  cspfj.constraint.AbstractConstraint:restore
+2606394   3169,9    0,3  cspfj.problem.BitVectorDomain:remove
+19780265   2938,5    0,3  cspfj.constraint.AbstractConstraint:getArity
+644688   2612,4    0,3  cspfj.priorityqueues.FibonacciHeap:decreaseKey
+3216458   2512,6    0,3  cspfj.filter.AC3$2:getKey
+1837353   2385,5    0,3  cspfj.constraint.AbstractConstraint:entail
+963541   2384,1    0,3  cspfj.priorityqueues.FibonacciHeap:insert
+2606394   2371,8    0,2  cspfj.problem.Variable:remove
+ 55192   2193,9    0,2  cspfj.filter.AC3:reduceAfter
+1070962   1987,9    0,2  cspfj.priorityqueues.FibonacciHeap:poll
+ 27638   1976,1    0,2  cspfj.heuristic.AbstractVariableHeuristic:selectVariable
+13201876   1932,7    0,2  cspfj.constraint.AbstractArcGrainedConstraint:getRemovals
+12482012   1752,7    0,2  cspfj.constraint.AbstractConstraint:getWeight
+8109698   1671,1    0,2  cspfj.constraint.AbstractArcGrainedConstraint:hasNoRemovals
+ 55193   1602,2    0,2  cspfj.priorityqueues.FibonacciHeap:clear
+965090   1422,9    0,1  cspfj.problem.BitVectorDomain:restoreLevel
+9797211   1390,1    0,1  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$2
+9701036   1299,9    0,1  cspfj.constraint.AbstractConstraint:setLevel
+967190   1239,1    0,1  cspfj.problem.BitVectorDomain:setLevel
+805418   1225,8    0,1  cspfj.heuristic.WDegOnDom:getScore
+    19   1188,3    0,1  cspfj.MGACIter:mac
+6573734    975,3    0,1  cspfj.constraint.AbstractArcGrainedConstraint:fillRemovals
+964530    880,6    0,1  cspfj.problem.Variable:restoreLevel
+ 27559    868,8    0,1  cspfj.MGACIter:backtrack
+967190    803,4    0,1  cspfj.problem.Variable:setLevel
+4413640    621,1    0,1  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$10
+658217    611,2    0,1  cspfj.util.BitVector:factory
+658761    569,4    0,1  cspfj.util.SmallBitVector:<init>
+3430742    480,0    0,1  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$0
+2949093    427,8    0,0  cspfj.problem.Variable:getInvolvingConstraints
+2656236    378,0    0,0  cspfj.util.SmallBitVector:clear
+2163368    309,8    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$12
+1608229    256,0    0,0  cspfj.priorityqueues.FibonacciHeap:ensureCapacity
+     1    254,7    0,0  cspom.xcsp.XCSPParser:parse
+     1    251,4    0,0  org.apache.tools.bzip2.CBZip2InputStream:getAndMoveToFrontDecode
+ 27638    238,5    0,0  cspfj.heuristic.CrossHeuristic:selectPair
+1608229    235,4    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$7
+1608229    235,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$6
+1612872    233,3    0,0  cspfj.problem.Variable:getId
+173540    228,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:setupNoRandPartB
+1211275    226,2    0,0  cspfj.util.SmallBitVector:copyTo
+1553018    225,0    0,0  cspfj.filter.AC3:access$0
+173542    223,6    0,0  org.apache.tools.bzip2.CBZip2InputStream:read
+173542    213,9    0,0  org.apache.tools.bzip2.CBZip2InputStream:setupNoRandPartA
+1431404    211,8    0,0  cspfj.util.SmallBitVector:prevSetBit
+101399    210,0    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:cut
+967190    198,5    0,0  cspfj.problem.BitVectorDomain:ensureCapacity
+   346    195,8    0,0  cspom.xcsp.XCSPParser:parseRelation
+1213301    195,7    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:link
+ 27634    176,2    0,0  cspfj.problem.BitVectorDomain:setSingle
+   347    170,9    0,0  cspfj.constraint.extension.AbstractMatrixManager:nbConflicts
+200575    167,0    0,0  cspfj.constraint.extension.Matrix2D:check
+854020    143,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:add
+963576    142,1    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:clear
+805418    134,4    0,0  cspfj.util.TieManager:newValue
+779287    126,7    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$3
+870364    126,7    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$8
+779287    124,1    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$4
+ 27634    122,2    0,0  cspfj.heuristic.Lexico:selectIndex
+807225    112,7    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$9
+669766    104,1    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$11
+644688    102,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$1
+ 49824    100,8    0,0  cspom.extension.TupleSet:add
+658761    100,1    0,0  cspfj.util.BitVector:<init>
+563117     92,9    0,0  cspfj.priorityqueues.FibonacciHeap:isEmpty
+100283     91,7    0,0  cspfj.constraint.extension.AbstractMatrixManager:check
+   346     90,5    0,0  cspfj.generator.constraint.ExtensionGenerator:fillMatrix
+ 49824     87,4    0,0  cspom.extension.TupleSet$HashSetIterator:next
+535481     86,9    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:remove
+ 27634     84,6    0,0  cspfj.util.SmallBitVector:setSingle
+   347     81,3    0,0  cspfj.constraint.extension.Matrix2D:toString
+   692     80,8    0,0  cspom.extension.TupleSet:transfer
+101399     79,2    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:cascadingCut
+535481     76,6    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:access$13
+ 27634     73,3    0,0  cspfj.util.SmallBitVector:set
+ 27634     66,4    0,0  cspfj.problem.Variable:setSingle
+ 27558     63,7    0,0  cspfj.problem.Problem:pop
+ 27639     57,0    0,0  cspfj.util.TieManager:clear
+ 49842     48,1    0,0  cspfj.util.BitVector:set
+ 27634     46,3    0,0  cspfj.problem.Problem:push
+ 27628     45,7    0,0  cspfj.problem.Variable:getValue
+ 24921     41,8    0,0  cspfj.constraint.extension.Matrix2D:set
+     1     36,7    0,0  xcsp.XCSPSolver:count
+ 48587     32,5    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsR
+ 27558     32,4    0,0  cspfj.AbstractSolver:checkBacktracks
+165424     32,0    0,0  cspfj.heuristic.Pair:getVariable
+ 26296     31,0    0,0  cspom.extension.TupleSet:containsTuple
+   692     30,9    0,0  cspfj.generator.constraint.ExtensionGenerator:indexMap
+173541     30,1    0,0  org.apache.tools.bzip2.CRC:updateCRC
+     1     29,9    0,0  cspom.xcsp.XCSPParser:parseDomains
+100283     29,7    0,0  cspfj.constraint.extension.AbstractMatrixManager:nextT
+ 49824     28,7    0,0  cspom.extension.TupleSet$Entry:<init>
+     1     28,2    0,0  org.apache.tools.bzip2.CBZip2InputStream:recvDecodingTables
+ 24912     26,8    0,0  cspom.extension.Extension:addTuple
+200575     25,3    0,0  cspfj.util.SmallBitVector:get
+ 27557     23,8    0,0  cspfj.constraint.AbstractConstraint:incWeight
+ 82766     23,0    0,0  cspfj.heuristic.Pair:getIndex
+ 27670     22,7    0,0  cspfj.problem.Problem:getVariables
+ 21253     21,8    0,0  cspfj.util.SmallBitVector:fill
+     3     20,0    0,0  cspfj.MGACIter:<init>
+ 27634     18,9    0,0  cspfj.heuristic.Pair:<init>
+ 55192     18,2    0,0  cspfj.problem.Problem:getCurrentLevel
+     1     17,2    0,0  cspom.CSPOM:load
+     1     15,7    0,0  cspfj.generator.ProblemGenerator:generate
+   692     15,5    0,0  cspfj.generator.constraint.ExtensionGenerator:generate
+     2     12,8    0,0  org.apache.tools.bzip2.CBZip2InputStream:setupBlock
+     3     12,2    0,0  cspfj.MGACIter:nextSolution
+     1     11,8    0,0  cspom.xcsp.XCSPParser:parseVariables
+   347     10,0    0,0  cspfj.constraint.extension.Matrix2D:<init>
+     1     10,0    0,0  cspom.xcsp.XCSPParser:parseRelations
+ 38508      9,8    0,0  cspfj.problem.Variable:getDomain
+     6      9,5    0,0  cspfj.problem.Problem:prepareConstraints
+ 27634      9,4    0,0  cspfj.AbstractSolver:incrementNbAssignments
+     1      9,4    0,0  cspom.compiler.ProblemCompiler:<init>
+ 63868      9,4    0,0  cspom.extension.TupleSet$Entry:access$0
+   346      8,5    0,0  cspom.compiler.ProblemCompiler:compileConstraint
+ 27635      8,0    0,0  cspfj.AbstractSolver:getMaxBacktracks
+ 27672      7,7    0,0  cspfj.AbstractSolver:getNbBacktracks
+     1      7,5    0,0  org.apache.tools.bzip2.CBZip2InputStream:setDecompressStructureSizes
+    16      7,4    0,0  cspfj.problem.NoGoodLearner:noGoods
+ 51208      7,2    0,0  cspom.extension.TupleSet:indexFor
+   346      6,4    0,0  cspom.xcsp.XCSPParser:addConstraint
+ 27638      5,9    0,0  cspfj.util.TieManager:getBestValue
+    35      5,8    0,0  cspfj.generator.ProblemGenerator:generateDomain
+    16      5,8    0,0  cspfj.problem.Problem:reset
+     1      5,6    0,0  cspom.xcsp.XCSPParser:parseConstraints
+  4176      5,4    0,0  cspfj.problem.Problem$1:compare
+ 38264      5,4    0,0  cspom.extension.TupleSet$Entry:access$1
+     2      5,2    0,0  cspom.CSPOM:control
+    35      5,0    0,0  cspfj.problem.BitVectorDomain:<init>
+   210      4,5    0,0  cspfj.problem.Variable:setInvolvingConstraints
+   347      4,1    0,0  cspfj.constraint.extension.ExtensionConstraint2D:<init>
+   694      3,6    0,0  cspfj.constraint.AbstractConstraint:<init>
+ 25604      3,4    0,0  cspom.extension.TupleSet$Entry:access$4
+ 25604      3,4    0,0  cspom.extension.TupleSet$Entry:access$3
+ 25258      3,4    0,0  cspom.extension.TupleSet$HashSetIterator:hasNext
+ 25604      3,3    0,0  cspom.extension.Extension:init
+   346      3,2    0,0  cspfj.generator.constraint.ExtensionGenerator:bestMatrix
+     1      3,2    0,0  xcsp.XCSPSolver:main
+     1      3,1    0,0  cspfj.filter.AC3:<init>
+     1      2,8    0,0  org.apache.tools.bzip2.CBZip2InputStream:<init>
+ 20006      2,6    0,0  cspom.extension.TupleSet:access$2
+   346      2,6    0,0  cspom.CSPOM:addConstraint
+     1      2,6    0,0  cspfj.AbstractSolver:preprocess
+     1      2,6    0,0  cspom.xcsp.XCSPParser:parseDomain
+   346      2,5    0,0  cspom.constraint.AbstractConstraint:<init>
+   346      2,4    0,0  cspfj.generator.constraint.AbstractGenerator:getSolverVariables
+   692      2,2    0,0  cspom.variable.CSPOMVariable:registerConstraint
+    35      2,2    0,0  cspfj.problem.Problem:addVariable
+   346      2,2    0,0  cspom.extension.Extension:<init>
+   346      2,1    0,0  cspfj.generator.constraint.GeneratorManager:generate
+     1      2,0    0,0  cspom.CSPOM:problemInputStream
+   347      1,7    0,0  cspfj.constraint.extension.MatrixManager2D:<init>
+     2      1,6    0,0  cspom.compiler.ProblemCompiler:compile
+   347      1,6    0,0  cspfj.constraint.extension.AbstractMatrixManager:<init>
+  3460      1,6    0,0  cspom.extension.ExtensionConstraint:hashCode
+   347      1,5    0,0  cspfj.constraint.extension.AbstractMatrixManager:firstT
+   692      1,4    0,0  cspom.extension.TupleSet:<init>
+   347      1,4    0,0  cspfj.constraint.extension.AbstractMatrixManager:currentSize
+   347      1,3    0,0  cspfj.constraint.extension.AbstractMatrixManager:countConflicts
+   346      1,3    0,0  cspom.extension.TupleSet:iterator
+  9094      1,3    0,0  cspfj.problem.BitVectorDomain:maxSize
+   346      1,3    0,0  cspom.compiler.patterns.AllDiff$2:is
+   692      1,3    0,0  cspom.compiler.ProblemCompiler$1:poll
+   347      1,2    0,0  cspfj.constraint.extension.MatrixManager2D:toString
+   692      1,2    0,0  cspom.extension.TupleSet$HashSetIterator:<init>
+   346      1,2    0,0  cspom.compiler.patterns.AllDiff$1:is
+   346      1,2    0,0  cspom.constraint.AbstractConstraint:computeHashCode
+   692      1,1    0,0  cspfj.generator.constraint.ExtensionGenerator$Signature:hashCode
+   692      1,1    0,0  cspom.extension.TupleSet:resize
+  2146      1,1    0,0  cspom.variable.CSPOMVariable:getName
+  1088      1,1    0,0  cspfj.problem.BitVectorDomain:getAtLevel
+     1      1,1    0,0  cspfj.priorityqueues.FibonacciHeap:<init>
+   346      1,0    0,0  cspom.compiler.patterns.DeReify:compile
+     1      1,0    0,0  cspom.compiler.patterns.AllDiff:<init>
+  4188      1,0    0,0  cspfj.constraint.AbstractConstraint:getPosition
+   347      0,9    0,0  cspfj.constraint.extension.AbstractMatrixManager:updateMaxConflicts
+   346      0,9    0,0  cspom.compiler.patterns.AllDiff:compile
+   347      0,8    0,0  cspfj.constraint.AbstractArcGrainedConstraint:<init>
+   692      0,7    0,0  cspom.CSPOM:getVariable
+   692      0,7    0,0  cspom.extension.ExtensionConstraint:evaluate
+   692      0,7    0,0  cspom.extension.TupleSet:contains
+   692      0,7    0,0  cspfj.problem.Problem:getVariable
+     7      0,7    0,0  cspfj.problem.NoGoodLearner:findDynamicConstraint
+  3460      0,7    0,0  cspom.constraint.AbstractConstraint:getDescription
+   692      0,7    0,0  cspom.extension.Extension:evaluate
+     1      0,6    0,0  cspom.variable.IntInterval:valueOf
+   560      0,6    0,0  cspfj.problem.Variable:reset
+   544      0,5    0,0  cspfj.util.SmallBitVector:xor
+     1      0,5    0,0  cspfj.filter.AC3:reduceAll
+     1      0,5    0,0  cspfj.heuristic.AbstractVariableHeuristic:<init>
+   346      0,5    0,0  cspom.compiler.patterns.RemoveAnd:compile
+   347      0,5    0,0  cspfj.constraint.extension.TupleManager:<init>
+   346      0,5    0,0  cspom.compiler.patterns.MergeEq:compile
+   346      0,5    0,0  cspom.compiler.patterns.AbsDiff:compile
+   346      0,5    0,0  cspom.compiler.patterns.DiffGe:compile
+   346      0,4    0,0  cspom.compiler.patterns.AllDiff:alldiff
+   346      0,4    0,0  cspom.compiler.patterns.AllDiff:dropSubsumedDiff
+   346      0,4    0,0  cspom.extension.ExtensionConstraint:<init>
+  1384      0,4    0,0  cspom.constraint.AbstractConstraint:getVariable
+   347      0,4    0,0  cspfj.constraint.AbstractPVRConstraint:<init>
+   346      0,4    0,0  cspfj.generator.constraint.AbstractGenerator:addConstraint
+  2094      0,4    0,0  cspfj.constraint.AbstractConstraint:getScope
+    16      0,4    0,0  cspfj.exception.MaxBacktracksExceededException:<init>
+  2076      0,4    0,0  cspom.constraint.AbstractConstraint:getArity
+  2078      0,4    0,0  cspom.CSPOM:getConstraints
+     1      0,3    0,0  cspom.xcsp.XCSPParser:parsePredicates
+     2      0,3    0,0  cspfj.AbstractSolver:solution
+   353      0,3    0,0  cspfj.problem.Problem:addConstraint
+     1      0,2    0,0  cspfj.problem.Problem:prepareVariables
+     2      0,2    0,0  cspom.CSPOM:getVariables
+   118      0,2    0,0  cspfj.constraint.AbstractConstraint:getScopeSet
+     2      0,2    0,0  org.apache.tools.bzip2.CBZip2InputStream:initBlock
+    35      0,2    0,0  cspom.variable.IntInterval:getValues
+   692      0,2    0,0  cspom.constraint.AbstractConstraint:getPosition
+     1      0,2    0,0  cspom.CSPOM:<init>
+    35      0,2    0,0  cspfj.util.IntLinkedList:intListToArray
+    35      0,2    0,0  cspom.CSPOM:addVariable
+    19      0,2    0,0  cspfj.AbstractSolver:increaseStatistic
+     6      0,2    0,0  org.apache.tools.bzip2.CBZip2InputStream:hbCreateDecodeTables
+     1      0,2    0,0  cspfj.filter.AC3:getStatistics
+    14      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetUChar
+   692      0,1    0,0  cspom.constraint.AbstractConstraint:getScope
+     8      0,1    0,0  cspfj.constraint.extension.Matrix2D:clone
+   346      0,1    0,0  cspom.constraint.AbstractConstraint:iterator
+   346      0,1    0,0  cspfj.generator.constraint.ExtensionGenerator$Signature:<init>
+     2      0,1    0,0  org.apache.tools.bzip2.CRC:initialiseCRC
+   544      0,1    0,0  cspfj.util.SmallBitVector:isEmpty
+     7      0,1    0,0  cspfj.problem.NoGoodLearner:learnConstraint
+    70      0,1    0,0  cspfj.priorityqueues.FibonacciHeap$FibonacciHeapNode:<init>
+     1      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:endBlock
+     1      0,1    0,0  cspom.xcsp.XCSPParser:<init>
+    35      0,1    0,0  cspom.variable.CSPOMVariable:<init>
+    16      0,1    0,0  cspfj.generator.constraint.GeneratorManager:register
+   347      0,1    0,0  cspfj.constraint.extension.Matrix2D:isEmpty
+   347      0,1    0,0  cspfj.constraint.AbstractConstraint:getTuple
+     1      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsFinishedWithStream
+     7      0,1    0,0  cspfj.problem.NoGoodLearner:makeBase
+     1      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:initialize
+   346      0,1    0,0  cspom.extension.Extension:getTuples
+   346      0,1    0,0  cspom.extension.TupleSet:access$1
+     2      0,1    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetint
+   346      0,1    0,0  cspom.extension.ExtensionConstraint:getRelation
+   346      0,1    0,0  cspom.extension.Extension:getArity
+     9      0,1    0,0  cspfj.constraint.extension.ExtensionConstraint2D:removeTuples
+     9      0,1    0,0  cspfj.constraint.extension.AbstractMatrixManager:set
+   136      0,1    0,0  cspfj.util.BitVector:clone
+     1      0,0    0,0  cspfj.problem.Problem:getMaxBacktracks
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:makeMaps
+     1      0,0    0,0  org.apache.tools.bzip2.CRC:<init>
+    20      0,0    0,0  cspfj.AbstractSolver:setMaxBacktracks
+    35      0,0    0,0  cspfj.util.Arrays2:isOrdered
+     1      0,0    0,0  cspfj.problem.Problem:<init>
+     2      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetInt32
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsSetStream
+    35      0,0    0,0  cspfj.problem.Variable:<init>
+     1      0,0    0,0  cspfj.generator.constraint.ExtensionGenerator:<init>
+    24      0,0    0,0  cspfj.problem.Problem:getConstraints
+     1      0,0    0,0  cspom.compiler.ProblemCompiler$1:<init>
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:bsGetIntVS
+     9      0,0    0,0  cspfj.constraint.extension.ExtensionConstraint2D:removeTuple
+     6      0,0    0,0  cspfj.problem.Problem$1:<init>
+     1      0,0    0,0  cspom.compiler.patterns.RemoveAnd:<init>
+    32      0,0    0,0  cspfj.problem.Problem:getMaxArity
+     1      0,0    0,0  cspom.compiler.patterns.CliqueDetector:<init>
+    35      0,0    0,0  cspom.variable.CSPOMVariable:isAuxiliary
+    70      0,0    0,0  cspfj.problem.Variable:getName
+     9      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:removeTuple
+     1      0,0    0,0  cspom.compiler.patterns.MergeEq:<init>
+     3      0,0    0,0  cspfj.problem.NoGoodLearner$LearnMethod:<init>
+     1      0,0    0,0  cspom.compiler.patterns.AllDiff$1:<init>
+     4      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:unshareMatrix
+     1      0,0    0,0  cspfj.generator.constraint.GeneratorManager:<init>
+     1      0,0    0,0  cspfj.problem.NoGoodLearner:<init>
+     1      0,0    0,0  cspom.compiler.patterns.DeReify:<init>
+     1      0,0    0,0  cspfj.constraint.AbstractConstraint$1:<init>
+     1      0,0    0,0  cspfj.heuristic.WDegOnDom:<init>
+     1      0,0    0,0  cspom.compiler.patterns.DiffGe:<init>
+     5      0,0    0,0  cspfj.problem.Problem:getNbConstraints
+     1      0,0    0,0  cspom.compiler.patterns.AbsDiff:<init>
+     1      0,0    0,0  cspom.variable.IntInterval:<init>
+     9      0,0    0,0  cspfj.constraint.extension.AbstractMatrixManager:addConflict
+     4      0,0    0,0  cspfj.constraint.extension.MatrixManager2D:unshareMatrix
+     1      0,0    0,0  cspfj.filter.AC3$2:<init>
+     1      0,0    0,0  cspfj.util.TieManager:<init>
+     1      0,0    0,0  cspfj.constraint.AbstractAC3Constraint:getChecks
+     1      0,0    0,0  cspom.compiler.patterns.AllDiff$2:<init>
+     1      0,0    0,0  cspfj.AbstractSolver:<init>
+    35      0,0    0,0  cspom.variable.CSPOMVariable:getDomain
+     1      0,0    0,0  cspfj.heuristic.Lexico:<init>
+     1      0,0    0,0  cspfj.generator.constraint.AbstractGenerator:<init>
+     1      0,0    0,0  cspfj.filter.AC3$1:<init>
+     1      0,0    0,0  cspfj.heuristic.CrossHeuristic:compute
+     9      0,0    0,0  cspfj.constraint.extension.TupleManager:setFirstTuple
+     1      0,0    0,0  org.apache.tools.bzip2.CBZip2InputStream:complete
+     1      0,0    0,0  cspfj.heuristic.CrossHeuristic:<init>
+     7      0,0    0,0  cspfj.problem.Variable:getDynamicConstraints
+     9      0,0    0,0  cspfj.constraint.extension.TupleManager:setNextTuple
+     1      0,0    0,0  org.apache.tools.bzip2.CRC:getFinalCRC
+     1      0,0    0,0  cspfj.constraint.AbstractConstraint:getPresenceChecks
+     7      0,0    0,0  cspfj.problem.Problem:getMaxCId
+     7      0,0    0,0  cspfj.constraint.AbstractConstraint:hashCode
+     1      0,0    0,0  cspfj.constraint.extension.MatrixManager2D:getPresenceChecks
+     1      0,0    0,0  cspfj.constraint.extension.MatrixManager2D:getChecks
+     7      0,0    0,0  cspfj.constraint.AbstractConstraint:getId
+     1      0,0    0,0  cspfj.AbstractSolver:statistic
+     1      0,0    0,0  cspfj.problem.Problem:getNbVariables
+     1      0,0    0,0  cspfj.heuristic.Lexico:compute
