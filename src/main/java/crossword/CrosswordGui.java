@@ -164,7 +164,7 @@ public class CrosswordGui {
 		}
 
 		@Override
-		public int getEvaluation(int reviseCount) {
+		public float getEvaluation() {
 			return Integer.MAX_VALUE;
 		}
 

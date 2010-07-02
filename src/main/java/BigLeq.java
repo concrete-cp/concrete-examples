@@ -1,14 +1,14 @@
 import cspfj.constraint.semantic.AllDifferent;
 import cspfj.constraint.semantic.Gt;
-import cspfj.filter.AC3;
+import cspfj.filter.AC3Constraint;
 import cspfj.filter.Filter;
 import cspfj.problem.BitVectorDomain;
 import cspfj.problem.Problem;
 import cspfj.problem.Variable;
 
 public class BigLeq {
-	private static final int NB_VALS = 500;
-	private static final int NB_VARS = 500;
+	private static final int NB_VALS = 1000;
+	private static final int NB_VARS = 1000;
 
 	public static void main(String[] args) {
 
@@ -30,10 +30,13 @@ public class BigLeq {
 		problem.prepareConstraints();
 		vars[0].remove(0);
 
-		final Filter f = new AC3(problem);
+		final Filter f = new AC3Constraint(problem);
+		long time = -System.currentTimeMillis();
 		f.reduceAfter(vars[0]);
+		time += System.currentTimeMillis();
 
-		System.out.println(f.getStatistics().get("revisions"));
+		System.out.println(f.getStatistics().get("revisions")
+				+ " revisions in " + time);
 
 	}
 }
