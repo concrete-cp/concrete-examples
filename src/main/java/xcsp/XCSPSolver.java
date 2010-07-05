@@ -169,12 +169,12 @@ public class XCSPSolver {
         };
 
         for (String prob : Arrays.asList(
-                "bqwh-18-141/normalized-bqwh-18-141-0_ext",
-                "bqwh-18-141_glb/normalized-bqwh-18-141-2_glb",
-                "frb40-19/normalized-frb40-19-1_ext",
-                "allIntervalSeries/normalized-series-15",
-                "golombRulerArity3/normalized-ruler-25-7-a3",
-                "langford3/normalized-langford-3-10",
+//                "bqwh-18-141/normalized-bqwh-18-141-0_ext",
+//                "bqwh-18-141_glb/normalized-bqwh-18-141-2_glb",
+//                "frb40-19/normalized-frb40-19-1_ext",
+//                "allIntervalSeries/normalized-series-15",
+//                "golombRulerArity3/normalized-ruler-25-7-a3",
+                "langford3/langford-3-10",
                 "small/normalized-patat-02-small-3",
                 "bmc/normalized-bmc-ibm-02-02",
                 "lexHerald/normalized-crossword-m1-lex-15-04",
@@ -297,11 +297,11 @@ public class XCSPSolver {
             // / object.getWeight();
             // }
             // })) / 100d) / 10d + "}");
-            System.out
-                    .print(" & \\np[s]{"
-                            + Math.round(solveCons(problem,
-                                    new Fifo<Constraint>(key)) / 100d) / 10d
-                            + "}");
+//            System.out
+//                    .print(" & \\np[s]{"
+//                            + Math.round(solveCons(problem,
+//                                    new Fifo<Constraint>(key)) / 100d) / 10d
+//                            + "}");
             System.out.print(" & \\np[s]{"
                     + Math.round(solveCons(problem, new BinaryHeap<Constraint>(
                             key)) / 100d) / 10d + "}");
