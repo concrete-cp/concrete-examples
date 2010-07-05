@@ -24,9 +24,12 @@ import cspfj.heuristic.CrossHeuristic;
 import cspfj.heuristic.DDegOnDom;
 import cspfj.heuristic.Lexico;
 import cspfj.heuristic.WDegOnDom;
+import cspfj.priorityqueues.BinaryHeap;
+import cspfj.priorityqueues.BinomialHeap;
 import cspfj.priorityqueues.FibonacciHeap;
 import cspfj.priorityqueues.Fifo;
 import cspfj.priorityqueues.Key;
+import cspfj.priorityqueues.SoftHeap;
 import cspfj.problem.Problem;
 import cspfj.problem.Variable;
 import cspom.CSPOM;
@@ -110,7 +113,7 @@ public class XCSPSolver {
             IOException, FailedGenerationException {
         final Problem problem = load(name);
         final MGACIter solver = new MGACIter(problem, new CrossHeuristic(
-                new WDegOnDom(problem), new Lexico(false)), new AC3Constraint(
+                new DDegOnDom(problem), new Lexico(false)), new AC3Constraint(
                 problem, queue));
 
         System.gc();
@@ -143,7 +146,7 @@ public class XCSPSolver {
     private static void nbC(final String problem) throws CSPParseException,
             IOException, FailedGenerationException {
         final Problem csp = load(problem);
-        // System.out.print(csp.getNbConstraints());
+        System.out.print(csp.getNbConstraints());
         final MGACIter solver = new MGACIter(csp, new CrossHeuristic(
                 new WDegOnDom(csp), new Lexico(false)));
         solver.nextSolution();
@@ -155,6 +158,15 @@ public class XCSPSolver {
             InvocationTargetException, NoSuchMethodException {
 
         Logger.getLogger("").setLevel(Level.WARNING);
+
+        final Key<Constraint> key = new Key<Constraint>() {
+
+            @Override
+            public float getKey(Constraint object) {
+                return object.getEvaluation();
+            }
+
+        };
 
         for (String prob : Arrays.asList(
                 "bqwh-18-141/normalized-bqwh-18-141-0_ext",
@@ -174,117 +186,137 @@ public class XCSPSolver {
                     + "} & ");
             final String problem = "/home/vion/CPAI08/" + prob + ".xml.bz2";
             nbC(problem);
-            System.out.print("\\np[s]{"
-                    + Math.round(solveVar(problem, new FibonacciHeap<Variable>(
-                            new Key<Variable>() {
-                                @Override
-                                public float getKey(Variable object) {
-                                    return object.getDomainSize();
-                                }
-                            })) / 100d) / 10d + "}");
+            // System.out.print("\\np[s]{"
+            // + Math.round(solveVar(problem, new FibonacciHeap<Variable>(
+            // new Key<Variable>() {
+            // @Override
+            // public float getKey(Variable object) {
+            // return object.getDomainSize();
+            // }
+            // })) / 100d) / 10d + "}");
+            // System.out.print(" & \\np[s]{"
+            // + Math.round(solveVar(problem, new FibonacciHeap<Variable>(
+            // new Key<Variable>() {
+            // @Override
+            // public float getKey(Variable object) {
+            // return object.getDomainSize()
+            // / wDeg(object);
+            // }
+            // })) / 100d) / 10d + "}");
+            //
+            // /*
+            // * Fifo Cons
+            // */
+            // System.out.print(" & \\np[s]{"
+            // + Math.round(solveCons(problem, new Fifo<Constraint>(
+            // new Key<Constraint>() {
+            // @Override
+            // public float getKey(Constraint object) {
+            // float size = 1;
+            // for (Variable v : object.getScope()) {
+            // size *= v.getDomainSize();
+            // }
+            // return size;
+            // }
+            // })) / 100d) / 10d + "}");
+            // System.out.print(" & \\np[s]{"
+            // + Math.round(solveCons(problem, new Fifo<Constraint>(
+            // new Key<Constraint>() {
+            // @Override
+            // public float getKey(Constraint object) {
+            // float size = 1;
+            // for (Variable v : object.getScope()) {
+            // size *= v.getDomainSize();
+            // }
+            // return size / object.getWeight();
+            // }
+            // })) / 100d) / 10d + "}");
+            // System.out.print(" & \\np[s]{"
+            // + Math.round(solveCons(problem, new Fifo<Constraint>(
+            // new Key<Constraint>() {
+            // @Override
+            // public float getKey(Constraint object) {
+            // return object.getEvaluation();
+            // }
+            // })) / 100d) / 10d + "}");
+            // System.out.print(" & \\np[s]{"
+            // + Math.round(solveCons(problem, new Fifo<Constraint>(
+            // new Key<Constraint>() {
+            // @Override
+            // public float getKey(Constraint object) {
+            // return object.getEvaluation()
+            // / object.getWeight();
+            // }
+            // })) / 100d) / 10d + "}");
+            //
+            // /*
+            // * Binomial !
+            // */
+            // System.out.print(" & \\np[s]{"
+            // + Math.round(solveCons(problem,
+            // new FibonacciHeap<Constraint>(
+            // new Key<Constraint>() {
+            // @Override
+            // public float getKey(Constraint object) {
+            // float size = 1;
+            // for (Variable v : object.getScope()) {
+            // size *= v.getDomainSize();
+            // }
+            // return size;
+            // }
+            // })) / 100d) / 10d + "}");
+            // System.out.print(" & \\np[s]{"
+            // + Math.round(solveCons(problem,
+            // new FibonacciHeap<Constraint>(
+            // new Key<Constraint>() {
+            // @Override
+            // public float getKey(Constraint object) {
+            // float size = 1;
+            // for (Variable v : object.getScope()) {
+            // size *= v.getDomainSize();
+            // }
+            // return size / object.getWeight();
+            // }
+            // })) / 100d) / 10d + "}");
+            // System.out.print(" & \\np[s]{"
+            // + Math.round(solveCons(problem,
+            // new FibonacciHeap<Constraint>(
+            // new Key<Constraint>() {
+            // @Override
+            // public float getKey(Constraint object) {
+            // return object.getEvaluation();
+            // }
+            // })) / 100d) / 10d + "}");
+            // System.out.print(" & \\np[s]{"
+            // + Math.round(solveCons(problem,
+            // new FibonacciHeap<Constraint>(
+            // new Key<Constraint>() {
+            // @Override
+            // public float getKey(Constraint object) {
+            // return object.getEvaluation()
+            // / object.getWeight();
+            // }
+            // })) / 100d) / 10d + "}");
+            System.out
+                    .print(" & \\np[s]{"
+                            + Math.round(solveCons(problem,
+                                    new Fifo<Constraint>(key)) / 100d) / 10d
+                            + "}");
             System.out.print(" & \\np[s]{"
-                    + Math.round(solveVar(problem, new FibonacciHeap<Variable>(
-                            new Key<Variable>() {
-                                @Override
-                                public float getKey(Variable object) {
-                                    return object.getDomainSize()
-                                            / wDeg(object);
-                                }
-                            })) / 100d) / 10d + "}");
+                    + Math.round(solveCons(problem, new BinaryHeap<Constraint>(
+                            key)) / 100d) / 10d + "}");
+            System.out.print(" & \\np[s]{"
+                    + Math.round(solveCons(problem,
+                            new BinomialHeap<Constraint>(key)) / 100d) / 10d
+                    + "}");
+            System.out.print(" & \\np[s]{"
+                    + Math.round(solveCons(problem,
+                            new FibonacciHeap<Constraint>(key)) / 100d) / 10d
+                    + "}");
+            System.out.print(" & \\np[s]{"
+                    + Math.round(solveCons(problem, new SoftHeap<Constraint>(
+                            key)) / 100d) / 10d + "}");
 
-            /*
-             * Fifo Cons
-             */
-            System.out.print(" & \\np[s]{"
-                    + Math.round(solveCons(problem, new Fifo<Constraint>(
-                            new Key<Constraint>() {
-                                @Override
-                                public float getKey(Constraint object) {
-                                    float size = 1;
-                                    for (Variable v : object.getScope()) {
-                                        size *= v.getDomainSize();
-                                    }
-                                    return size;
-                                }
-                            })) / 100d) / 10d + "}");
-            System.out.print(" & \\np[s]{"
-                    + Math.round(solveCons(problem, new Fifo<Constraint>(
-                            new Key<Constraint>() {
-                                @Override
-                                public float getKey(Constraint object) {
-                                    float size = 1;
-                                    for (Variable v : object.getScope()) {
-                                        size *= v.getDomainSize();
-                                    }
-                                    return size / object.getWeight();
-                                }
-                            })) / 100d) / 10d + "}");
-            System.out.print(" & \\np[s]{"
-                    + Math.round(solveCons(problem, new Fifo<Constraint>(
-                            new Key<Constraint>() {
-                                @Override
-                                public float getKey(Constraint object) {
-                                    return object.getEvaluation();
-                                }
-                            })) / 100d) / 10d + "}");
-            System.out.print(" & \\np[s]{"
-                    + Math.round(solveCons(problem, new Fifo<Constraint>(
-                            new Key<Constraint>() {
-                                @Override
-                                public float getKey(Constraint object) {
-                                    return object.getEvaluation()
-                                            / object.getWeight();
-                                }
-                            })) / 100d) / 10d + "}");
-
-            /*
-             * Binomial !
-             */
-            System.out.print(" & \\np[s]{"
-                    + Math.round(solveCons(problem,
-                            new FibonacciHeap<Constraint>(
-                                    new Key<Constraint>() {
-                                        @Override
-                                        public float getKey(Constraint object) {
-                                            float size = 1;
-                                            for (Variable v : object.getScope()) {
-                                                size *= v.getDomainSize();
-                                            }
-                                            return size;
-                                        }
-                                    })) / 100d) / 10d + "}");
-            System.out.print(" & \\np[s]{"
-                    + Math.round(solveCons(problem,
-                            new FibonacciHeap<Constraint>(
-                                    new Key<Constraint>() {
-                                        @Override
-                                        public float getKey(Constraint object) {
-                                            float size = 1;
-                                            for (Variable v : object.getScope()) {
-                                                size *= v.getDomainSize();
-                                            }
-                                            return size / object.getWeight();
-                                        }
-                                    })) / 100d) / 10d + "}");
-            System.out.print(" & \\np[s]{"
-                    + Math.round(solveCons(problem,
-                            new FibonacciHeap<Constraint>(
-                                    new Key<Constraint>() {
-                                        @Override
-                                        public float getKey(Constraint object) {
-                                            return object.getEvaluation();
-                                        }
-                                    })) / 100d) / 10d + "}");
-            System.out.print(" & \\np[s]{"
-                    + Math.round(solveCons(problem,
-                            new FibonacciHeap<Constraint>(
-                                    new Key<Constraint>() {
-                                        @Override
-                                        public float getKey(Constraint object) {
-                                            return object.getEvaluation()
-                                                    / object.getWeight();
-                                        }
-                                    })) / 100d) / 10d + "}");
             System.out.println("\\\\");
         }
 
