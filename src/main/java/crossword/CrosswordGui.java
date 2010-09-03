@@ -114,7 +114,6 @@ public class CrosswordGui {
 		crossword = new CrosswordGenerator(x, y, black);
 		this.problem = crossword.generate();
 		problem.addConstraint(new VisuConstraint(problem.getVariables()));
-		problem.prepareConstraints();
 		new CrosswordResolver(problem).start();
 	}
 

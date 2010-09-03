@@ -1,123 +1,162 @@
 package rb;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import rb.RBGenerator.Tightness;
 import rb.randomlists.RandomListGenerator.Structure;
-import concrete.AbstractLauncher;
-import concrete.AbstractResultWriter;
-import concrete.FullResultWriter;
+import cspfj.MGACIter;
 import cspfj.Solver;
 import cspfj.exception.FailedGenerationException;
+import cspfj.filter.Filter;
 import cspfj.generator.ProblemGenerator;
 import cspfj.problem.Problem;
 
-public final class RB extends AbstractLauncher {
+public final class RB {
 
-	private static final Logger logger = Logger.getLogger("cspfj");
+    private static final Logger logger = Logger.getLogger("cspfj");
 
-	private final int nbVariables;
+    private final int nbVariables;
 
-	private final int domainSize;
+    private final int domainSize;
 
-	private final int arity;
+    private final int arity;
 
-	private final int nbConstraints;
+    private final int nbConstraints;
 
-	private final Tightness tightnessMode;
+    private final Tightness tightnessMode;
 
-	private final double tightness;
+    private final double tightness;
 
-	private final Structure constraintGraphType;
+    private final Structure constraintGraphType;
 
-	private final Structure incompatibilityGraphType;
+    private final Structure incompatibilityGraphType;
 
-	private final boolean repetition;
+    private final boolean repetition;
 
-	private final boolean alwaysSatisfiable;
+    private final boolean alwaysSatisfiable;
 
-	private final long nbInstances;
+    private final long nbInstances;
 
-	private final long firstSeed;
-	private final AbstractResultWriter writer;
+    private final long firstSeed;
 
-	public RB(String[] argv) throws IOException {
-		super(12, 12, argv);
-		nbVariables = Integer.valueOf(getArgs().get(0));
+    // private final AbstractResultWriter writer;
 
-		domainSize = Integer.valueOf(getArgs().get(1));
+    public RB(int nbVariables, int domainSize, int arity, int nbConstraints,
+            Tightness tightnessMode, double tightness,
+            Structure constraintGraphType, Structure incompatibilityGraphType,
+            boolean repetition, boolean alwaysSatisfiable, long nbInstances,
+            long firstSeed) throws IOException {
+        this.nbVariables = nbVariables;
 
-		arity = Integer.valueOf(getArgs().get(2));
+        this.domainSize = domainSize;
 
-		nbConstraints = Integer.valueOf(getArgs().get(3));
+        this.arity = arity;
 
-		tightnessMode = Tightness.valueOf(getArgs().get(4));
+        this.nbConstraints = nbConstraints;
 
-		tightness = Double.valueOf(getArgs().get(5));
+        this.tightnessMode = tightnessMode;
 
-		constraintGraphType = Structure.valueOf(getArgs().get(6));
+        this.tightness = tightness;
 
-		incompatibilityGraphType = Structure.valueOf(getArgs().get(7));
+        this.constraintGraphType = constraintGraphType;
 
-		repetition = Boolean.valueOf(getArgs().get(8));
+        this.incompatibilityGraphType = incompatibilityGraphType;
 
-		alwaysSatisfiable = Boolean.valueOf(getArgs().get(9));
+        this.repetition = repetition;
 
-		nbInstances = Long.valueOf(getArgs().get(10));
+        this.alwaysSatisfiable = alwaysSatisfiable;
 
-		firstSeed = Long.valueOf(getArgs().get(11));
+        this.nbInstances = nbInstances;
 
-		writer = new FullResultWriter();
-	}
+        this.firstSeed = firstSeed;
+    }
 
-	@Override
-	public void run() throws IOException {
+    public int run() throws IOException {
+        int unsat = 0;
+        for (long seed = nbInstances; --seed >= 0;) {
 
-		for (long seed = nbInstances; --seed >= 0;) {
-			long time = -System.currentTimeMillis();
-			final RBGenerator rb = new RBGenerator(nbVariables, domainSize,
-					arity, nbConstraints, tightnessMode, tightness, seed
-							+ firstSeed, constraintGraphType,
-					incompatibilityGraphType, repetition, alwaysSatisfiable);
+            final RBGenerator rb = new RBGenerator(nbVariables, domainSize,
+                    arity, nbConstraints, tightnessMode, tightness, seed
+                            + firstSeed, constraintGraphType,
+                    incompatibilityGraphType, repetition, alwaysSatisfiable);
 
-			final Problem problem;
-			try {
-				problem = ProblemGenerator.generate(rb.generate());
-			} catch (FailedGenerationException e) {
-				throw new IllegalStateException(e);
-			}
+            final Problem problem;
+            try {
+                problem = ProblemGenerator.generate(rb.generate());
+            } catch (FailedGenerationException e) {
+                throw new IllegalStateException(e);
+            }
 
-			final long loadTime = System.currentTimeMillis() + time;
-			writer.problem(rb.toString());
+            final Solver solver = new MGACIter(problem);
+            if (solver.nextSolution() == null) {
+                unsat++;
+            }
+        }
+        return unsat;
+    }
 
-			final Solver solver = getSolver(problem, writer);
-			writer.load(solver, loadTime);
+    public int runFilter(Class<? extends Filter> clazz) throws IOException {
+        int unsat = 0;
+        for (long seed = nbInstances; --seed >= 0;) {
 
-			solve(solver, writer);
-			writer.nextProblem();
+            final RBGenerator rb = new RBGenerator(nbVariables, domainSize,
+                    arity, nbConstraints, tightnessMode, tightness, seed
+                            + firstSeed, constraintGraphType,
+                    incompatibilityGraphType, repetition, alwaysSatisfiable);
 
-		}
-		writer.close();
+            final Problem problem;
+            try {
+                problem = ProblemGenerator.generate(rb.generate());
+            } catch (FailedGenerationException e) {
+                throw new IllegalStateException(e);
+            }
+            
+            problem.prepare();
 
-	}
+            final Filter filter;
+            try {
+                filter = clazz.getConstructor(Problem.class).newInstance(
+                        problem);
+            } catch (Exception e) {
+                throw new IllegalStateException(e);
+            }
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			new RB(args).run();
-		} catch (IOException e) {
-			logger.severe(e.toString());
-		}
-	}
+            try {
+                if (!filter.reduceAll()) {
+                    unsat++;
+                }
+            } catch (InterruptedException e) {
+                throw new IllegalStateException(e);
+            }
+        }
+        return unsat;
+    }
 
-	public final String usage() {
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        Logger.getLogger("").setLevel(Level.WARNING);
 
-		return super.usage()
-				+ " {nb variables} {domain size} {arity} {nb constraints}"
-				+ " {tght mode} {tght} {cons graph type} {inc graph type}"
-				+ " {repetition} {force} {nb instances} {seed}";
-	}
+        try {
+            new RB(Integer.valueOf(args[0]), Integer.valueOf(args[1]), Integer
+                    .valueOf(args[2]), Integer.valueOf(args[3]),
+                    Tightness.PROPORTION, Double.valueOf(args[4]),
+                    Structure.UNSTRUCTURED, Structure.UNSTRUCTURED, false,
+                    false, 20, 0).run();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(usage());
+
+        }
+    }
+
+    public final static String usage() {
+
+        return " {nb variables} {domain size} {arity} {nb constraints}"
+                + " {tght mode} {tght} {cons graph type} {inc graph type}"
+                + " {repetition} {force} {nb instances} {seed}";
+    }
 }

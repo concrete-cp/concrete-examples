@@ -1,7 +1,5 @@
 package crossword;
 
-import java.io.IOException;
-
 import cspfj.MGACIter;
 import cspfj.Solver;
 import cspfj.filter.AC3Constraint;
@@ -9,23 +7,19 @@ import cspfj.problem.Problem;
 
 public class CrosswordResolver extends Thread {
 
-	private final Problem problem;
+    private final Problem problem;
 
-	public CrosswordResolver(Problem problem) {
-		this.problem = problem;
-	}
+    public CrosswordResolver(Problem problem) {
+        this.problem = problem;
+    }
 
-	public void run() {
-		final Solver solver = new MGACIter(problem, new AC3Constraint(problem));
+    public void run() {
+        final Solver solver = new MGACIter(problem, new AC3Constraint(problem));
 
-		// solver.setAllSolutions(true);
-		try {
-			if (solver.nextSolution() == null) {
-				System.out.println("No crossword found");
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        // solver.setAllSolutions(true);
+
+        if (solver.nextSolution() == null) {
+            System.out.println("No crossword found");
+        }
+    }
 }

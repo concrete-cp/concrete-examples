@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<instance>
+<presentation maxConstraintArity="2" format="XCSP 2.1"/>
+<domains nbDomains="7">
+<domain name='Dw' nbValues='4'>1 6 8 12 </domain>
+<domain name='Dv' nbValues='3'>4 9 14 </domain>
+<domain name='Du' nbValues='3'>2 10 14 </domain>
+<domain name='Dz' nbValues='5'>2 3 9 12 14 </domain>
+<domain name='Dy' nbValues='4'>0 4 7 13 </domain>
+<domain name='Dt' nbValues='7'>0 3 5 11 12 13 14 </domain>
+<domain name='Dx' nbValues='5'>1 2 4 7 12 </domain>
+</domains>
+<variables nbVariables="7">
+<variable name='w' domain='Dw'/>
+<variable name='v' domain='Dv'/>
+<variable name='u' domain='Du'/>
+<variable name='z' domain='Dz'/>
+<variable name='y' domain='Dy'/>
+<variable name='t' domain='Dt'/>
+<variable name='x' domain='Dx'/>
+</variables>
+<relations nbRelations="9">
+<relation name='R1760' arity='2' nbTuples='7' semantics='supports'>
+1 4|1 14|6 14|8 4|8 9|12 9|12 14
+</relation>
+<relation name='R1761' arity='2' nbTuples='7' semantics='supports'>
+1 14|6 9|8 3|8 12|12 2|12 3|12 12
+</relation>
+<relation name='R1762' arity='2' nbTuples='7' semantics='supports'>
+1 5|1 13|6 0|8 11|8 14|12 3|12 12
+</relation>
+<relation name='R1763' arity='2' nbTuples='5' semantics='supports'>
+4 2|9 2|9 10|14 10|14 14
+</relation>
+<relation name='R1764' arity='2' nbTuples='5' semantics='supports'>
+4 0|4 4|9 7|14 0|14 13
+</relation>
+<relation name='R1767' arity='2' nbTuples='7' semantics='supports'>
+2 3|2 5|2 11|10 0|10 14|14 12|14 13
+</relation>
+<relation name='R1768' arity='2' nbTuples='6' semantics='supports'>
+2 13|3 4|3 7|9 13|12 0|14 0
+</relation>
+<relation name='R1769' arity='2' nbTuples='7' semantics='supports'>
+0 1|3 4|5 7|11 2|12 7|13 12|14 4
+</relation>
+<relation name='R1' arity='2' nbTuples='7' semantics='supports'>
+1 9|2 3|4 12|4 3|7 2|7 14|12 14
+</relation>
+</relations>
+<constraints nbConstraints="9">
+<constraint name='C1760' arity='2' scope='w v' reference='R1760'/>
+<constraint name='C1761' arity='2' scope='w z' reference='R1761'/>
+<constraint name='C1762' arity='2' scope='w t' reference='R1762'/>
+<constraint name='C1763' arity='2' scope='v u' reference='R1763'/>
+<constraint name='C1764' arity='2' scope='v y' reference='R1764'/>
+<constraint name='C1767' arity='2' scope='u t' reference='R1767'/>
+<constraint name='C1768' arity='2' scope='z y' reference='R1768'/>
+<constraint name='C1769' arity='2' scope='t x' reference='R1769'/>
+<constraint name='C1' arity='2' scope='x z' reference='R1' />
+</constraints>
+</instance>

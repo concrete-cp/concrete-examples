@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<instance>
+<presentation maxConstraintArity="2" format="XCSP 2.1"/>
+<domains nbDomains="8">
+<domain name='DX24' nbValues='4'>1 6 8 12 </domain>
+<domain name='DX21' nbValues='3'>4 9 14 </domain>
+<domain name='DX19' nbValues='5'>0 5 7 10 12 </domain>
+<domain name='DX18' nbValues='3'>2 10 14 </domain>
+<domain name='DX15' nbValues='5'>2 3 9 12 14 </domain>
+<domain name='DX14' nbValues='4'>0 4 7 13 </domain>
+<domain name='DX6' nbValues='7'>0 3 5 11 12 13 14 </domain>
+<domain name='DX4' nbValues='5'>1 2 4 7 12 </domain>
+</domains>
+<variables nbVariables="8">
+<variable name='X24' domain='DX24'/>
+<variable name='X21' domain='DX21'/>
+<variable name='X19' domain='DX19'/>
+<variable name='X18' domain='DX18'/>
+<variable name='X15' domain='DX15'/>
+<variable name='X14' domain='DX14'/>
+<variable name='X6' domain='DX6'/>
+<variable name='X4' domain='DX4'/>
+</variables>
+<relations nbRelations="10">
+<relation name='R1760' arity='2' nbTuples='7' semantics='supports'>
+1 4|1 14|6 14|8 4|8 9|12 9|12 14
+</relation>
+<relation name='R1761' arity='2' nbTuples='7' semantics='supports'>
+1 14|6 9|8 3|8 12|12 2|12 3|12 12
+</relation>
+<relation name='R1762' arity='2' nbTuples='7' semantics='supports'>
+1 5|1 13|6 0|8 11|8 14|12 3|12 12
+</relation>
+<relation name='R1763' arity='2' nbTuples='5' semantics='supports'>
+4 2|9 2|9 10|14 10|14 14
+</relation>
+<relation name='R1764' arity='2' nbTuples='5' semantics='supports'>
+4 0|4 4|9 7|14 0|14 13
+</relation>
+<relation name='R1765' arity='2' nbTuples='5' semantics='supports'>
+0 12|5 2|7 3|10 14|12 9
+</relation>
+<relation name='R1766' arity='2' nbTuples='7' semantics='supports'>
+0 4|5 7|7 2|7 4|10 7|10 12|12 1
+</relation>
+<relation name='R1767' arity='2' nbTuples='7' semantics='supports'>
+2 3|2 5|2 11|10 0|10 14|14 12|14 13
+</relation>
+<relation name='R1768' arity='2' nbTuples='6' semantics='supports'>
+2 13|3 4|3 7|9 13|12 0|14 0
+</relation>
+<relation name='R1769' arity='2' nbTuples='7' semantics='supports'>
+0 1|3 4|5 7|11 2|12 7|13 12|14 4
+</relation>
+</relations>
+<constraints nbConstraints="10">
+<constraint name='C1760' arity='2' scope='X24 X21' reference='R1760'/>
+<constraint name='C1761' arity='2' scope='X24 X15' reference='R1761'/>
+<constraint name='C1762' arity='2' scope='X24 X6' reference='R1762'/>
+<constraint name='C1763' arity='2' scope='X21 X18' reference='R1763'/>
+<constraint name='C1764' arity='2' scope='X21 X14' reference='R1764'/>
+<constraint name='C1765' arity='2' scope='X19 X15' reference='R1765'/>
+<constraint name='C1766' arity='2' scope='X19 X4' reference='R1766'/>
+<constraint name='C1767' arity='2' scope='X18 X6' reference='R1767'/>
+<constraint name='C1768' arity='2' scope='X15 X14' reference='R1768'/>
+<constraint name='C1769' arity='2' scope='X6 X4' reference='R1769'/>
+</constraints>
+</instance>
