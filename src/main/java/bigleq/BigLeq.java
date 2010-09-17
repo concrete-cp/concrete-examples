@@ -18,6 +18,7 @@ public class BigLeq {
 
     public static Problem bigleq(final int nbVars, final int nbVals) {
         final Problem problem = new Problem();
+        
         final int[] vals = new int[nbVals];
         for (int i = nbVals; --i >= 0;) {
             vals[i] = i;
@@ -27,6 +28,7 @@ public class BigLeq {
             vars[i] = problem.addVariable("X" + i, new BitVectorDomain(vals));
         }
 
+        
         for (int i = nbVars - 1; --i >= 0;) {
             problem.addConstraint(new Gt(vars[i + 1], vars[i], false));
         }
