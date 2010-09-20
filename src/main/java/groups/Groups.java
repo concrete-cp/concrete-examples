@@ -22,7 +22,7 @@ import cspom.compiler.ProblemCompiler;
 import cspom.variable.CSPOMVariable;
 
 public class Groups {
-	private static final int NB_GROUPS = 3;
+	private static final int NB_GROUPS = 2;
 
 	private static final Collection<Etud> etuds = Arrays.asList(new Etud(
 			"berling", 12.25), new Etud("quinzin", 9.68), new Etud("quintana",
@@ -44,7 +44,6 @@ public class Groups {
 
 	public static void main(String[] args) throws PredicateParseException,
 			FailedGenerationException, DuplicateVariableException {
-		Logger.getLogger("").setLevel(Level.WARNING);
 		final CSPOM cspom = new CSPOM();
 
 		final Map<Etud, CSPOMVariable> groups = new HashMap<Etud, CSPOMVariable>();
@@ -62,16 +61,16 @@ public class Groups {
 
 		cspom.ctr(gcc(minGroupSize, maxGroupSize, groups.values()));
 
-		final Collection<Collection<CSPOMVariable>> groupsMoys = new ArrayList<Collection<CSPOMVariable>>();
-		for (int g = 1; g <= NB_GROUPS; g++) {
-			final Collection<CSPOMVariable> groupMoys = new ArrayList<CSPOMVariable>();
-			groupsMoys.add(groupMoys);
-			for (Entry<Etud, CSPOMVariable> e : groups.entrySet()) {
-				final CSPOMVariable note = new CSPOMVariable(Arrays.asList(0,
-						e.getKey().moy));
-				cspom.addVariable(note);
-			}
-		}
+//		final Collection<Collection<CSPOMVariable>> groupsMoys = new ArrayList<Collection<CSPOMVariable>>();
+//		for (int g = 1; g <= NB_GROUPS; g++) {
+//			final Collection<CSPOMVariable> groupMoys = new ArrayList<CSPOMVariable>();
+//			groupsMoys.add(groupMoys);
+//			for (Entry<Etud, CSPOMVariable> e : groups.entrySet()) {
+//				final CSPOMVariable note = new CSPOMVariable(Arrays.asList(0,
+//						e.getKey().moy));
+//				cspom.addVariable(note);
+//			}
+//		}
 		ProblemCompiler.compile(cspom);
 		final Problem problem = ProblemGenerator.generate(cspom);
 		int count = 0;

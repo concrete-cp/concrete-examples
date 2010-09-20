@@ -7,19 +7,19 @@ import cspfj.problem.Problem;
 
 public class CrosswordResolver extends Thread {
 
-    private final Problem problem;
+	private final Problem problem;
 
-    public CrosswordResolver(Problem problem) {
-        this.problem = problem;
-    }
+	public CrosswordResolver(Problem problem) {
+		this.problem = problem;
+	}
 
-    public void run() {
-        final Solver solver = new MGACIter(problem, new AC3Constraint(problem));
+	public void run() {
+		final Solver solver = new MGACIter(problem);
 
-        // solver.setAllSolutions(true);
+		// solver.setAllSolutions(true);
 
-        if (solver.nextSolution() == null) {
-            System.out.println("No crossword found");
-        }
-    }
+		if (solver.nextSolution() == null) {
+			System.out.println("No crossword found");
+		}
+	}
 }

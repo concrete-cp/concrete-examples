@@ -38,8 +38,6 @@ public final class AllDiffDec {
     public static void main(String[] args) throws FailedGenerationException,
             NumberFormatException, PredicateParseException,
             DuplicateVariableException, IOException {
-        Logger.getLogger("").setLevel(Level.WARNING);
-
         final CSPOM problem = generate();
 
         ProblemCompiler.compile(problem);

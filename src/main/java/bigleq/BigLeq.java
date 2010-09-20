@@ -13,50 +13,43 @@ import cspfj.problem.Problem;
 import cspfj.problem.Variable;
 
 public class BigLeq {
-    private static final int NB_VALS = 1000;
-    private static final int NB_VARS = 1000;
+	private static final int NB_VALS = 1000;
+	private static final int NB_VARS = 1000;
 
-    public static Problem bigleq(final int nbVars, final int nbVals) {
-        final Problem problem = new Problem();
-        
-        final int[] vals = new int[nbVals];
-        for (int i = nbVals; --i >= 0;) {
-            vals[i] = i;
-        }
-        final Variable[] vars = new Variable[nbVars];
-        for (int i = nbVars; --i >= 0;) {
-            vars[i] = problem.addVariable("X" + i, new BitVectorDomain(vals));
-        }
+	public static Problem bigleq(final int nbVars, final int nbVals) {
+		final Problem problem = new Problem();
 
-        
-        for (int i = nbVars - 1; --i >= 0;) {
-            problem.addConstraint(new Gt(vars[i + 1], vars[i], false));
-        }
+		final int[] vals = new int[nbVals];
+		for (int i = nbVals; --i >= 0;) {
+			vals[i] = i;
+		}
+		final Variable[] vars = new Variable[nbVars];
+		for (int i = nbVars; --i >= 0;) {
+			vars[i] = problem.addVariable("X" + i, new BitVectorDomain(vals));
+		}
 
-        problem.addConstraint(new AllDifferent(vars));
- 
-        return problem;
-    }
+		for (int i = nbVars - 1; --i >= 0;) {
+			problem.addConstraint(new Gt(vars[i + 1], vars[i], false));
+		}
 
-    public static void main(String[] args) {
+		problem.addConstraint(new AllDifferent(vars));
 
-        final Problem problem = bigleq(NB_VARS, NB_VALS);
-        problem.getVariable("X0").remove(0);
+		return problem;
+	}
 
-        {
-            final Solver s = new MGACIter(problem, new AC3Constraint(problem,
-                    new FibonacciHeap<Constraint>(new Key<Constraint>() {
-                        @Override
-                        public float getKey(Constraint object) {
-                            return object.getEvaluation();
-                        }
-                    })));
-            long time = -System.currentTimeMillis();
-            s.nextSolution();
-            time += System.currentTimeMillis();
+	public static void main(String[] args) {
 
-            System.out.println(time);
-        }
+		final Problem problem = bigleq(NB_VARS, NB_VALS);
+		problem.getVariable("X0").remove(0);
 
-    }
+		{
+			final Solver s = new MGACIter(problem);
+			long time = -System.currentTimeMillis();
+			s.nextSolution();
+			time += System.currentTimeMillis();
+
+			System.out.println(time);
+		}
+
+	}
 }
