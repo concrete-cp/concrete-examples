@@ -14,9 +14,6 @@ import cspfj.generator.ProblemGenerator;
 import cspfj.problem.Problem;
 
 public final class RB {
-
-    private static final Logger logger = Logger.getLogger("cspfj");
-
     private final int nbVariables;
 
     private final int domainSize;
@@ -112,7 +109,7 @@ public final class RB {
             } catch (FailedGenerationException e) {
                 throw new IllegalStateException(e);
             }
-            
+
             problem.prepare();
 
             final Filter filter;
@@ -141,8 +138,8 @@ public final class RB {
         Logger.getLogger("").setLevel(Level.WARNING);
 
         try {
-            new RB(Integer.valueOf(args[0]), Integer.valueOf(args[1]), Integer
-                    .valueOf(args[2]), Integer.valueOf(args[3]),
+            new RB(Integer.valueOf(args[0]), Integer.valueOf(args[1]),
+                    Integer.valueOf(args[2]), Integer.valueOf(args[3]),
                     Tightness.PROPORTION, Double.valueOf(args[4]),
                     Structure.UNSTRUCTURED, Structure.UNSTRUCTURED, false,
                     false, 20, 0).run();
