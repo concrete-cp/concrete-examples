@@ -54,12 +54,13 @@ public final class Queens {
         ParameterManager.parameterParse("heuristic.variable",
                 "cspfj.heuristic.WDegFixedOnDom");
         for (int i : Arrays.asList(4, 8, 12, 15, 20, 30, 50, 80, 100, 120, 150)) {
+        	StatisticsManager.reset();
             System.out.println(i + " :");
             long time = -System.currentTimeMillis();
             final Queens queens = new Queens(i);
             final CSPOM problem = queens.generate();
             ProblemCompiler.compile(problem);
-
+            
             final Solver solver = AbstractSolver.factory(problem);
 
             Map<String, Integer> solution = solver.nextSolution();
