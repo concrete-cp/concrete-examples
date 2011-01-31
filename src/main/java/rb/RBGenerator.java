@@ -13,7 +13,6 @@ import rb.randomlists.RandomListGenerator;
 import rb.randomlists.RandomListGenerator.Structure;
 import cspfj.exception.FailedGenerationException;
 import cspom.CSPOM;
-import cspom.DuplicateVariableException;
 import cspom.constraint.CSPOMConstraint;
 import cspom.extension.Extension;
 import cspom.extension.ExtensionConstraint;
@@ -132,11 +131,7 @@ public class RBGenerator {
                 nbVariables);
 
         for (int i = nbVariables; --i >= 0;) {
-            try {
-                variables.add(cspom.var("X" + i, 0, domainSize - 1));
-            } catch (DuplicateVariableException e) {
-                throw new IllegalStateException(e);
-            }
+            variables.add(cspom.var("X" + i, 0, domainSize - 1));
         }
 
         RAND.setSeed(seed);
@@ -220,9 +215,9 @@ public class RBGenerator {
             break;
 
         default:
-            matrix = randomMatrix(sizes, computeNbUnallowedTuplesFrom(
-                    variables, tightness), seed, incompatibilityGraphType,
-                    forcedTuple);
+            matrix = randomMatrix(sizes,
+                    computeNbUnallowedTuplesFrom(variables, tightness), seed,
+                    incompatibilityGraphType, forcedTuple);
         }
 
         return new ExtensionConstraint<Integer>(matrix, variables);
@@ -244,8 +239,7 @@ public class RBGenerator {
             int[] requiredSupport) throws FailedGenerationException {
 
         final double nbAllowedTuples = RandomListGenerator
-                .computeNbArrangementsFrom(sizes)
-                - nbUnallowedTuples;
+                .computeNbArrangementsFrom(sizes) - nbUnallowedTuples;
 
         // System.out.println("nbAllowedc = " + nbAllowedTuples + " nbUnaloowed
         // = " + nbUnallowedTuples);
@@ -284,8 +278,10 @@ public class RBGenerator {
         ProbabilityRandomListGenerator r = new ProbabilityRandomListGenerator(
                 nbValues, tupleLength, seed);
         final boolean supports = tightness > 0.5;
-        return tuplesToMatrix(sizes.length, r.selectTuples(selectionLimit,
-                true, requiredSupport, supports), supports);
+        return tuplesToMatrix(
+                sizes.length,
+                r.selectTuples(selectionLimit, true, requiredSupport, supports),
+                supports);
 
     }
 

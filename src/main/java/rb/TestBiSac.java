@@ -23,7 +23,6 @@ import cspfj.generator.ProblemGenerator;
 import cspfj.problem.Problem;
 import cspfj.problem.Variable;
 import cspom.CSPOM;
-import cspom.DuplicateVariableException;
 import cspom.constraint.CSPOMConstraint;
 import cspom.extension.Extension;
 import cspom.extension.ExtensionConstraint;
@@ -101,13 +100,13 @@ public class TestBiSac {
         return true;
     }
 
-    public static void main(String[] args) throws DuplicateVariableException,
-            FailedGenerationException, InterruptedException {
+    public static void main(String[] args) throws FailedGenerationException,
+            InterruptedException {
         main1(args);
     }
 
-    public static void main2(String[] args) throws DuplicateVariableException,
-            FailedGenerationException, InterruptedException {
+    public static void main2(String[] args) throws FailedGenerationException,
+            InterruptedException {
         Logger.getLogger("").setLevel(Level.WARNING);
 
         final CSPOM cspom = new CSPOM();

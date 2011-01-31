@@ -3,18 +3,13 @@ package queens;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import cspfj.AbstractSolver;
-import cspfj.MGACIter;
 import cspfj.ParameterManager;
 import cspfj.Solver;
 import cspfj.StatisticsManager;
 import cspfj.exception.FailedGenerationException;
-import cspfj.generator.ProblemGenerator;
 import cspom.CSPOM;
-import cspom.DuplicateVariableException;
 import cspom.compiler.PredicateParseException;
 import cspom.compiler.ProblemCompiler;
 import cspom.variable.CSPOMVariable;
@@ -28,8 +23,7 @@ public final class Queens {
         variables = new CSPOMVariable[size];
     }
 
-    public CSPOM generate() throws PredicateParseException,
-            DuplicateVariableException {
+    public CSPOM generate() throws PredicateParseException {
         final CSPOM problem = new CSPOM();
 
         for (int i = size; --i >= 0;) {
@@ -48,8 +42,8 @@ public final class Queens {
     }
 
     public static void main(String[] args) throws FailedGenerationException,
-            NumberFormatException, PredicateParseException,
-            DuplicateVariableException, IOException, ClassNotFoundException {
+            NumberFormatException, PredicateParseException, IOException,
+            ClassNotFoundException {
         ParameterManager.parameterParse("logger.level", "INFO");
         ParameterManager.parameterParse("heuristic.variable",
                 "cspfj.heuristic.WDegFixedOnDom");

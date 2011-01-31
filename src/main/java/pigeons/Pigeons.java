@@ -11,7 +11,6 @@ import cspfj.Solver;
 import cspfj.exception.FailedGenerationException;
 import cspfj.generator.ProblemGenerator;
 import cspom.CSPOM;
-import cspom.DuplicateVariableException;
 import cspom.compiler.PredicateParseException;
 import cspom.compiler.ProblemCompiler;
 import cspom.variable.CSPOMVariable;
@@ -23,7 +22,7 @@ public final class Pigeons {
     }
 
     public static CSPOM generate(int size) throws FailedGenerationException,
-            DuplicateVariableException, PredicateParseException {
+            PredicateParseException {
         final CSPOM problem = new CSPOM();
         final List<CSPOMVariable> variables = new ArrayList<CSPOMVariable>(size);
         for (int i = size; --i >= 0;) {
@@ -40,8 +39,7 @@ public final class Pigeons {
     }
 
     public static void main(final String[] args) throws NumberFormatException,
-            FailedGenerationException, IOException, DuplicateVariableException,
-            PredicateParseException {
+            FailedGenerationException, IOException, PredicateParseException {
 
         for (int i : Arrays.asList(4, 8, 12, 15, 20, 30, 50, 80, 100, 120, 150)) {
             System.out.println(i + " :");
@@ -50,11 +48,11 @@ public final class Pigeons {
 
             ProblemCompiler.compile(problem);
 
-            final Solver solver = new MGACIter(ProblemGenerator
-                    .generate(problem));
+            final Solver solver = new MGACIter(
+                    ProblemGenerator.generate(problem));
 
             Map<String, Integer> solution = solver.nextSolution();
-            
+
             System.out.println((System.currentTimeMillis() + time) / 1000f);
             // while (solution != null) {
             // solution = solver.nextSolution();

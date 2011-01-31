@@ -1,17 +1,13 @@
 package allDiffDec;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import cspfj.MGACIter;
 import cspfj.Solver;
 import cspfj.exception.FailedGenerationException;
 import cspfj.generator.ProblemGenerator;
 import cspom.CSPOM;
-import cspom.DuplicateVariableException;
 import cspom.compiler.PredicateParseException;
 import cspom.compiler.ProblemCompiler;
 import cspom.variable.CSPOMVariable;
@@ -20,8 +16,7 @@ public final class AllDiffDec {
     private AllDiffDec(final int size) {
     }
 
-    public static CSPOM generate() throws PredicateParseException,
-            DuplicateVariableException {
+    public static CSPOM generate() throws PredicateParseException {
         final CSPOM problem = new CSPOM();
 
         final CSPOMVariable x1 = problem.var("X1", 3, 4);
@@ -36,8 +31,7 @@ public final class AllDiffDec {
     }
 
     public static void main(String[] args) throws FailedGenerationException,
-            NumberFormatException, PredicateParseException,
-            DuplicateVariableException, IOException {
+            NumberFormatException, PredicateParseException, IOException {
         final CSPOM problem = generate();
 
         ProblemCompiler.compile(problem);
