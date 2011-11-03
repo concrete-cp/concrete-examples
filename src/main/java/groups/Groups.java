@@ -42,8 +42,17 @@ public class Groups {
         final CSPOM cspom = new CSPOM();
 
         final Map<Etud, CSPOMVariable> groups = new HashMap<Etud, CSPOMVariable>();
+
         for (Etud e : etuds) {
             groups.put(e, cspom.var(e.nom, 1, NB_GROUPS));
+        }
+
+        final Iterator<CSPOMVariable> itr = groups.values().iterator();
+        CSPOMVariable prev = itr.next();
+        for (int i = NB_GROUPS; --i >= 0;) {
+            final CSPOMVariable cur = itr.next();
+            cspom.le(prev, cur);
+            prev = cur;
         }
 
         final int minGroupSize = etuds.size() / NB_GROUPS;
@@ -68,6 +77,7 @@ public class Groups {
         // cspom.addVariable(note);
         // }
         // }
+
         ProblemCompiler.compile(cspom);
         final Problem problem = ProblemGenerator.generate(cspom);
         int count = 0;
@@ -77,7 +87,7 @@ public class Groups {
             if (sol == null) {
                 break;
             }
-            // System.out.println(sol);
+            System.out.println(sol);
             count++;
         }
 

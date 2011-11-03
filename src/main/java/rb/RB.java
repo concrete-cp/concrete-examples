@@ -110,7 +110,7 @@ public final class RB {
                 throw new IllegalStateException(e);
             }
 
-            problem.prepare();
+            //problem.prepare();
 
             final Filter filter;
             try {
