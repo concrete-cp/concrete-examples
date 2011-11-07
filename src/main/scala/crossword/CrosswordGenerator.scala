@@ -59,7 +59,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
 
       val tuple = word map { c => c.toInt - 65 } toArray
 
-      ths.addTuple(tuple);
+      ths.add(tuple);
 
     }
     dicts;
@@ -88,26 +88,26 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
     for (i <- 0 until x) {
       for (j <- 0 until y) {
         if (variables(i)(j) == null) {
-          newWord(currentWord);
+          newWord(currentWord.reverse);
           currentWord = Nil
         } else {
           currentWord ::= variables(i)(j);
         }
       }
-      newWord(currentWord);
+      newWord(currentWord.reverse);
       currentWord = Nil
     }
 
     for (j <- 0 until y) {
       for (i <- 0 until x) {
         if (variables(i)(j) == null) {
-          newWord(currentWord);
+          newWord(currentWord.reverse);
           currentWord = Nil
         } else {
           currentWord ::= variables(i)(j);
         }
       }
-      newWord(currentWord);
+      newWord(currentWord.reverse);
       currentWord = Nil
     }
 

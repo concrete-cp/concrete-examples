@@ -25,7 +25,7 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
       cell(varCell.x)(varCell.y).setText(String
         .valueOf((value + 65).toChar));
     }
-    cell(varCell.x)(varCell.y).setForeground(Color.getHSBColor(2f * level / arity, 1, 1));
+    cell(varCell.x)(varCell.y).setForeground(Color.getHSBColor(2f * level, 1, 1));
   }
 
   private def setCellNum(name: String, value: Int) {
@@ -35,7 +35,7 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
     } else {
       cell(varCell.x)(varCell.y).setText(String.valueOf(value));
     }
-    cell(varCell.x)(varCell.y).setForeground(Color.getHSBColor(2f * level / arity, 1, 1));
+    cell(varCell.x)(varCell.y).setForeground(Color.getHSBColor(2f * level, 1, 1));
   }
 
   override def check = true
@@ -43,7 +43,7 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
   override def getEvaluation = Integer.MAX_VALUE
 
   override def level_=(newLevel: Int) {
-
+	 
     if (newLevel < level) {
       for (i <- modified(newLevel)) {
         val v = scope(i);
@@ -55,7 +55,7 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
       }
       modified = modified.updated(newLevel, BitSet.empty)
     }
-
+    super.level = newLevel
   }
 
   def revise(revisator: RevisionHandler, reviseCount: Int) = {

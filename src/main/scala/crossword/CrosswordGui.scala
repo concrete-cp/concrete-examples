@@ -1,28 +1,26 @@
 package crossword;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import cspfj.constraint.AbstractConstraint;
-
-import cspfj.exception.FailedGenerationException;
-import cspfj.filter.RevisionHandler;
-import cspfj.problem.Problem;
-import cspfj.problem.Variable;
+import java.awt.Color
+import java.awt.event.ActionEvent
+import java.awt.event.ActionListener
+import java.io.IOException
+import java.util.HashSet
+import java.util.List
+import java.util.Random
+import java.util.Set
+import javax.swing.BorderFactory
+import javax.swing.BoxLayout
+import javax.swing.JButton
+import javax.swing.JFrame
+import javax.swing.JPanel
+import javax.swing.JTextField
+import cspfj.constraint.AbstractConstraint
+import cspfj.exception.FailedGenerationException
+import cspfj.filter.RevisionHandler
+import cspfj.problem.Problem
+import cspfj.problem.Variable
 import cspfj.util.BitVector;
+import javax.swing.SwingConstants
 
 case class Cell(x: Int, y: Int)
 
@@ -41,9 +39,8 @@ class CrosswordGui(x: Int, y: Int) {
 
   cell.flatten.foreach { f =>
     f.setColumns(2)
-    f.setBorder(BorderFactory.createMatteBorder(1, 1, 1,
-      1, Color.BLACK));
-    //f.setHorizontalAlignment(JTextField.CENTER);
+    f.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+    f.setHorizontalAlignment(SwingConstants.CENTER);
     f.setFont(f.getFont().deriveFont(25F));
 
   }
@@ -56,8 +53,6 @@ class CrosswordGui(x: Int, y: Int) {
 
   val black = (for (i <- 0 until x; j <- 0 until y; if RAND.nextFloat < .15) yield Cell(i, j)).toSet
   black.foreach(c => cell(c.x)(c.y).setBackground(Color.BLACK))
-
-  frame.getContentPane().add(grid);
 
   frame.getContentPane().add(grid);
 
@@ -86,7 +81,6 @@ class CrosswordGui(x: Int, y: Int) {
   }
 
 }
-
 
 object CrosswordGui {
 
