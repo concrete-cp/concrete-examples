@@ -59,8 +59,8 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
   }
 
   def revise(revisator: RevisionHandler, reviseCount: Int) = {
-    for (v <- varsWithRemovals(reviseCount)) {
-      modified = modified.updated(level, modified(level) + position(v));
+    for ((v, p) <- varsWithRemovals(reviseCount)) {
+      modified = modified.updated(level, modified(level) + p);
       if (v.dom.size == 1) {
         setCell(v.name, v.dom.firstValue);
       } else {

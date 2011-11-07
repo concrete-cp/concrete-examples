@@ -2,12 +2,12 @@ package crossword;
 
 import java.net.URL
 import java.text.Normalizer
-
 import cspom.CSPOM
 import cspom.variable.CSPOMVariable
 import cspom.extension.Relation
 import cspom.extension.ExtensionConstraint
 import cspfj.generator.ProblemGenerator
+import scala.util.Random
 
 /*
  * Created on 20 mai 08
@@ -15,6 +15,20 @@ import cspfj.generator.ProblemGenerator
  * To change the template for this generated file go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
+
+object CrosswordGenerator {
+  def main(args: Array[String]) {
+    Thread.sleep(30)
+    val x = 10
+    val y = 10
+    val RAND = new Random(1)
+    val black = (for (i <- 0 until x; j <- 0 until y; if RAND.nextFloat < .15) yield Cell(i, j)).toSet 
+    //Set(Cell(4,4))
+    val crossword = new CrosswordGenerator(x, y, black);
+    val problem = crossword.generate();
+    println(problem)
+  }
+}
 
 class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
   val dicts = loadDicts(getClass.getResource("french"), math.max(x, y))
