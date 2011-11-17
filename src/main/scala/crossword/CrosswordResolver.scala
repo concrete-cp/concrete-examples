@@ -10,8 +10,10 @@ class CrosswordResolver(problem: Problem) extends Thread {
 
     // solver.setAllSolutions(true);
 
-    if (solver.nextSolution() == null) {
-      System.out.println("No crossword found");
+    if (solver.nextSolution().isDefined) {
+      println("Crossword found")
+    } else {
+      println("No crossword found");
     }
   }
 }

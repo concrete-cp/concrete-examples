@@ -15,25 +15,28 @@ import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.JTextField
 import cspfj.constraint.AbstractConstraint
-import cspfj.exception.FailedGenerationException
+import cspfj.generator.FailedGenerationException
 import cspfj.filter.RevisionHandler
 import cspfj.problem.Problem
 import cspfj.problem.Variable
-import cspfj.util.BitVector;
+import cspfj.util.BitVector
 import javax.swing.SwingConstants
+import java.awt.BorderLayout
+import java.awt.GridLayout
+import cspfj.ParameterManager
 
 case class Cell(x: Int, y: Int)
 
 class CrosswordGui(x: Int, y: Int) {
-  val RAND = new Random
+  ParameterManager.parameter("logger.level", "INFO")
+  val RAND = new Random(0)
   val frame = new JFrame
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
 
-  frame.getContentPane().setLayout(
-    new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+  frame.getContentPane().setLayout(new BorderLayout());
 
   val grid = new JPanel
-  grid.setLayout(new BoxLayout(grid, BoxLayout.Y_AXIS))
+  grid.setLayout(new GridLayout(x, y))
 
   val cell = (0 until x) map { _ => (0 until y) map { _ => new JTextField } }
 
@@ -45,16 +48,12 @@ class CrosswordGui(x: Int, y: Int) {
 
   }
 
-  cell.foreach { r =>
-    val row = new JPanel
-    r.foreach(row.add)
-    grid.add(row)
-  }
+  cell.flatten.foreach(grid.add)
 
   val black = (for (i <- 0 until x; j <- 0 until y; if RAND.nextFloat < .15) yield Cell(i, j)).toSet
   black.foreach(c => cell(c.x)(c.y).setBackground(Color.BLACK))
 
-  frame.getContentPane().add(grid);
+  frame.getContentPane().add(grid, BorderLayout.CENTER);
 
   val start = new JButton("start");
 
@@ -63,7 +62,7 @@ class CrosswordGui(x: Int, y: Int) {
 
   });
 
-  frame.getContentPane().add(start);
+  frame.getContentPane().add(start, BorderLayout.SOUTH);
 
   // Display the window.
   frame.pack();
@@ -86,7 +85,7 @@ object CrosswordGui {
 
   def main(args: Array[String]) {
 
-    new CrosswordGui(10, 10);
+    new CrosswordGui(12, 12);
 
   }
 }
