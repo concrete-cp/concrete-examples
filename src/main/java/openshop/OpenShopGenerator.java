@@ -28,7 +28,7 @@ import java.util.HashMap;
 
 import scala.Tuple2;
 import scala.collection.Iterator;
-import scala.collection.Map;
+import scala.collection.immutable.Map;
 import cspfj.generator.FailedGenerationException;
 import cspom.CSPOM;
 import cspom.variable.CSPOMVariable;
