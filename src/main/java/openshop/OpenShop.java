@@ -32,20 +32,20 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import scala.Option;
 import cspfj.MGACIter;
 import cspfj.Solver;
 import cspfj.StatisticsManager;
-import cspfj.exception.FailedGenerationException;
+import cspfj.generator.FailedGenerationException;
 import cspfj.generator.ProblemGenerator;
 import cspfj.problem.Problem;
 import cspom.CSPOM;
-import cspom.compiler.PredicateParseException;
 import cspom.compiler.ProblemCompiler;
 import cspom.constraint.CSPOMConstraint;
 
 public class OpenShop {
 	public static void main(final String[] args) throws IOException,
-			FailedGenerationException, PredicateParseException {
+			FailedGenerationException {
 		Logger.getLogger("").setLevel(Level.INFO);
 		Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
 		final Options opt = new Options();
@@ -120,22 +120,21 @@ public class OpenShop {
 
 			final Solver solver = new MGACIter(problem);
 
-			final Map<String, Integer> solution = solver.nextSolution();
+			final Option<Map<String, Object>> solution = solver.nextSolution();
 			time += System.currentTimeMillis();
 			totalTime += time;
 			System.out.print("In " + time / 1000f + ": ");
-			if (solution == null) {
+			if (!solution.isDefined()) {
 				System.out.println("UNSAT");
 
 				lb = test + 1;
 			} else {
 				// generator.display(solution);
-				final Collection<CSPOMConstraint> control = cspom
-						.controlInt(solution);
+				final Collection<CSPOMConstraint> control = cspom.control(solution.get());
 				if (control.size() > 0) {
 					throw new IllegalStateException(control.toString());
 				}
-				ub = generator.evaluate(solution);
+				ub = generator.evaluate(solution.get());
 				System.out.println(ub);
 			}
 

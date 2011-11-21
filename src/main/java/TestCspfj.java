@@ -4,9 +4,13 @@ import java.util.logging.Logger;
 
 import scala.Option;
 import scala.collection.immutable.Map;
+import cspfj.MGACIter;
 import cspfj.constraint.extension.ExtensionConstraintGeneral;
+import cspfj.constraint.extension.TupleSet;
+import cspfj.constraint.semantic.Neq;
 import cspfj.problem.BitVectorDomain;
 import cspfj.problem.Problem;
+import cspfj.problem.Variable;
 
 public class TestCspfj {
   public static void main(String[] args) throws IOException {

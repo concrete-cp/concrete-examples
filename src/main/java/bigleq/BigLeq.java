@@ -40,7 +40,7 @@ public class BigLeq {
 	public static void main(String[] args) {
 
 		final Problem problem = bigleq(NB_VARS, NB_VALS);
-		problem.getVariable("X0").remove(0);
+		problem.variable("X0").dom().remove(0);
 
 		{
 			final Solver s = new MGACIter(problem);
