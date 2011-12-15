@@ -8,7 +8,7 @@ import rb.RBGenerator.Tightness;
 import rb.randomlists.RandomListGenerator.Structure;
 import cspfj.MGACIter;
 import cspfj.Solver;
-import cspfj.exception.FailedGenerationException;
+import cspfj.generator.FailedGenerationException;
 import cspfj.filter.Filter;
 import cspfj.generator.ProblemGenerator;
 import cspfj.problem.Problem;
@@ -87,7 +87,7 @@ public final class RB {
             }
 
             final Solver solver = new MGACIter(problem);
-            if (solver.nextSolution() == null) {
+            if (!solver.nextSolution().isDefined()) {
                 unsat++;
             }
         }

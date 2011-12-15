@@ -6,11 +6,11 @@ import java.util.Set;
 
 import cspfj.MGACIter;
 import cspfj.Solver;
-import cspfj.exception.FailedGenerationException;
+import cspfj.generator.FailedGenerationException;
 import cspfj.filter.AC3;
 import cspfj.filter.Filter;
 import cspfj.generator.ProblemGenerator;
-import cspfj.heuristic.Pair;
+import cspfj.Pair;
 import cspfj.problem.Problem;
 import cspfj.problem.Variable;
 import cspom.CSPOM;
