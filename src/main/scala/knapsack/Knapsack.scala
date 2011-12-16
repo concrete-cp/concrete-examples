@@ -12,44 +12,53 @@ object Knapsack {
 
   val c = 2900
 
+  case class O(val w: Int, val p: Int)
+
   val o = List(
-    (120, 300),
-    (245, 580),
-    (130, 301),
-    (260, 601),
-    (310, 605),
-    (194, 322),
-    (190, 310))
+    O(120, 300),
+    O(245, 580),
+    O(130, 301),
+    O(260, 601),
+    O(310, 605),
+    O(194, 322),
+    O(190, 310))
 
   def main(args: Array[String]) = {
-    Solver.loggerLevel = "FINE"
-    val best = o.maxBy(t => t._2.toDouble / t._1)
-    var lb = best._2 * (c / best._1)
-    var ub = 7237//lb + best._2
+    //Solver.loggerLevel = "FINE"
+    var u = 0
+    var r = c
+    for (obj <- o.sortBy(t => t.w.toDouble / t.p)) {
+      val m = r / obj.w
+      if (m > 0) {
+        u += obj.p * m
+        r -= obj.w * m
+      }
+    }
+
+    println(u)
+
+    var lb = u
+
+    var ub = u - o.maxBy(t => t.w.toDouble / t.p).w + o.maxBy(_.p).w //lb + best._2
     while (ub > lb) {
-      val test = (ub + lb) / 2
+      val test = (ub + lb + 1) / 2
       println("Testing " + test)
 
       val problem = new Problem
 
       val variables = o.zipWithIndex map {
-        case ((size, _), i) =>
-          problem.addVariable("v" + i, new BitVectorDomain(0 to (c / size): _*))
+        case (O(w, _), i) =>
+          problem.addVariable("v" + i, new BitVectorDomain(0 to (c / w): _*))
       }
 
-      val capacities = (o, variables).zipped map {
-        case ((size, _), variable) =>
-          val v = problem.addVariable("c" + variable.name, new BitVectorDomain(variable.dom.values map (_ * size) toSeq: _*))
-          problem.addConstraint(new Eq(size, variable, 0, v))
-          v
-      }
-
-      val values = (o, variables).zipped map {
-        case ((_, value), variable) =>
-          val v = problem.addVariable("v" + variable.name, new BitVectorDomain(variable.dom.values.map(_ * -value).toSeq.reverse: _*))
-          problem.addConstraint(new Eq(-value, variable, 0, v))
-          v
-      }
+      val (capacities, values) = (o, variables).zipped map {
+        case (O(w, p), variable) =>
+          val vc = problem.addVariable("c" + variable.name, new BitVectorDomain(variable.dom.values map (_ * w) toSeq: _*))
+          problem.addConstraint(new Eq(w, variable, 0, vc))
+          val vv = problem.addVariable("v" + variable.name, new BitVectorDomain(variable.dom.values.map(_ * -p).toSeq.reverse: _*))
+          problem.addConstraint(new Eq(-p, variable, 0, vv))
+          (vc, vv)
+      } unzip
 
       problem.addConstraint(new SumLeq(c, capacities.toArray))
       problem.addConstraint(new SumLeq(-test, values.toArray))
@@ -69,6 +78,7 @@ object Knapsack {
 
       }
     }
+    println("Optimal : " + lb)
   }
 
 }
