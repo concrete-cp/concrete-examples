@@ -22,7 +22,6 @@ package openshop;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.Collection;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +32,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import scala.Option;
+import scala.collection.JavaConversions;
+import scala.collection.immutable.Map;
 import cspfj.MGACIter;
 import cspfj.Solver;
 import cspfj.StatisticsManager;
@@ -130,11 +131,13 @@ public class OpenShop {
 				lb = test + 1;
 			} else {
 				// generator.display(solution);
-				final Collection<CSPOMConstraint> control = cspom.control(solution.get());
+				final Collection<CSPOMConstraint> control = cspom
+						.control(solution.get());
 				if (control.size() > 0) {
 					throw new IllegalStateException(control.toString());
 				}
-				ub = generator.evaluate(solution.get());
+				ub = generator.evaluate(JavaConversions.mapAsJavaMap(solution
+						.get()));
 				System.out.println(ub);
 			}
 
