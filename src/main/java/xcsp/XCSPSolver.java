@@ -24,8 +24,7 @@ public class XCSPSolver {
     final CSPOM cspomProblem = cspom.CSPOM.load(XCSPSolver.class
         .getResource("bqwh-15-106-0_ext.xml"));
 
-    final Solver solver = new MGACIter(
-        ProblemGenerator.generate(cspomProblem));
+    final Solver solver = Solver.factory(cspomProblem);
     System.out.println(solver.nextSolution());
   }
 
