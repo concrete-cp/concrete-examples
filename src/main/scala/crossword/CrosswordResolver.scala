@@ -1,12 +1,12 @@
 package crossword;
 
 import cspfj.problem.Problem
-import cspfj.MGACIter
+import cspfj.MAC
 
 class CrosswordResolver(problem: Problem) extends Thread {
 
   override def run() {
-    val solver = new MGACIter(problem);
+    val solver = new MAC(problem);
 
     // solver.setAllSolutions(true);
 
