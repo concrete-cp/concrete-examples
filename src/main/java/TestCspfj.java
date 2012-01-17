@@ -3,8 +3,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import scala.Option;
-import scala.collection.immutable.Map;
-import cspfj.MGACIter;
+import cspfj.MAC;
 import cspfj.constraint.extension.ExtensionConstraintGeneral;
 import cspfj.constraint.extension.TupleSet;
 import cspfj.constraint.semantic.Neq;
@@ -37,10 +36,11 @@ public class TestCspfj {
 		problem.addConstraint(new Neq(v1, v3));
 		problem.addConstraint(new Neq(v2, v3));
 
-		MGACIter solver = new MGACIter(problem);
+		final MAC solver = new MAC(problem);
 
 		for (;;) {
-			final Option<Map<String, Object>> sol = solver.nextSolution();
+			final Option<scala.collection.immutable.Map<String, Object>> sol = solver
+					.nextSolution();
 			if (sol.isDefined()) {
 				System.out.println(sol);
 				noGoodsConstraint.removeTuple(new int[] { (Integer) sol.get()

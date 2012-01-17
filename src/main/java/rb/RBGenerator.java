@@ -11,11 +11,13 @@ import rb.randomlists.ProbabilityRandomListGenerator;
 import rb.randomlists.ProportionRandomListGenerator;
 import rb.randomlists.RandomListGenerator;
 import rb.randomlists.RandomListGenerator.Structure;
-import cspfj.exception.FailedGenerationException;
+import scala.collection.JavaConversions;
+import scala.collection.Seq;
+import cspfj.generator.FailedGenerationException;
 import cspom.CSPOM;
 import cspom.constraint.CSPOMConstraint;
-import cspom.extension.Relation;
 import cspom.extension.ExtensionConstraint;
+import cspom.extension.Relation;
 import cspom.variable.CSPOMVariable;
 
 /**
@@ -26,272 +28,289 @@ import cspom.variable.CSPOMVariable;
  */
 public class RBGenerator {
 
-  private static final Random RAND = new Random();
+	private static final Random RAND = new Random();
 
-  /**
-   * Nb of variables
-   */
-  final private int nbVariables;
+	/**
+	 * Nb of variables
+	 */
+	final private int nbVariables;
 
-  /**
-   * Variable domain Size
-   */
-  final private int domainSize;
+	/**
+	 * Variable domain Size
+	 */
+	final private int domainSize;
 
-  /**
-   * Constraint arity
-   */
-  final private int arity;
+	/**
+	 * Constraint arity
+	 */
+	final private int arity;
 
-  /**
-   * Nb of constraints
-   */
-  final private int nbConstraints;
+	/**
+	 * Nb of constraints
+	 */
+	final private int nbConstraints;
 
-  /**
-   * Tightness Mode: NBNG, PROPORTION, PROBABILITY, NBSUP
-   */
-  public static enum Tightness {
-    NBNOGOODS, PROPORTION, PROBABILITY, NBSUPPORTS
-  }
+	/**
+	 * Tightness Mode: NBNG, PROPORTION, PROBABILITY, NBSUP
+	 */
+	public static enum Tightness {
+		NBNOGOODS, PROPORTION, PROBABILITY, NBSUPPORTS
+	}
 
-  final private Tightness tightnessMode;
+	final private Tightness tightnessMode;
 
-  /**
-   * Tightness
-   */
-  final private double tightness;
+	/**
+	 * Tightness
+	 */
+	final private double tightness;
 
-  /**
-   * Seed
-   */
-  final private long seed;
+	/**
+	 * Seed
+	 */
+	final private long seed;
 
-  /**
-   * Constraint Graph Type
-   */
-  final private Structure constraintGraphType;
+	/**
+	 * Constraint Graph Type
+	 */
+	final private Structure constraintGraphType;
 
-  /**
-   * Incompatibility Graph Type
-   */
-  final private Structure incompatibilityGraphType;
+	/**
+	 * Incompatibility Graph Type
+	 */
+	final private Structure incompatibilityGraphType;
 
-  /**
-   * Possibility of generating several constraints with same signature
-   */
-  final private boolean repetition;
+	/**
+	 * Possibility of generating several constraints with same signature
+	 */
+	final private boolean repetition;
 
-  /**
-   * Generation of satisfiable instances
-   */
-  final private boolean alwaysSatisfiable;
+	/**
+	 * Generation of satisfiable instances
+	 */
+	final private boolean alwaysSatisfiable;
 
-  public RBGenerator(int nbVariables, int domainSize, int arity,
-      int nbConstraints, Tightness tightnessMode, double tightness,
-      long seed, Structure constraintGraphType,
-      Structure incompatibilityGraphType, boolean repetition,
-      boolean alwaysSatisfiable) {
-    this.nbVariables = nbVariables;
-    this.domainSize = domainSize;
-    this.arity = arity;
-    this.nbConstraints = nbConstraints;
-    this.tightnessMode = tightnessMode;
-    this.tightness = tightness;
-    this.seed = seed;
-    this.constraintGraphType = constraintGraphType;
-    this.incompatibilityGraphType = incompatibilityGraphType;
-    this.repetition = repetition;
-    this.alwaysSatisfiable = alwaysSatisfiable;
+	public RBGenerator(int nbVariables, int domainSize, int arity,
+			int nbConstraints, Tightness tightnessMode, double tightness,
+			long seed, Structure constraintGraphType,
+			Structure incompatibilityGraphType, boolean repetition,
+			boolean alwaysSatisfiable) {
+		this.nbVariables = nbVariables;
+		this.domainSize = domainSize;
+		this.arity = arity;
+		this.nbConstraints = nbConstraints;
+		this.tightnessMode = tightnessMode;
+		this.tightness = tightness;
+		this.seed = seed;
+		this.constraintGraphType = constraintGraphType;
+		this.incompatibilityGraphType = incompatibilityGraphType;
+		this.repetition = repetition;
+		this.alwaysSatisfiable = alwaysSatisfiable;
 
-  }
+	}
 
-  public String getName() {
-    final StringBuffer sb = new StringBuffer();
-    sb.append("rand-").append(arity);
-    sb.append("-").append(nbVariables);
-    sb.append("-").append(domainSize);
-    sb.append("-").append(nbConstraints);
-    final int coeff = tightnessMode == Tightness.PROPORTION
-        || tightnessMode == Tightness.PROBABILITY ? 1000 : 1;
-    sb.append("-").append(Math.round(coeff * tightness));
-    if (alwaysSatisfiable) {
-      sb.append("-fcd");
-    }
-    sb.append("-").append(seed);
-    sb.append("_ext");
+	public String getName() {
+		final StringBuffer sb = new StringBuffer();
+		sb.append("rand-").append(arity);
+		sb.append("-").append(nbVariables);
+		sb.append("-").append(domainSize);
+		sb.append("-").append(nbConstraints);
+		final int coeff = tightnessMode == Tightness.PROPORTION
+				|| tightnessMode == Tightness.PROBABILITY ? 1000 : 1;
+		sb.append("-").append(Math.round(coeff * tightness));
+		if (alwaysSatisfiable) {
+			sb.append("-fcd");
+		}
+		sb.append("-").append(seed);
+		sb.append("_ext");
 
-    return sb.toString();
-  }
+		return sb.toString();
+	}
 
-  public CSPOM generate() throws FailedGenerationException {
-    final CSPOM cspom = new CSPOM();
+	public CSPOM generate() throws FailedGenerationException {
+		final CSPOM cspom = new CSPOM();
 
-    final List<CSPOMVariable> variables = new ArrayList<CSPOMVariable>(
-        nbVariables);
+		final List<CSPOMVariable> variables = new ArrayList<CSPOMVariable>(
+				nbVariables);
 
-    for (int i = nbVariables; --i >= 0;) {
-      variables.add(cspom.interVar("X" + i, 0, domainSize - 1));
-    }
+		for (int i = nbVariables; --i >= 0;) {
+			variables.add(cspom.interVar("X" + i, 0, domainSize - 1));
+		}
 
-    RAND.setSeed(seed);
-    final Map<CSPOMVariable, Integer> solution = (alwaysSatisfiable ? computeRandomSolution(variables)
-        : null);
+		RAND.setSeed(seed);
+		final Map<CSPOMVariable, Integer> solution = (alwaysSatisfiable ? computeRandomSolution(variables)
+				: null);
 
-    final int[] forcedTuple;
-    if (alwaysSatisfiable) {
-      forcedTuple = new int[arity];
-    } else {
-      forcedTuple = null;
-    }
+		final int[] forcedTuple;
+		if (alwaysSatisfiable) {
+			forcedTuple = new int[arity];
+		} else {
+			forcedTuple = null;
+		}
 
-    final ProportionRandomListGenerator r = new CoarseProportionRandomListGenerator(
-        nbVariables, arity, seed);
+		final ProportionRandomListGenerator r = new CoarseProportionRandomListGenerator(
+				nbVariables, arity, seed);
 
-    final int[][] activeConstraints = r.selectTuples(nbConstraints,
-        constraintGraphType, repetition, false);
-    for (int i = 0; i < activeConstraints.length; i++) {
-      final CSPOMVariable[] involvedVariables = new CSPOMVariable[arity];
-      for (int j = 0; j < involvedVariables.length; j++) {
-        involvedVariables[j] = variables.get(activeConstraints[i][j]);
-        if (alwaysSatisfiable) {
-          forcedTuple[j] = solution.get(involvedVariables[j]);
-        }
-      }
-      cspom.addConstraint(buildExplicitConstraint(involvedVariables,
-          tightnessMode, tightness, RAND.nextLong(),
-          incompatibilityGraphType, forcedTuple));
-    }
+		final int[][] activeConstraints = r.selectTuples(nbConstraints,
+				constraintGraphType, repetition, false);
+		for (int i = 0; i < activeConstraints.length; i++) {
+			final CSPOMVariable[] involvedVariables = new CSPOMVariable[arity];
+			for (int j = 0; j < involvedVariables.length; j++) {
+				involvedVariables[j] = variables.get(activeConstraints[i][j]);
+				if (alwaysSatisfiable) {
+					forcedTuple[j] = solution.get(involvedVariables[j]);
+				}
+			}
+			cspom.addConstraint(buildExplicitConstraint(involvedVariables,
+					tightnessMode, tightness, RAND.nextLong(),
+					incompatibilityGraphType, forcedTuple));
+		}
 
-    return cspom;
+		return cspom;
 
-  }
+	}
 
-  private Map<CSPOMVariable, Integer> computeRandomSolution(
-      List<CSPOMVariable> variables) {
-    Map<CSPOMVariable, Integer> solution = new HashMap<CSPOMVariable, Integer>(
-        nbVariables);
-    for (CSPOMVariable v : variables) {
-      solution.put(v, RAND.nextInt(v.domain().getValues().size()));
-    }
-    return solution;
-  }
+	private Map<CSPOMVariable, Integer> computeRandomSolution(
+			List<CSPOMVariable> variables) {
+		Map<CSPOMVariable, Integer> solution = new HashMap<CSPOMVariable, Integer>(
+				nbVariables);
+		for (CSPOMVariable v : variables) {
+			solution.put(v, RAND.nextInt(v.domain().getValues().size()));
+		}
+		return solution;
+	}
 
-  private long computeNbUnallowedTuplesFrom(CSPOMVariable[] variables,
-      double tightness) {
-    long cpt = 1;
-    for (int i = variables.length; --i >= 0;) {
-      cpt *= variables[i].domain().size();
-    }
-    return (long) (tightness * cpt);
-  }
+	private long computeNbUnallowedTuplesFrom(CSPOMVariable[] variables,
+			double tightness) {
+		long cpt = 1;
+		for (int i = variables.length; --i >= 0;) {
+			cpt *= variables[i].domain().size();
+		}
+		return (long) (tightness * cpt);
+	}
 
-  private CSPOMConstraint buildExplicitConstraint(CSPOMVariable[] variables,
-      Tightness tightnessMode, double tightness, long seed,
-      Structure incompatibilityGraphType, int[] forcedTuple)
-      throws FailedGenerationException {
-    // System.out.println(tightnessMode);
+	private CSPOMConstraint buildExplicitConstraint(CSPOMVariable[] variables,
+			Tightness tightnessMode, double tightness, long seed,
+			Structure incompatibilityGraphType, int[] forcedTuple)
+			throws FailedGenerationException {
+		// System.out.println(tightnessMode);
 
-    final int[] sizes = new int[variables.length];
-    for (int i = variables.length; --i >= 0;) {
-      sizes[i] = variables[i].domain().size();
-    }
+		final int[] sizes = new int[variables.length];
+		for (int i = variables.length; --i >= 0;) {
+			sizes[i] = variables[i].domain().size();
+		}
 
-    final Relation matrix;
+		final Extension matrix;
 
-    switch (tightnessMode) {
-    case NBNOGOODS:
-      matrix = randomMatrix(sizes, (int) tightness, seed,
-          incompatibilityGraphType, forcedTuple, false);
-      break;
+		switch (tightnessMode) {
+		case NBNOGOODS:
+			matrix = randomMatrix(sizes, (int) tightness, seed,
+					incompatibilityGraphType, forcedTuple, false);
+			break;
 
-    case NBSUPPORTS:
-      matrix = randomMatrix(sizes, (int) tightness, seed,
-          incompatibilityGraphType, forcedTuple, true);
-      break;
+		case NBSUPPORTS:
+			matrix = randomMatrix(sizes, (int) tightness, seed,
+					incompatibilityGraphType, forcedTuple, true);
+			break;
 
-    case PROBABILITY:
-      matrix = randomMatrix(sizes, tightness, seed, forcedTuple);
-      break;
+		case PROBABILITY:
+			matrix = randomMatrix(sizes, tightness, seed, forcedTuple);
+			break;
 
-    default:
-      matrix = randomMatrix(sizes,
-          computeNbUnallowedTuplesFrom(variables, tightness), seed,
-          incompatibilityGraphType, forcedTuple);
-    }
+		default:
+			matrix = randomMatrix(sizes,
+					computeNbUnallowedTuplesFrom(variables, tightness), seed,
+					incompatibilityGraphType, forcedTuple);
+		}
 
-    return new ExtensionConstraint(matrix, variables);
-  }
+		return new ExtensionConstraint(matrix.e, matrix.sup, variables);
+	}
 
-  private static Relation randomMatrix(int[] sizes, int nbTuples,
-      long seed, Structure type, int[] forcedSupport, boolean supports)
-      throws FailedGenerationException {
+	private static class Extension {
+		final Relation e;
+		final boolean sup;
 
-    ProportionRandomListGenerator r = new CoarseProportionRandomListGenerator(
-        sizes, seed);
+		public Extension(Relation e, boolean sup) {
+			this.e = e;
+			this.sup = sup;
+		}
+	}
 
-    return tuplesToMatrix(sizes.length, r.selectTuples(nbTuples, type,
-        false, true, forcedSupport, supports), supports);
-  }
+	private static Extension randomMatrix(int[] sizes, int nbTuples, long seed,
+			Structure type, int[] forcedSupport, boolean supports)
+			throws FailedGenerationException {
 
-  public static Relation randomMatrix(int[] sizes,
-      double nbUnallowedTuples, long seed, Structure type,
-      int[] requiredSupport) throws FailedGenerationException {
+		ProportionRandomListGenerator r = new CoarseProportionRandomListGenerator(
+				sizes, seed);
 
-    final double nbAllowedTuples = RandomListGenerator
-        .computeNbArrangementsFrom(sizes) - nbUnallowedTuples;
+		return new Extension(tuplesToMatrix(sizes.length, r.selectTuples(
+				nbTuples, type, false, true, forcedSupport, supports)),
+				supports);
+	}
 
-    // System.out.println("nbAllowedc = " + nbAllowedTuples + " nbUnaloowed
-    // = " + nbUnallowedTuples);
-    if (nbAllowedTuples > Integer.MAX_VALUE
-        && nbUnallowedTuples > Integer.MAX_VALUE) {
-      throw new IllegalArgumentException(
-          "The number of allowed and unallowed tuples is greater than Integer.MAX_INT");
-    }
+	public static Extension randomMatrix(int[] sizes, double nbUnallowedTuples,
+			long seed, Structure type, int[] requiredSupport)
+			throws FailedGenerationException {
 
-    final boolean supports = nbAllowedTuples < nbUnallowedTuples;
+		final double nbAllowedTuples = RandomListGenerator
+				.computeNbArrangementsFrom(sizes) - nbUnallowedTuples;
 
-    final int nbTuples;
-    if (supports) {
-      nbTuples = (int) nbAllowedTuples;
-    } else {
-      nbTuples = (int) nbUnallowedTuples;
-    }
+		// System.out.println("nbAllowedc = " + nbAllowedTuples + " nbUnaloowed
+		// = " + nbUnallowedTuples);
+		if (nbAllowedTuples > Integer.MAX_VALUE
+				&& nbUnallowedTuples > Integer.MAX_VALUE) {
+			throw new IllegalArgumentException(
+					"The number of allowed and unallowed tuples is greater than Integer.MAX_INT");
+		}
 
-    ProportionRandomListGenerator r = new CoarseProportionRandomListGenerator(
-        sizes, seed); // new
-    // FineProportionRandomListGenerator(nbValues,
-    // seed);
+		final boolean supports = nbAllowedTuples < nbUnallowedTuples;
 
-    return tuplesToMatrix(sizes.length, r.selectTuples(nbTuples, type,
-        false, true, requiredSupport, supports), supports);
-  }
+		final int nbTuples;
+		if (supports) {
+			nbTuples = (int) nbAllowedTuples;
+		} else {
+			nbTuples = (int) nbUnallowedTuples;
+		}
 
-  public static Relation randomMatrix(int[] sizes,
-      double tightness, long seed, int[] requiredSupport)
-      throws FailedGenerationException {
-    // we assume that each variable has the same domain
-    int nbValues = sizes[0];
-    int tupleLength = sizes.length;
+		ProportionRandomListGenerator r = new CoarseProportionRandomListGenerator(
+				sizes, seed); // new
+		// FineProportionRandomListGenerator(nbValues,
+		// seed);
 
-    double selectionLimit = Math.min(tightness, 1 - tightness);
-    ProbabilityRandomListGenerator r = new ProbabilityRandomListGenerator(
-        nbValues, tupleLength, seed);
-    final boolean supports = tightness > 0.5;
-    return tuplesToMatrix(
-        sizes.length,
-        r.selectTuples(selectionLimit, true, requiredSupport, supports),
-        supports);
+		return new Extension(tuplesToMatrix(sizes.length, r.selectTuples(
+				nbTuples, type, false, true, requiredSupport, supports)),
+				supports);
+	}
 
-  }
+	public static Extension randomMatrix(int[] sizes, double tightness,
+			long seed, int[] requiredSupport) throws FailedGenerationException {
+		// we assume that each variable has the same domain
+		int nbValues = sizes[0];
+		int tupleLength = sizes.length;
 
-  private static Relation tuplesToMatrix(int arity, int[][] tuples) {
-    final Relation extension = new Relation(arity);
+		double selectionLimit = Math.min(tightness, 1 - tightness);
+		ProbabilityRandomListGenerator r = new ProbabilityRandomListGenerator(
+				nbValues, tupleLength, seed);
+		final boolean supports = tightness > 0.5;
+		return new Extension(
+				tuplesToMatrix(sizes.length, r.selectTuples(selectionLimit,
+						true, requiredSupport, supports)), supports);
 
-    for (int[] tuple : tuples) {
-      extension.addTuple(tuple);
-    }
-    return extension;
-  }
+	}
 
+	private static Relation tuplesToMatrix(int arity, int[][] tuples) {
+		final Relation extension = new Relation(arity);
+
+		for (int[] tuple : tuples) {
+			extension.addTuple(intArrayToSeq(tuple));
+		}
+		return extension;
+	}
+
+	private static Seq<Object> intArrayToSeq(int[] array) {
+		final List<Object> l = new ArrayList<>();
+		for (int i = 0; i < array.length; i++) {
+			l.add(array[i]);
+		}
+		return JavaConversions.asScalaBuffer(l);
+	}
 }

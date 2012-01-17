@@ -42,20 +42,19 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
 
   override def getEvaluation = Integer.MAX_VALUE
 
-  override def level_=(newLevel: Int) {
-	 
-    if (newLevel < level) {
-      for (i <- modified(newLevel)) {
-        val v = scope(i);
-        if (v.dom.size == 1) {
-          setCell(v.name, v.dom.firstValue)
-        } else {
-          setCellNum(v.name, v.dom.size)
-        }
+  override def restoreLvl(newLevel: Int) {
+    super.restoreLvl(newLevel)
+
+    for (i <- modified(newLevel)) {
+      val v = scope(i);
+      if (v.dom.size == 1) {
+        setCell(v.name, v.dom.firstValue)
+      } else {
+        setCellNum(v.name, v.dom.size)
       }
-      modified = modified.updated(newLevel, BitSet.empty)
     }
-    super.level = newLevel
+    modified = modified.updated(newLevel, BitSet.empty)
+
   }
 
   def revise(revisator: RevisionHandler, reviseCount: Int) = {
