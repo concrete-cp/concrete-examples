@@ -1,14 +1,17 @@
 package xcsp;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
+import cspfj.Pair;
+import cspfj.ParameterManager;
 import cspfj.Solver;
-import cspfj.generator.FailedGenerationException;
 import cspfj.filter.AC3;
 import cspfj.filter.Filter;
-import cspfj.Pair;
+import cspfj.generator.FailedGenerationException;
+import cspfj.heuristic.DDegOnDom;
 import cspfj.problem.Problem;
 import cspfj.problem.Variable;
 import cspom.CSPOM;
@@ -19,10 +22,14 @@ public class XCSPSolver {
 	public static void main(String[] args) throws CSPParseException,
 			IOException, FailedGenerationException, InterruptedException {
 
-		final CSPOM cspomProblem = cspom.CSPOM.load(XCSPSolver.class
-				.getResource("bqwh-15-106-0_ext.xml"));
+		final CSPOM cspomProblem = cspom.CSPOM.load(new URL(
+				"file:///home/vion/CPAI08/langford3/langford-3-17.xml.bz2"));
+
+		ParameterManager.parameter("heuristic.variable", DDegOnDom.class);
+		ParameterManager.parameter("mac.filter", AC3.class);
 
 		final Solver solver = Solver.factory(cspomProblem);
+		System.out.println(solver.XMLConfig());
 		System.out.println(solver.nextSolution());
 	}
 
