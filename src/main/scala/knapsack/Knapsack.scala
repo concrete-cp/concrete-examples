@@ -6,7 +6,7 @@ import cspfj.constraint.semantic.Eq
 import cspfj.MAC
 import cspfj.Solver
 import cspfj.problem.BitVectorDomain
-import cspfj.constraint.semantic.NullSum
+import cspfj.constraint.semantic.ZeroSum
 import java.io.InputStream
 
 object Knapsack {
@@ -62,8 +62,8 @@ object Knapsack {
     val wBound = problem.addVariable("wBound", new BitVectorDomain((0 to c): _*))
     val pBound = problem.addVariable("pBound", new BitVectorDomain((lb to ub): _*))
 
-    problem.addConstraint(new NullSum(Array(-1) ++ o.map(_.w), Array(wBound) ++ variables))
-    problem.addConstraint(new NullSum(Array(-1) ++ o.map(_.p), Array(pBound) ++ variables))
+    problem.addConstraint(new ZeroSum(Array(-1) ++ o.map(_.w), Array(wBound) ++ variables))
+    problem.addConstraint(new ZeroSum(Array(-1) ++ o.map(_.p), Array(pBound) ++ variables))
 
     val solver = Solver.factory(problem)
     val sol = solver.bestSolution(pBound).get

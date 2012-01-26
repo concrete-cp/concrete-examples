@@ -16,6 +16,7 @@ import cspfj.problem.Problem;
 import cspfj.problem.Variable;
 import cspom.CSPOM;
 import cspom.CSPParseException;
+import cspom.compiler.ProblemCompiler;
 
 public class XCSPSolver {
 
@@ -25,10 +26,14 @@ public class XCSPSolver {
 		final CSPOM cspomProblem = cspom.CSPOM.load(new URL(
 				"file:///home/vion/CPAI08/langford3/langford-3-17.xml.bz2"));
 
+		ParameterManager.parameter("logger.level", "INFO");
 		ParameterManager.parameter("heuristic.variable", DDegOnDom.class);
 		ParameterManager.parameter("mac.filter", AC3.class);
 
+		ProblemCompiler.compile(cspomProblem);
+		
 		final Solver solver = Solver.factory(cspomProblem);
+		System.out.println(solver.problem());
 		System.out.println(solver.XMLConfig());
 		System.out.println(solver.nextSolution());
 	}

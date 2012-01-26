@@ -6,7 +6,6 @@ import scala.collection.BitSet
 
 import cspfj.constraint.AbstractConstraint
 import cspfj.constraint.VariableGrainedRemovals
-import cspfj.filter.RevisionHandler
 import cspfj.problem.Variable
 
 class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
@@ -57,7 +56,7 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
 
   }
 
-  def revise(revisator: RevisionHandler, reviseCount: Int) = {
+  def revise(reviseCount: Int) = {
     for ((v, p) <- varsWithRemovals(reviseCount)) {
       modified = modified.updated(level, modified(level) + p);
       if (v.dom.size == 1) {
