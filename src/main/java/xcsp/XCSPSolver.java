@@ -8,6 +8,7 @@ import java.util.Set;
 import cspfj.Pair;
 import cspfj.ParameterManager;
 import cspfj.Solver;
+import cspfj.StatisticsManager;
 import cspfj.filter.AC3;
 import cspfj.filter.Filter;
 import cspfj.generator.FailedGenerationException;
@@ -17,6 +18,7 @@ import cspfj.problem.Variable;
 import cspom.CSPOM;
 import cspom.CSPParseException;
 import cspom.compiler.ProblemCompiler;
+import cspfj.filter.AC3Constraint;
 
 public class XCSPSolver {
 
@@ -24,18 +26,19 @@ public class XCSPSolver {
 			IOException, FailedGenerationException, InterruptedException {
 
 		final CSPOM cspomProblem = cspom.CSPOM.load(new URL(
-				"file:///home/vion/CPAI08/langford3/langford-3-17.xml.bz2"));
+				"file:///home/vion/CPAI08/langford3/langford-3-12.xml.bz2"));
 
-		ParameterManager.parameter("logger.level", "INFO");
+		//ParameterManager.parameter("logger.level", "INFO");
 		ParameterManager.parameter("heuristic.variable", DDegOnDom.class);
-		ParameterManager.parameter("mac.filter", AC3.class);
+		ParameterManager.parameter("mac.filter", AC3Constraint.class);
 
 		ProblemCompiler.compile(cspomProblem);
 		
 		final Solver solver = Solver.factory(cspomProblem);
-		System.out.println(solver.problem());
+		System.out.println(solver.problem().stats());
 		System.out.println(solver.XMLConfig());
 		System.out.println(solver.nextSolution());
+		System.out.println(StatisticsManager.display());
 	}
 
 	public static boolean control(Problem problem) throws InterruptedException {

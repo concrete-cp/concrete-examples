@@ -11,8 +11,8 @@ import cspfj.Solver
 import cspfj.filter.AC3Constraint
 
 object BigLeq {
-  val NB_VALS = 600;
-  val NB_VARS = 600;
+  val NB_VALS = 70;
+  val NB_VARS = 70;
 
   def bigleq(nbVars: Int, nbVals: Int) = {
     val problem = new Problem();
@@ -35,7 +35,7 @@ object BigLeq {
     problem.variable("X0").dom.remove(0);
 
     
-    ParameterManager.parameter("mac.filter", classOf[AC3Constraint])
+    ParameterManager.parameter("mac.filter", classOf[AC3])
     
     val s = new MAC(problem);
 
