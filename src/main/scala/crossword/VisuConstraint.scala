@@ -1,16 +1,14 @@
 package crossword
 
 import java.awt.Color
-
 import scala.collection.BitSet
-
 import cspfj.constraint.AbstractConstraint
-import cspfj.constraint.VariableGrainedRemovals
 import cspfj.problem.Variable
+import cspfj.constraint.Removals
 
 class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
   extends AbstractConstraint(null, variables)
-  with VariableGrainedRemovals {
+  with Removals {
 
   // private int level;
   var modified = (0 until variables.length) map (_ => BitSet.empty)
@@ -56,8 +54,8 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
 
   }
 
-  def revise(reviseCount: Int) = {
-    for ((v, p) <- varsWithRemovals(reviseCount)) {
+  def revise(mod: Seq[Int]) = {
+    for (p <- mod; val v = scope(p)) {
       modified = modified.updated(level, modified(level) + p);
       if (v.dom.size == 1) {
         setCell(v.name, v.dom.firstValue);

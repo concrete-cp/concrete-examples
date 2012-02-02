@@ -23,7 +23,7 @@ import javax.swing.SwingConstants
 case class Cell(x: Int, y: Int)
 
 class CrosswordGui(x: Int, y: Int) {
-  ParameterManager.parameter("logger.level", "INFO")
+  ParameterManager("logger.level") = "INFO"
   val RAND = new Random(0)
   val frame = new JFrame
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)

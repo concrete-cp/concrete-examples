@@ -10,6 +10,7 @@ import cspfj.heuristic.Dom
 import cspfj.constraint.semantic.AllDifferentAC
 import cspfj.problem.Variable
 import cspfj.constraint.semantic.Neq
+import cspfj.heuristic.LexVar
 
 object QueensAllDiff {
   def qp(size: Int) = {
@@ -40,10 +41,16 @@ object QueensAllDiff {
     (queens, problem)
   }
 
+  //    def allDiff(p: Problem, q: Seq[Variable]) {
+  //      for (Seq(v1, v2) <- q.combinations(2)) {
+  //        p.addConstraint(new Neq(v1, v2))
+  //      }
+  //    }
+
   def allDiff(p: Problem, q: Seq[Variable]) {
-    for (Seq(v1, v2) <- q.combinations(2)) {
-      p.addConstraint(new Neq(v1, v2))
-    }
+
+    p.addConstraint(new AllDifferentAC(q: _*))
+
   }
 
   def count(s: Solver) = {
@@ -54,19 +61,25 @@ object QueensAllDiff {
     i
   }
 
+  def sol(s: Solver) = s.nextSolution
+
   def main(args: Array[String]) {
-    //ParameterManager.parameter("heuristic.variable", classOf[Dom])
+    ParameterManager("heuristic.variable") = classOf[LexVar]
     //ParameterManager.parameter("logger.level", "INFO")
 
-    for (size <- List(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 20, 30, 50, 80, 100, 120, 150, 180, 200, 300, 400, 500, 800, 1000)) {
-      print(size + ": ")
+    var sz = 8.0
+
+    do {
+      val size = sz.intValue
+      print(size + " : ")
       val (queens, problem) = qp(size)
 
       val solver = Solver.factory(problem)
 
-      val (s, time) = StatisticsManager.time(solver.nextSolution)
+      val (s, time) = StatisticsManager.time(sol(solver))
 
-      println(time + ", " + s)
-    }
+      println(time + " : " + solver.statistics("solver.nbAssignments"))
+      sz *= 1.1
+    } while (true)
   }
 }

@@ -35,7 +35,7 @@ object BigLeq {
     //problem.variable("X0").dom.remove(0);
 
     
-    ParameterManager.parameter("mac.filter", classOf[AC3Constraint])
+    ParameterManager("mac.filter") = classOf[AC3Constraint]
     
     val s = new MAC(problem);
 
