@@ -100,7 +100,6 @@ public class OpenShop {
 		long totalTime = 0;
 
 		while (ub > lb) {
-			StatisticsManager.reset();
 			System.out.println("[" + lb + "," + ub + "]");
 			final int test = (ub + lb) / 2;
 			System.out.println("Test " + test);
@@ -135,7 +134,7 @@ public class OpenShop {
 				System.out.println(ub);
 			}
 
-			System.out.println(StatisticsManager.digest());
+			System.out.println(solver.statistics().digest());
 			System.out.println();
 
 		}

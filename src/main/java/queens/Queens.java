@@ -44,7 +44,6 @@ public final class Queens {
 		ParameterManager.parameterParse("heuristic.variable",
 				"cspfj.heuristic.WDegFixedOnDom");
 		for (int i : Arrays.asList(4, 8, 12, 15, 20, 30, 50, 80, 100, 120, 150)) {
-			StatisticsManager.reset();
 			System.out.println(i + " :");
 			long time = -System.currentTimeMillis();
 			final Queens queens = new Queens(i);
@@ -56,7 +55,7 @@ public final class Queens {
 			solver.nextSolution();
 
 			System.out.println((System.currentTimeMillis() + time) / 1000f);
-			System.out.println(StatisticsManager.digest());
+			System.out.println(solver.statistics().digest());
 			// while (solution != null) {
 			// solution = solver.nextSolution();
 			// count++;

@@ -41,17 +41,17 @@ object QueensAllDiff {
     (queens, problem)
   }
 
-  //    def allDiff(p: Problem, q: Seq[Variable]) {
-  //      for (Seq(v1, v2) <- q.combinations(2)) {
-  //        p.addConstraint(new Neq(v1, v2))
-  //      }
-  //    }
+      def allDiff(p: Problem, q: Seq[Variable]) {
+        for (Seq(v1, v2) <- q.combinations(2)) {
+          p.addConstraint(new Neq(v1, v2))
+        }
+      }
 
-  def allDiff(p: Problem, q: Seq[Variable]) {
-
-    p.addConstraint(new AllDifferentAC(q: _*))
-
-  }
+//  def allDiff(p: Problem, q: Seq[Variable]) {
+//
+//    p.addConstraint(new AllDifferent(q: _*))
+//
+//  }
 
   def count(s: Solver) = {
     var i = 0
@@ -65,7 +65,8 @@ object QueensAllDiff {
 
   def main(args: Array[String]) {
     ParameterManager("heuristic.variable") = classOf[LexVar]
-    //ParameterManager.parameter("logger.level", "INFO")
+
+    //ParameterManager("logger.level") = "INFO"
 
     var sz = 8.0
 
@@ -75,9 +76,13 @@ object QueensAllDiff {
       val (queens, problem) = qp(size)
 
       val solver = Solver.factory(problem)
+      solver.maxBacktracks = -1
 
       val (s, time) = StatisticsManager.time(sol(solver))
-
+//      for (v <- queens) {
+//        print(s.get(v.name) + " ")
+//      }
+//      println
       println(time + " : " + solver.statistics("solver.nbAssignments"))
       sz *= 1.1
     } while (true)
