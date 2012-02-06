@@ -41,17 +41,17 @@ object QueensAllDiff {
     (queens, problem)
   }
 
-      def allDiff(p: Problem, q: Seq[Variable]) {
-        for (Seq(v1, v2) <- q.combinations(2)) {
-          p.addConstraint(new Neq(v1, v2))
-        }
-      }
+//      def allDiff(p: Problem, q: Seq[Variable]) {
+//        for (Seq(v1, v2) <- q.combinations(2)) {
+//          p.addConstraint(new Neq(v1, v2))
+//        }
+//      }
 
-//  def allDiff(p: Problem, q: Seq[Variable]) {
-//
-//    p.addConstraint(new AllDifferent(q: _*))
-//
-//  }
+  def allDiff(p: Problem, q: Seq[Variable]) {
+
+    p.addConstraint(new AllDifferent(q: _*))
+
+  }
 
   def count(s: Solver) = {
     var i = 0
