@@ -11,6 +11,7 @@ import cspfj.constraint.semantic.AllDifferentAC
 import cspfj.problem.Variable
 import cspfj.constraint.semantic.Neq
 import cspfj.heuristic.LexVar
+import cspfj.constraint.semantic.BoundAllDiff
 
 object QueensAllDiff {
   def qp(size: Int) = {
@@ -49,7 +50,7 @@ object QueensAllDiff {
 
   def allDiff(p: Problem, q: Seq[Variable]) {
 
-    p.addConstraint(new AllDifferent(q: _*))
+    p.addConstraint(new BoundAllDiff(q: _*))
 
   }
 
