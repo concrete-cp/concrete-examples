@@ -42,14 +42,14 @@ object QueensAllDiff {
     (queens, problem)
   }
 
-//      def allDiff(p: Problem, q: Seq[Variable]) {
-//        for (Seq(v1, v2) <- q.combinations(2)) {
-//          p.addConstraint(new Neq(v1, v2))
-//        }
-//      }
+  //      def allDiff(p: Problem, q: Seq[Variable]) {
+  //        for (Seq(v1, v2) <- q.combinations(2)) {
+  //          p.addConstraint(new Neq(v1, v2))
+  //        }
+  //      }
 
   def allDiff(p: Problem, q: Seq[Variable]) {
-
+    p.addConstraint(new AllDifferentAC(q: _*))
     p.addConstraint(new BoundAllDiff(q: _*))
 
   }
@@ -80,11 +80,11 @@ object QueensAllDiff {
       solver.maxBacktracks = -1
 
       val (s, time) = StatisticsManager.time(sol(solver))
-//      for (v <- queens) {
-//        print(s.get(v.name) + " ")
-//      }
-//      println
-      println(time + " : " + solver.statistics("solver.nbAssignments"))
+      //      for (v <- queens) {
+      //        print(s.get(v.name) + " ")
+      //      }
+      //      println
+      println("%g : %d".format(time, solver.statistics("solver.nbAssignments")))
       sz *= 1.1
     } while (true)
   }

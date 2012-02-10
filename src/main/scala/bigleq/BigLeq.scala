@@ -9,6 +9,7 @@ import cspfj.ParameterManager
 import cspfj.filter.AC3
 import cspfj.Solver
 import cspfj.filter.AC3Constraint
+import cspfj.constraint.semantic.BoundAllDiff
 
 object BigLeq {
   val NB_VALS = 100;
@@ -24,7 +25,7 @@ object BigLeq {
       problem.addConstraint(new Gt(v(1), v(0), false));
     }
 
-    problem.addConstraint(new AllDifferent(vars: _*));
+    problem.addConstraint(new BoundAllDiff(vars: _*));
 
     problem;
   }
