@@ -40,8 +40,8 @@ public final class Queens {
 
 	public static void main(String[] args) throws FailedGenerationException,
 			NumberFormatException, IOException, ClassNotFoundException {
-		ParameterManager.parameterParse("logger.level", "INFO");
-		ParameterManager.parameterParse("heuristic.variable",
+		//ParameterManager.parse("logger.level", "INFO");
+		ParameterManager.parse("heuristic.variable",
 				"cspfj.heuristic.WDegFixedOnDom");
 		for (int i : Arrays.asList(4, 8, 12, 15, 20, 30, 50, 80, 100, 120, 150)) {
 			System.out.println(i + " :");

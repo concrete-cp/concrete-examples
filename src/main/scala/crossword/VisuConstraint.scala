@@ -7,7 +7,7 @@ import cspfj.problem.Variable
 import cspfj.constraint.Removals
 
 class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
-  extends AbstractConstraint(null, variables)
+  extends AbstractConstraint(variables)
   with Removals {
 
   // private int level;
