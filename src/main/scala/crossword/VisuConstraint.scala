@@ -66,4 +66,6 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
 
     true;
   }
+  
+  val simpleEvaluation = 7
 }

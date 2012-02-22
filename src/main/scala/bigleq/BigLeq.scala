@@ -2,7 +2,6 @@ package bigleq
 import cspfj.problem.Problem
 import cspfj.problem.BitVectorDomain
 import cspfj.constraint.semantic.Gt
-import cspfj.constraint.semantic.AllDifferent
 import cspfj.StatisticsManager
 import cspfj.MAC
 import cspfj.ParameterManager

@@ -1,6 +1,5 @@
 package queens
 import cspfj.problem.Problem
-import cspfj.constraint.semantic.AllDifferent
 import cspfj.problem.BitVectorDomain
 import cspfj.constraint.semantic.Eq
 import cspfj.Solver
