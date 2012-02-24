@@ -2,15 +2,16 @@ package xcsp;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Formatter;
 import java.util.HashSet;
 import java.util.Set;
 
 import cspfj.Pair;
 import cspfj.ParameterManager;
-import cspfj.Solver;
 import cspfj.filter.AC3;
 import cspfj.filter.Filter;
 import cspfj.generator.FailedGenerationException;
+import cspfj.generator.ProblemGenerator;
 import cspfj.problem.Problem;
 import cspfj.problem.Variable;
 import cspom.CSPOM;
@@ -19,75 +20,85 @@ import cspom.compiler.ProblemCompiler;
 
 public class XCSPSolver {
 
-  public static void main(String[] args) throws CSPParseException,
-      IOException, FailedGenerationException, InterruptedException {
-    // System.out.println(Arrays.toString(args));
-    final CSPOM cspomProblem = cspom.CSPOM.load(new URL(
-        args[1]));
+	public static void main(String[] args) throws CSPParseException,
+			IOException, FailedGenerationException, InterruptedException {
+		//System.out.println(Arrays.toString(args));
+		// System.out.println(Arrays.toString(args));
+		final URL url = new URL(args[1]);
+		final CSPOM cspomProblem = cspom.CSPOM.load(url);
 
-    //ParameterManager.parse("logger.level", "INFO");
+		// ParameterManager.parse("logger.level", "INFO");
 
-    final String[] parameters = args[0].split(":");
+		final String[] parameters = args[0].split(":");
 
-    for (String p : parameters) {
-      String[] v = p.split("=");
-      ParameterManager.parse(v[0], v[1]);
-    }
+		for (String p : parameters) {
+			String[] v = p.split("=");
+			ParameterManager.parse(v[0], v[1]);
+		}
 
-    ProblemCompiler.compile(cspomProblem);
+		ProblemCompiler.compile(cspomProblem);
 
-    final Solver solver = Solver.factory(cspomProblem);
-    
-    ParameterManager.checkPending();
+		final Problem p = ProblemGenerator.generate(cspomProblem);
 
-    solver.nextSolution();
+		// final Solver solver = Solver.factory(p);
 
-    System.out.println(solver.statistics().toString());
-  }
+		// ParameterManager.checkPending();
 
-  public static boolean control(Problem problem) throws InterruptedException {
-    final Filter ac = new AC3(problem);
-    if (!ac.reduceAll()) {
-      return false;
-    }
+		final Formatter f = new Formatter();
 
-    for (Variable vi : problem.getVariables()) {
-      for (int a = vi.dom().first(); a >= 0; a = vi.dom().next(a)) {
+		System.out
+				.println(f.format("update problems set"
+						+ "(nbvars, nbcons) = (%d,%d) " + "where name = '%s';",
+						p.variables().size(), p.constraints().size(),
+						url.getFile()));
+		// solver.nextSolution();
 
-        final Set<Pair> domain = new HashSet<Pair>();
-        for (Variable vj : problem.getVariables()) {
-          for (int b = vj.dom().first(); b >= 0; b = vj.dom().next(b)) {
+		// System.out.println(solver.statistics().toString());
+	}
 
-            problem.push();
-            vj.dom().setSingle(b);
+	public static boolean control(Problem problem) throws InterruptedException {
+		final Filter ac = new AC3(problem);
+		if (!ac.reduceAll()) {
+			return false;
+		}
 
-            if (ac.reduceAfter(vj) && vi.dom().present(a)) {
-              domain.add(new Pair(vj, b));
-            }
+		for (Variable vi : problem.getVariables()) {
+			for (int a = vi.dom().first(); a >= 0; a = vi.dom().next(a)) {
 
-            problem.pop();
-          }
-        }
+				final Set<Pair> domain = new HashSet<Pair>();
+				for (Variable vj : problem.getVariables()) {
+					for (int b = vj.dom().first(); b >= 0; b = vj.dom().next(b)) {
 
-        problem.push();
-        for (Variable v : problem.getVariables()) {
-          for (int i = v.dom().first(); i >= 0; i = v.dom().next(i)) {
-            if (!domain.contains(new Pair(v, i))) {
-              v.dom().remove(i);
-            }
-          }
-          if (v.dom().size() == 0) {
-            return false;
-          }
-        }
-        if (!ac.reduceAll()) {
-          return false;
-        }
-        problem.pop();
-      }
-    }
+						problem.push();
+						vj.dom().setSingle(b);
 
-    return true;
-  }
+						if (ac.reduceAfter(vj) && vi.dom().present(a)) {
+							domain.add(new Pair(vj, b));
+						}
+
+						problem.pop();
+					}
+				}
+
+				problem.push();
+				for (Variable v : problem.getVariables()) {
+					for (int i = v.dom().first(); i >= 0; i = v.dom().next(i)) {
+						if (!domain.contains(new Pair(v, i))) {
+							v.dom().remove(i);
+						}
+					}
+					if (v.dom().size() == 0) {
+						return false;
+					}
+				}
+				if (!ac.reduceAll()) {
+					return false;
+				}
+				problem.pop();
+			}
+		}
+
+		return true;
+	}
 
 }

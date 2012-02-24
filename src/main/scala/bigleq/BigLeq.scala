@@ -1,28 +1,34 @@
 package bigleq
-import cspfj.problem.Problem
-import cspfj.problem.BitVectorDomain
-import cspfj.constraint.semantic.Gt
-import cspfj.StatisticsManager
-import cspfj.MAC
-import cspfj.ParameterManager
-import cspfj.filter.AC3
-import cspfj.Solver
-import cspfj.filter.AC3Constraint
+
 import cspfj.constraint.semantic.BoundAllDiff
+import cspfj.constraint.semantic.Gt
+import cspfj.filter.AC3Constraint
+import cspfj.problem.Problem
+import cspfj.DummySolver
+import cspfj.ParameterManager
+import cspfj.Solver
+import cspfj.StatisticsManager
 import cspom.CSPOM
+import cspfj.generator.ProblemGenerator
+import cspfj.filter.AC3
+import cspfj.MAC
+import java.io.File
+import java.io.FileOutputStream
 
 object BigLeq {
-  val NB_VALS = 100;
-  val NB_VARS = 100;
+  val NB_VALS = 2000;
+  val NB_VARS = 2000;
 
   def bigleq(nbVars: Int, nbVals: Int) = {
     val problem = new CSPOM();
 
-    val vars = (0 until nbVars).map(i =>
-      problem.interVar("X" + i, 0, nbVals - 1))
+    val vars = (1 to nbVars).map {
+      case i if i == 2 => problem.interVar("V" + i, 2, nbVals)
+      case i => problem.interVar("V" + i, 1, nbVals)
+    }
 
     for (v <- vars.sliding(2)) {
-      problem.ctr("gt(" + v(1) + ", " + v(0) + ")");
+      problem.ctr("ge(" + v(1) + ", " + v(0) + ")");
     }
 
     problem.ctr("allDifferent" + vars.mkString("(", ", ", ")"))
@@ -32,18 +38,29 @@ object BigLeq {
   }
 
   def main(args: Array[String]) {
-    Solver.loggerLevel = "INFO"
+    //Solver.loggerLevel = "FINE"
     val problem = bigleq(NB_VARS, NB_VALS);
     //problem.variable("X0").dom.remove(0);
 
-    ParameterManager("mac.filter") = classOf[AC3Constraint]
+    ParameterManager("dummy.filter") = classOf[AC3]
 
-    println(problem.toXCSP)
-    //val s = new MAC(problem);
+    //for (i <- List(50, 100, 200, 500, 1000, 2000, 5000)) {
 
-    //val (result, time) = StatisticsManager.time(s.nextSolution)
+    // val problem = bigleq(i, i)
+    // xml.XML.save("bigleq-" + i + ".xml", problem.toXCSP)
 
-    //println(time);
+    //}
+
+    val cspfj = ProblemGenerator.generate(problem)
+
+    //println(cspfj)
+    val s = new DummySolver(cspfj);
+
+    val (result, time) = StatisticsManager.time(s.nextSolution)
+    //println(cspfj)
+
+    println(result)
+    println(time);
 
   }
 }
