@@ -6,11 +6,11 @@ import cspfj.Solver
 import cspfj.StatisticsManager
 import cspfj.ParameterManager
 import cspfj.heuristic.Dom
-import cspfj.constraint.semantic.AllDifferentAC
 import cspfj.problem.Variable
 import cspfj.constraint.semantic.Neq
 import cspfj.heuristic.LexVar
-import cspfj.constraint.semantic.BoundAllDiff
+import cspfj.constraint.semantic.AllDifferentBC
+import cspfj.constraint.semantic.AllDifferent2C
 
 object QueensAllDiff {
   def qp(size: Int) = {
@@ -48,8 +48,8 @@ object QueensAllDiff {
   //      }
 
   def allDiff(p: Problem, q: Seq[Variable]) {
-    p.addConstraint(new AllDifferentAC(q: _*))
-    p.addConstraint(new BoundAllDiff(q: _*))
+    p.addConstraint(new AllDifferent2C(q: _*))
+    p.addConstraint(new AllDifferentBC(q: _*))
 
   }
 
