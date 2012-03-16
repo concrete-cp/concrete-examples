@@ -307,7 +307,7 @@ public class RBGenerator {
 	}
 
 	private static Seq<Object> intArrayToSeq(int[] array) {
-		final List<Object> l = new ArrayList<>();
+		final List<Object> l = new ArrayList<Object>();
 		for (int i = 0; i < array.length; i++) {
 			l.add(array[i]);
 		}

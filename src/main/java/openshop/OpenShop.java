@@ -34,7 +34,6 @@ import scala.Option;
 import scala.collection.Set;
 import scala.collection.immutable.Map;
 import cspfj.Solver;
-import cspfj.StatisticsManager;
 import cspfj.generator.FailedGenerationException;
 import cspom.CSPOM;
 import cspom.compiler.ProblemCompiler;
