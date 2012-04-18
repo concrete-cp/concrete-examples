@@ -10,7 +10,7 @@ class CrosswordResolver(problem: Problem) extends Thread {
 
     // solver.setAllSolutions(true);
 
-    if (solver.nextSolution().isDefined) {
+    if (solver.nextSolution().isSat) {
       println("Crossword found")
     } else {
       println("No crossword found");

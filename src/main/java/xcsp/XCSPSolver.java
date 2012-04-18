@@ -39,6 +39,7 @@ public class XCSPSolver {
     ProblemCompiler.compile(cspomProblem);
 
     final Problem p = ProblemGenerator.generate(cspomProblem);
+    System.out.println(p);
 
     // ParameterManager.checkPending();
 
@@ -46,7 +47,7 @@ public class XCSPSolver {
 
     System.out
         .println(f.format("update problems set"
-            + "(nbvars, nbcons) = (%d,%d) " + "where name = '%s';",
+            + "(nbvars, nbcons) = (%d,%d) " + "where name = '///%s';",
             p.variables().size(), p.constraints().size(),
             url.getFile()));
     // solver.nextSolution();

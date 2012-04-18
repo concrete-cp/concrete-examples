@@ -1,6 +1,5 @@
 package queens
 import cspfj.problem.Problem
-import cspfj.problem.BitVectorDomain
 import cspfj.constraint.semantic.Eq
 import cspfj.Solver
 import cspfj.StatisticsManager
@@ -11,19 +10,20 @@ import cspfj.constraint.semantic.Neq
 import cspfj.heuristic.LexVar
 import cspfj.constraint.semantic.AllDifferentBC
 import cspfj.constraint.semantic.AllDifferent2C
+import cspfj.problem.IntDomain
 
-object QueensAllDiff {
+object QueensAllDiffCSPFJ {
   def qp(size: Int) = {
     val problem = new Problem
 
-    val queens = (0 until size) map (q => problem.addVariable("q" + q, new BitVectorDomain(0 until size: _*)))
+    val queens = (0 until size) map (q => problem.addVariable("q" + q, IntDomain(0 until size)))
 
     allDiff(problem, queens)
 
     val qd1 = queens.zipWithIndex map {
       case (q, i) =>
-        val v = problem.addVariable("d1_" + q.name, new BitVectorDomain(0 - i until size - i: _*))
-        problem.addConstraint(new Eq(1, q, -i, v))
+        val v = problem.addVariable("d1_" + q.name, IntDomain(0 - i until size - i))
+        problem.addConstraint(new Eq(false, q, -i, v))
         v
     }
 
@@ -31,8 +31,8 @@ object QueensAllDiff {
 
     val qd2 = queens.zipWithIndex map {
       case (q, i) =>
-        val v = problem.addVariable("d2_" + q.name, new BitVectorDomain(0 + i until size + i: _*))
-        problem.addConstraint(new Eq(1, q, i, v))
+        val v = problem.addVariable("d2_" + q.name, IntDomain(0 + i until size + i))
+        problem.addConstraint(new Eq(false, q, i, v))
         v
     }
 
@@ -48,14 +48,14 @@ object QueensAllDiff {
   //      }
 
   def allDiff(p: Problem, q: Seq[Variable]) {
-    p.addConstraint(new AllDifferent2C(q: _*))
+    //p.addConstraint(new AllDifferent2C(q: _*))
     p.addConstraint(new AllDifferentBC(q: _*))
 
   }
 
   def count(s: Solver) = {
     var i = 0
-    while (s.nextSolution.isDefined)
+    while (s.nextSolution.isSat)
       i += 1
 
     i
@@ -64,9 +64,11 @@ object QueensAllDiff {
   def sol(s: Solver) = s.nextSolution
 
   def main(args: Array[String]) {
-    ParameterManager("heuristic.variable") = classOf[LexVar]
+    ParameterManager("heuristic.variable") = classOf[cspfj.heuristic.DDegOnDom]
 
     //ParameterManager("logger.level") = "INFO"
+
+    ParameterManager("mac.filter") = classOf[cspfj.filter.AC3Constraint]
 
     var sz = 8.0
 
@@ -76,7 +78,7 @@ object QueensAllDiff {
       val (queens, problem) = qp(size)
 
       val solver = Solver.factory(problem)
-      solver.maxBacktracks = -1
+      //solver.maxBacktracks = -1
 
       val (s, time) = StatisticsManager.time(sol(solver))
       //      for (v <- queens) {

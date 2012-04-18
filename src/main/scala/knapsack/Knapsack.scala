@@ -1,13 +1,12 @@
 package knapsack
 import cspfj.problem.Problem
 import cspfj.problem.Variable
-import cspfj.problem.IntervalDomain
 import cspfj.constraint.semantic.Eq
 import cspfj.MAC
 import cspfj.Solver
-import cspfj.problem.BitVectorDomain
 import cspfj.constraint.semantic.ZeroSum
 import java.io.InputStream
+import cspfj.problem.IntDomain
 
 object Knapsack {
 
@@ -56,11 +55,11 @@ object Knapsack {
 
     val variables = o.zipWithIndex map {
       case (O(w, _), i) =>
-        problem.addVariable("v" + i, new BitVectorDomain(0 to (c / w): _*))
+        problem.addVariable("v" + i, IntDomain(0 to (c / w)))
     }
 
-    val wBound = problem.addVariable("wBound", new BitVectorDomain((0 to c): _*))
-    val pBound = problem.addVariable("pBound", new BitVectorDomain((lb to ub): _*))
+    val wBound = problem.addVariable("wBound", IntDomain(0 to c))
+    val pBound = problem.addVariable("pBound", IntDomain(lb to ub))
 
     problem.addConstraint(new ZeroSum(Array(-1) ++ o.map(_.w), Array(wBound) ++ variables))
     problem.addConstraint(new ZeroSum(Array(-1) ++ o.map(_.p), Array(pBound) ++ variables))

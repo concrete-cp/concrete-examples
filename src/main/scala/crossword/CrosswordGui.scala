@@ -8,7 +8,7 @@ import java.awt.GridLayout
 import java.util.Random
 import java.util.Set
 
-import cspfj.constraint.AbstractConstraint
+import cspfj.constraint.Constraint
 import cspfj.generator.FailedGenerationException
 import cspfj.problem.Problem
 import cspfj.problem.Variable

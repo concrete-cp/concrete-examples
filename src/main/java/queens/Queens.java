@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 import cspfj.ParameterManager;
 import cspfj.Solver;
-import cspfj.StatisticsManager;
 import cspfj.generator.FailedGenerationException;
 import cspom.CSPOM;
 import cspom.compiler.ProblemCompiler;

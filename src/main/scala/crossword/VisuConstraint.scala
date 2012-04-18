@@ -2,12 +2,12 @@ package crossword
 
 import java.awt.Color
 import scala.collection.BitSet
-import cspfj.constraint.AbstractConstraint
+import cspfj.constraint.Constraint
 import cspfj.problem.Variable
 import cspfj.constraint.Removals
 
 class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
-  extends AbstractConstraint(variables)
+  extends Constraint(variables)
   with Removals {
 
   // private int level;
@@ -35,7 +35,9 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
     cell(varCell.x)(varCell.y).setForeground(Color.getHSBColor(2f * level, 1, 1));
   }
 
-  override def check = true
+  override def checkIndices(t: Array[Int]) = true
+
+  def checkValues(t: Array[Int]) = true
 
   override def getEvaluation = Integer.MAX_VALUE
 
@@ -66,6 +68,6 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
 
     true;
   }
-  
+
   val simpleEvaluation = 7
 }

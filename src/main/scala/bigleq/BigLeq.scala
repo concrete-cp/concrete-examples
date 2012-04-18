@@ -39,28 +39,29 @@ object BigLeq {
 
   def main(args: Array[String]) {
     //Solver.loggerLevel = "FINE"
-    val problem = bigleq(NB_VARS, NB_VALS);
+    //val problem = bigleq(NB_VARS, NB_VALS);
     //problem.variable("X0").dom.remove(0);
 
-    ParameterManager("dummy.filter") = classOf[AC3]
+    //ParameterManager("dummy.filter") = classOf[AC3]
 
     //for (i <- List(50, 100, 200, 500, 1000, 2000, 5000)) {
 
-    // val problem = bigleq(i, i)
-    // xml.XML.save("bigleq-" + i + ".xml", problem.toXCSP)
+    val i = 400
+    val problem = bigleq(i, i)
+    xml.XML.save("bigleq-" + i + ".xml", problem.toXCSP)
 
     //}
 
-    val cspfj = ProblemGenerator.generate(problem)
+    //val cspfj = ProblemGenerator.generate(problem)
 
     //println(cspfj)
-    val s = new DummySolver(cspfj);
+    //val s = new DummySolver(cspfj);
 
-    val (result, time) = StatisticsManager.time(s.nextSolution)
+    // val (result, time) = StatisticsManager.time(s.nextSolution)
     //println(cspfj)
 
-    println(result)
-    println(time);
+    //println(result)
+    //println(time);
 
   }
 }
