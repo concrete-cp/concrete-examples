@@ -43,16 +43,16 @@ public class XCSPSolver {
 
     // ParameterManager.checkPending();
 
-    // final Formatter f = new Formatter();
+    final Formatter f = new Formatter();
     //
     // System.out
     // .println(f.format("update problems set"
     // + "(nbvars, nbcons) = (%d,%d) " + "where name = '%s';",
     // p.variables().size(), p.constraints().size(),
     // url.getFile()));
-    
-    final Solver solver = Solver.factory(p);
-    solver.nextSolution();
+
+    // final Solver solver = Solver.factory(p);
+    // solver.nextSolution();
 
     System.out
         .println(f.format("update problems set"
