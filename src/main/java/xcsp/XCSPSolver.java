@@ -8,6 +8,7 @@ import java.util.Set;
 
 import cspfj.Pair;
 import cspfj.ParameterManager;
+import cspfj.Solver;
 import cspfj.filter.AC3;
 import cspfj.filter.Filter;
 import cspfj.generator.FailedGenerationException;
@@ -22,7 +23,6 @@ public class XCSPSolver {
 
   public static void main(String[] args) throws CSPParseException,
       IOException, FailedGenerationException, InterruptedException {
-    // System.out.println(Arrays.toString(args));
     // System.out.println(Arrays.toString(args));
     final URL url = new URL(args[1]);
     final CSPOM cspomProblem = cspom.CSPOM.load(url);
@@ -43,7 +43,16 @@ public class XCSPSolver {
 
     // ParameterManager.checkPending();
 
-    final Formatter f = new Formatter();
+    // final Formatter f = new Formatter();
+    //
+    // System.out
+    // .println(f.format("update problems set"
+    // + "(nbvars, nbcons) = (%d,%d) " + "where name = '%s';",
+    // p.variables().size(), p.constraints().size(),
+    // url.getFile()));
+    
+    final Solver solver = Solver.factory(p);
+    solver.nextSolution();
 
     System.out
         .println(f.format("update problems set"

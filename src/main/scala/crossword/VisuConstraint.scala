@@ -36,6 +36,7 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
   }
 
   override def checkIndices(t: Array[Int]) = true
+  def checkValues(t: Array[Int]) = true
 
   def checkValues(t: Array[Int]) = true
 

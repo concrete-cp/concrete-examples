@@ -86,7 +86,7 @@ public final class RB {
 			}
 
 			final Solver solver = Solver.factory(problem);
-			if (!solver.nextSolution().isDefined()) {
+			if (!solver.nextSolution().isSat()) {
 				unsat++;
 			}
 		}
