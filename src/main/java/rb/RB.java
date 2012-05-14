@@ -10,7 +10,7 @@ import cspfj.Solver;
 import cspfj.generator.FailedGenerationException;
 import cspfj.filter.Filter;
 import cspfj.generator.ProblemGenerator;
-import cspfj.problem.Problem;
+import cspfj.Problem;
 
 public final class RB {
 	private final int nbVariables;

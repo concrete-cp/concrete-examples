@@ -1,6 +1,6 @@
 package crossword;
 
-import cspfj.problem.Problem
+import cspfj.Problem
 import cspfj.MAC
 
 class CrosswordResolver(problem: Problem) extends Thread {

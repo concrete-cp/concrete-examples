@@ -8,22 +8,22 @@ import cspfj.SolverResult;
 import cspfj.constraint.extension.ExtensionConstraintGeneral;
 import cspfj.constraint.extension.TupleSet;
 import cspfj.constraint.semantic.Neq;
-import cspfj.problem.IntDomain;
-import cspfj.problem.Problem;
-import cspfj.problem.Variable;
+import cspfj.IntDomain;
+import cspfj.Problem;
+import cspfj.Variable;
 
 public class TestCspfj {
   public static void main(String[] args) throws IOException {
     Logger.getLogger("").setLevel(Level.WARNING);
     Problem problem = new Problem();
 
-    cspfj.problem.Variable v0 = problem.addVariable("V0",
+    cspfj.Variable v0 = problem.addVariable("V0",
         IntDomain.apply(new Range(0, 3, 1)));
-    cspfj.problem.Variable v1 = problem.addVariable("V1",
+    cspfj.Variable v1 = problem.addVariable("V1",
         IntDomain.apply(new Range(0, 3, 1)));
-    cspfj.problem.Variable v2 = problem.addVariable("V2",
+    cspfj.Variable v2 = problem.addVariable("V2",
         IntDomain.apply(new Range(0, 3, 1)));
-    cspfj.problem.Variable v3 = problem.addVariable("V3",
+    cspfj.Variable v3 = problem.addVariable("V3",
         IntDomain.apply(new Range(0, 3, 1)));
 
     final ExtensionConstraintGeneral noGoodsConstraint = new ExtensionConstraintGeneral(

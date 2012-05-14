@@ -3,7 +3,7 @@ package crossword
 import java.awt.Color
 import scala.collection.BitSet
 import cspfj.constraint.Constraint
-import cspfj.problem.Variable
+import cspfj.Variable
 import cspfj.constraint.Removals
 
 class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)

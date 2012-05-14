@@ -1,12 +1,12 @@
 package knapsack
-import cspfj.problem.Problem
-import cspfj.problem.Variable
+import cspfj.Problem
+import cspfj.Variable
 import cspfj.constraint.semantic.Eq
 import cspfj.MAC
 import cspfj.Solver
 import cspfj.constraint.semantic.ZeroSum
 import java.io.InputStream
-import cspfj.problem.IntDomain
+import cspfj.IntDomain
 
 object Knapsack {
 
