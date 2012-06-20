@@ -11,6 +11,7 @@ import cspfj.heuristic.LexVar
 import cspfj.constraint.semantic.AllDifferentBC
 import cspfj.constraint.semantic.AllDifferent2C
 import cspfj.IntDomain
+import cspfj.constraint.Constraint
 
 object QueensAllDiffCSPFJ {
   def qp(size: Int) = {
@@ -48,7 +49,7 @@ object QueensAllDiffCSPFJ {
   //      }
 
   def allDiff(p: Problem, q: Seq[Variable]) {
-    //p.addConstraint(new AllDifferent2C(q: _*))
+    p.addConstraint(new AllDifferent2C(q: _*))
     p.addConstraint(new AllDifferentBC(q: _*))
 
   }
@@ -68,9 +69,12 @@ object QueensAllDiffCSPFJ {
 
     //ParameterManager("logger.level") = "INFO"
 
-    ParameterManager("mac.filter") = classOf[cspfj.filter.ACC]
+    //ParameterManager("mac.restartLevel") = -1
+    ParameterManager("mac.filter") = classOf[cspfj.filter.ACV]
+    ParameterManager("ac3c.queue") = classOf[cspfj.priorityqueues.JavaFifos[Constraint]]
 
-    var sz = 8.0
+
+    var sz = 210
 
     do {
       val size = sz.intValue
@@ -86,7 +90,7 @@ object QueensAllDiffCSPFJ {
       //      }
       //      println
       println("%g : %d".format(time, solver.statistics("solver.nbAssignments")))
-      sz *= 1.1
+      sz += 1
     } while (true)
   }
 }
