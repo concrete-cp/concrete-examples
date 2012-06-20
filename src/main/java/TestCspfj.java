@@ -5,12 +5,10 @@ import java.util.logging.Logger;
 import scala.collection.immutable.Range;
 import cspfj.MAC;
 import cspfj.SolverResult;
-import cspfj.constraint.extension.ExtensionConstraintGeneral;
-import cspfj.constraint.extension.TupleSet;
+import cspfj.constraint.extension.*;
 import cspfj.constraint.semantic.Neq;
 import cspfj.IntDomain;
 import cspfj.Problem;
-import cspfj.Variable;
 
 public class TestCspfj {
   public static void main(String[] args) throws IOException {
@@ -18,7 +16,7 @@ public class TestCspfj {
     Problem problem = new Problem();
 
     cspfj.Variable v0 = problem.addVariable("V0",
-        IntDomain.apply(new Range(0, 3, 1)));
+        IntDomain.apply(new int[] { 0, 1, 2 }));
     cspfj.Variable v1 = problem.addVariable("V1",
         IntDomain.apply(new Range(0, 3, 1)));
     cspfj.Variable v2 = problem.addVariable("V2",
@@ -26,8 +24,8 @@ public class TestCspfj {
     cspfj.Variable v3 = problem.addVariable("V3",
         IntDomain.apply(new Range(0, 3, 1)));
 
-    final ExtensionConstraintGeneral noGoodsConstraint = new ExtensionConstraintGeneral(
-        new TupleSet(true), false, new Variable[] { v0 });
+    final ExtensionConstraint noGoodsConstraint = new ExtensionConstraintUnary(
+        v0, new TupleHashSet(true), false);
 
     problem.addConstraint(noGoodsConstraint);
 

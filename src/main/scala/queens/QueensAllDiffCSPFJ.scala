@@ -68,7 +68,7 @@ object QueensAllDiffCSPFJ {
 
     //ParameterManager("logger.level") = "INFO"
 
-    ParameterManager("mac.filter") = classOf[cspfj.filter.AC3Constraint]
+    ParameterManager("mac.filter") = classOf[cspfj.filter.ACC]
 
     var sz = 8.0
 

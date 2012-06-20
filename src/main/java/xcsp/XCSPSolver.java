@@ -8,13 +8,12 @@ import java.util.Set;
 
 import cspfj.Pair;
 import cspfj.ParameterManager;
-import cspfj.Solver;
-import cspfj.filter.AC3;
+import cspfj.Problem;
+import cspfj.Variable;
+import cspfj.filter.ACV;
 import cspfj.filter.Filter;
 import cspfj.generator.FailedGenerationException;
 import cspfj.generator.ProblemGenerator;
-import cspfj.Problem;
-import cspfj.Variable;
 import cspom.CSPOM;
 import cspom.CSPParseException;
 import cspom.compiler.ProblemCompiler;
@@ -65,7 +64,7 @@ public class XCSPSolver {
   }
 
   public static boolean control(Problem problem) throws InterruptedException {
-    final Filter ac = new AC3(problem);
+    final Filter ac = new ACV(problem);
     if (!ac.reduceAll()) {
       return false;
     }

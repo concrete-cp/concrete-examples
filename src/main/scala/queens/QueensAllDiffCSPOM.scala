@@ -1,19 +1,12 @@
 package queens
-import cspfj.Problem
-import cspfj.constraint.semantic.Eq
-import cspfj.Solver
-import cspfj.StatisticsManager
+
+import cspfj.filter.ACC
+import cspfj.heuristic.DDegOnDom
 import cspfj.ParameterManager
-import cspfj.heuristic.Dom
-import cspfj.Variable
-import cspfj.constraint.semantic.Neq
-import cspfj.heuristic.LexVar
-import cspfj.constraint.semantic.AllDifferentBC
-import cspfj.constraint.semantic.AllDifferent2C
-import cspfj.IntDomain
-import cspom.CSPOM
-import cspom.variable.CSPOMVariable
+import cspfj.Solver
 import cspom.compiler.ProblemCompiler
+import cspom.variable.CSPOMVariable
+import cspom.CSPOM
 
 object QueensAllDiffCSPOM extends App {
   def qp(size: Int) = {
@@ -73,7 +66,7 @@ object QueensAllDiffCSPOM extends App {
 
   //ParameterManager("logger.level") = "INFO"
 
-  ParameterManager("mac.filter") = classOf[cspfj.filter.AC3Constraint]
+  ParameterManager("mac.filter") = classOf[cspfj.filter.ACC]
 
   var sz = 8.0
 
@@ -86,15 +79,15 @@ object QueensAllDiffCSPOM extends App {
     xml.XML.save("queensAllDiff-" + sz.toInt + ".xml", problem.toXCSP)
     //println(problem)
 
-//    val solver = Solver.factory(problem)
-//    //solver.maxBacktracks = -1
-//
-//    val (s, time) = StatisticsManager.time(sol(solver))
-//    //      for (v <- queens) {
-//    //        print(s.get(v.name) + " ")
-//    //      }
-//    //      println
-//    println("%g : %d".format(time, solver.statistics("solver.nbAssignments")))
+    //    val solver = Solver.factory(problem)
+    //    //solver.maxBacktracks = -1
+    //
+    //    val (s, time) = StatisticsManager.time(sol(solver))
+    //    //      for (v <- queens) {
+    //    //        print(s.get(v.name) + " ")
+    //    //      }
+    //    //      println
+    //    println("%g : %d".format(time, solver.statistics("solver.nbAssignments")))
     sz *= 1.1
   } while (true)
 

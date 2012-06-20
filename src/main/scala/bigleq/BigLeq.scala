@@ -1,19 +1,8 @@
 package bigleq
 
 import cspfj.constraint.semantic.Gt
-import cspfj.filter.AC3Constraint
-import cspfj.problem.Problem
-import cspfj.DummySolver
-import cspfj.ParameterManager
-import cspfj.Solver
-import cspfj.filter.AC3Constraint
+import cspfj.Problem
 import cspom.CSPOM
-import cspfj.generator.ProblemGenerator
-import cspfj.filter.AC3
-import cspfj.MAC
-import java.io.File
-import java.io.FileOutputStream
-import cspfj.StatisticsManager
 
 object BigLeq {
   val NB_VALS = 2000;
