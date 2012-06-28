@@ -71,7 +71,7 @@ object QueensAllDiffCSPFJ {
 
     //ParameterManager("mac.restartLevel") = -1
     ParameterManager("mac.filter") = classOf[cspfj.filter.ACV]
-    ParameterManager("ac3c.queue") = classOf[cspfj.priorityqueues.JavaFifos[Constraint]]
+    ParameterManager("ac3c.queue") = classOf[cspfj.priorityqueues.QuickFifos]
 
 
     var sz = 210
