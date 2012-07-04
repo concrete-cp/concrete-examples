@@ -68,7 +68,7 @@ object QueensAllDiffCSPOM extends App {
 
   ParameterManager("mac.filter") = classOf[cspfj.filter.ACC]
 
-  var sz = 8.0
+  var sz = 400.0
 
   do {
     val size = sz.intValue
@@ -89,6 +89,6 @@ object QueensAllDiffCSPOM extends App {
     //    //      println
     //    println("%g : %d".format(time, solver.statistics("solver.nbAssignments")))
     sz *= 1.1
-  } while (true)
+  } while (false)
 
 }

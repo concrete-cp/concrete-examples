@@ -3,17 +3,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import scala.collection.immutable.Range;
-import cspfj.MAC;
-import cspfj.SolverResult;
-<<<<<<< .mine
-import cspfj.constraint.extension.*;
-import cspfj.constraint.extension.TupleSet;
-=======
-import cspfj.constraint.extension.*;
->>>>>>> .r901
-import cspfj.constraint.semantic.Neq;
 import cspfj.IntDomain;
+import cspfj.MAC;
 import cspfj.Problem;
+import cspfj.SolverResult;
+import cspfj.Variable;
+import cspfj.constraint.extension.ExtensionConstraint;
+import cspfj.constraint.extension.ExtensionConstraint2D;
+import cspfj.constraint.extension.Matrix2D;
+import cspfj.constraint.semantic.Neq;
 
 public class TestCspfj {
 	public static void main(String[] args) throws IOException {
@@ -25,14 +23,8 @@ public class TestCspfj {
 		cspfj.Variable v2 = problem.addVariable("V2", IntDomain.apply(new Range(0, 3, 1)));
 		cspfj.Variable v3 = problem.addVariable("V3", IntDomain.apply(new Range(0, 3, 1)));
 
-
-
-    final ExtensionConstraint noGoodsConstraint = new ExtensionConstraintUnary(
-        v0, new TupleHashSet(true), false);
-
-
-		noGoodsConstraint = new ExtensionConstraint2D(new Variable[] { v0, v1 }, new Matrix2D(3, 3,
-				true), false);
+		final ExtensionConstraint noGoodsConstraint = new ExtensionConstraint2D(new Variable[] {
+				v0, v1 }, new Matrix2D(3, 3, true), false);
 
 		problem.addConstraint(noGoodsConstraint);
 
