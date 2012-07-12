@@ -38,7 +38,6 @@ object QueensAllDiffCSPOM extends App {
     (queens, problem)
   }
 
-
   def allDiff(p: CSPOM, q: Seq[CSPOMVariable]) {
 
     p.ctr(q.mkString("alldifferent(", ", ", ")"))
@@ -61,15 +60,12 @@ object QueensAllDiffCSPOM extends App {
 
   ParameterManager("mac.filter") = classOf[cspfj.filter.ACC]
 
-  var sz = 400.0
-
-  do {
-    val size = sz.intValue
-    print(size + " : ")
+  for (size <- List(4, 8, 12, 20, 50, 100, 200, 500, 1000, 2000, 5000)) {
+    //print(size + " : ")
     val (queens, problem) = qp(size)
     ProblemCompiler.compile(problem)
 
-    xml.XML.save("queensAllDiff-" + sz.toInt + ".xml", problem.toXCSP)
+    xml.XML.save("queensAllDiff-" + size + ".xml", problem.toXCSP)
     //println(problem)
 
     //    val solver = Solver.factory(problem)
@@ -81,7 +77,6 @@ object QueensAllDiffCSPOM extends App {
     //    //      }
     //    //      println
     //    println("%g : %d".format(time, solver.statistics("solver.nbAssignments")))
-    sz *= 1.1
-  } while (false)
+  }
 
 }

@@ -38,7 +38,7 @@ public class XCSPSolver {
     ProblemCompiler.compile(cspomProblem);
 
     final Problem p = ProblemGenerator.generate(cspomProblem);
-    System.out.println(p);
+    //System.out.println(p);
 
     // ParameterManager.checkPending();
 
