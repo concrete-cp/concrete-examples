@@ -20,7 +20,6 @@ object QueensAllDiffCSPOM extends App {
       case (q, i) =>
         val v = problem.interVar(0 - i, size - i - 1)
         problem.ctr("eq(%s, add(%s, %d))".format(v, q, -i))
-        //problem.addConstraint(new Eq(1, q, -i, v))
         v
     }
 
@@ -31,7 +30,6 @@ object QueensAllDiffCSPOM extends App {
 
         val v = problem.interVar(0 + i, size + i - 1)
         problem.ctr("eq(%s, add(%s, %d))".format(v, q, i))
-        //problem.addConstraint(new Eq(1, q, i, v))
         v
     }
 
@@ -40,14 +38,9 @@ object QueensAllDiffCSPOM extends App {
     (queens, problem)
   }
 
-  //      def allDiff(p: Problem, q: Seq[Variable]) {
-  //        for (Seq(v1, v2) <- q.combinations(2)) {
-  //          p.addConstraint(new Neq(v1, v2))
-  //        }
-  //      }
 
   def allDiff(p: CSPOM, q: Seq[CSPOMVariable]) {
-    //p.addConstraint(new AllDifferent2C(q: _*))
+
     p.ctr(q.mkString("alldifferent(", ", ", ")"))
 
   }
