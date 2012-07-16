@@ -4,10 +4,11 @@ import java.net.URL
 import java.text.Normalizer
 import cspom.CSPOM
 import cspom.variable.CSPOMVariable
-import cspom.extension.Relation
+import cspom.extension.Trie
 import cspom.extension.ExtensionConstraint
 import cspfj.generator.ProblemGenerator
 import scala.util.Random
+import scala.collection.mutable.HashMap
 
 /*
  * Created on 20 mai 08
@@ -22,7 +23,7 @@ object CrosswordGenerator {
     val x = 10
     val y = 10
     val RAND = new Random(1)
-    val black = (for (i <- 0 until x; j <- 0 until y; if RAND.nextFloat < .15) yield Cell(i, j)).toSet 
+    val black = (for (i <- 0 until x; j <- 0 until y; if RAND.nextFloat < .15) yield Cell(i, j)).toSet
     //Set(Cell(4,4))
     val crossword = new CrosswordGenerator(x, y, black);
     val problem = crossword.generate();
@@ -39,7 +40,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
 
   private def loadDicts(file: URL, max: Int) = {
 
-    var dicts: Map[Int, Relation] = Map.empty
+    var dicts = new HashMap[Int, Trie]()
 
     val source = io.Source.fromURL(file)
 
@@ -48,18 +49,11 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
       if (word.length >= 2 && word.length <= max)
     ) {
 
-      val ths = dicts.get(word.size) match {
-        case None => {
-          val t = new Relation(word.size)
-          dicts += word.size -> t
-          t
-        }
-        case Some(t) => t
-      }
+      val ths = dicts.getOrElseUpdate(word.size, Trie.empty(word.size))
 
       val tuple = word map { c => c.toInt - 65 } toArray
 
-      ths.add(tuple);
+      dicts += word.size -> (ths + tuple);
 
     }
     dicts;
