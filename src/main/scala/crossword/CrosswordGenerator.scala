@@ -49,7 +49,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
       if (word.length >= 2 && word.length <= max)
     ) {
 
-      val ths = dicts.getOrElseUpdate(word.size, Trie.empty(word.size))
+      val ths = dicts.getOrElseUpdate(word.size, Trie.empty)
 
       val tuple = word map { c => c.toInt - 65 } toArray
 

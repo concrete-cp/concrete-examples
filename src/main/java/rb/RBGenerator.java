@@ -282,7 +282,7 @@ public class RBGenerator {
 	}
 
 	private static Trie tuplesToMatrix(int arity, int[][] tuples) {
-		Trie extension = Trie$.MODULE$.empty(arity);
+		Trie extension = Trie$.MODULE$.empty();
 
 		for (int[] tuple : tuples) {
 			extension = extension.$plus(tuple);
