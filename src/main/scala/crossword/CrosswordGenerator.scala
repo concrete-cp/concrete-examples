@@ -4,11 +4,12 @@ import java.net.URL
 import java.text.Normalizer
 import cspom.CSPOM
 import cspom.variable.CSPOMVariable
-import cspom.extension.Trie
+import cspom.extension.HashTrie
 import cspom.extension.ExtensionConstraint
 import cspfj.generator.ProblemGenerator
 import scala.util.Random
 import scala.collection.mutable.HashMap
+import cspom.extension.HashTrie
 
 /*
  * Created on 20 mai 08
@@ -40,7 +41,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
 
   private def loadDicts(file: URL, max: Int) = {
 
-    var dicts = new HashMap[Int, Trie]()
+    var dicts = new HashMap[Int, HashTrie]()
 
     val source = io.Source.fromURL(file)
 
@@ -49,7 +50,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
       if (word.length >= 2 && word.length <= max)
     ) {
 
-      val ths = dicts.getOrElseUpdate(word.size, Trie.empty)
+      val ths = dicts.getOrElseUpdate(word.size, HashTrie.empty)
 
       val tuple = word map { c => c.toInt - 65 } toArray
 
