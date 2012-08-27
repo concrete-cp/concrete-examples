@@ -66,10 +66,6 @@ object QueensAllDiffCSPFJ {
 
   def main(args: Array[String]) {
     ParameterManager("heuristic.variable") = classOf[cspfj.heuristic.DDegOnDom]
-
-    //ParameterManager("logger.level") = "INFO"
-
-    //ParameterManager("mac.restartLevel") = -1
     ParameterManager("mac.filter") = classOf[cspfj.filter.ACV]
     ParameterManager("ac3c.queue") = classOf[cspfj.priorityqueues.QuickFifos[Variable]]
 
