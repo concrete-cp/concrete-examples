@@ -56,7 +56,7 @@ class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
 
   }
 
-  def revise(mod: Seq[Int]) = {
+  def revise(mod: List[Int]) = {
     for (p <- mod; val v = scope(p)) {
       modified = modified.updated(level, modified(level) + p);
       if (v.dom.size == 1) {

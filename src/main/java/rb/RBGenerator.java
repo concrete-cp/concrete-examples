@@ -11,14 +11,12 @@ import rb.randomlists.ProbabilityRandomListGenerator;
 import rb.randomlists.ProportionRandomListGenerator;
 import rb.randomlists.RandomListGenerator;
 import rb.randomlists.RandomListGenerator.Structure;
-import scala.collection.JavaConversions;
-import scala.collection.Seq;
 import cspfj.generator.FailedGenerationException;
 import cspom.CSPOM;
 import cspom.constraint.CSPOMConstraint;
 import cspom.extension.ExtensionConstraint;
-import cspom.extension.Trie;
-import cspom.extension.Trie$;
+import cspom.extension.HashTrie;
+import cspom.extension.HashTrie$;
 import cspom.variable.CSPOMVariable;
 
 /**
@@ -218,10 +216,10 @@ public class RBGenerator {
 	}
 
 	private static class Extension {
-		final Trie e;
+		final HashTrie e;
 		final boolean sup;
 
-		public Extension(Trie e, boolean sup) {
+		public Extension(HashTrie e, boolean sup) {
 			this.e = e;
 			this.sup = sup;
 		}
@@ -281,8 +279,8 @@ public class RBGenerator {
 
 	}
 
-	private static Trie tuplesToMatrix(int arity, int[][] tuples) {
-		Trie extension = Trie$.MODULE$.empty();
+	private static HashTrie tuplesToMatrix(int arity, int[][] tuples) {
+		HashTrie extension = HashTrie$.MODULE$.empty();
 
 		for (int[] tuple : tuples) {
 			extension = extension.$plus(tuple);
