@@ -25,7 +25,7 @@ public class TestCspfj {
     cspfj.Variable v3 = problem.addVariable("V3",
         IntDomain.apply(new Range(0, 3, 1)));
 
-    final ExtensionConstraint noGoodsConstraint = new ExtensionConstraint2D(
+    final ExtensionConstraint noGoodsConstraint = new BinaryExt(
         new Variable[] { v0, v1 }, new Matrix2D(3, 3,
             true), false);
 
