@@ -7,40 +7,45 @@ import cspfj.Solver
 import cspom.compiler.ProblemCompiler
 import cspom.variable.CSPOMVariable
 import cspom.CSPOM
+import CSPOM._
+import cspfj.StatisticsManager
+import cspfj.generator.ProblemGenerator
 
 object QueensAllDiffCSPOM extends App {
   def qp(size: Int) = {
-    val problem = new CSPOM
+    var queens: Seq[CSPOMVariable] = null
 
-    val queens = (0 until size) map (q => problem.interVar(0, size - 1))
+    val problem = CSPOM {
 
-    allDiff(problem, queens)
+      queens = (0 until size) map (q => interVar(0, size - 1))
 
-    val qd1 = queens.zipWithIndex map {
-      case (q, i) =>
-        val v = problem.interVar(0 - i, size - i - 1)
-        problem.ctr("eq(%s, add(%s, %d))".format(v, q, -i))
-        v
+      allDiff(queens)
+
+      val qd1 = queens.zipWithIndex map {
+        case (q, i) =>
+          val v = interVar(0 - i, size - i - 1)
+          ctr("eq", v, is("add", q, -i))
+          v
+      }
+
+      allDiff(qd1)
+
+      val qd2 = queens.zipWithIndex map {
+        case (q, i) =>
+
+          val v = interVar(0 + i, size + i - 1)
+          ctr("eq", v, is("add", q, i))
+          v
+      }
+
+      allDiff(qd2)
     }
-
-    allDiff(problem, qd1)
-
-    val qd2 = queens.zipWithIndex map {
-      case (q, i) =>
-
-        val v = problem.interVar(0 + i, size + i - 1)
-        problem.ctr("eq(%s, add(%s, %d))".format(v, q, i))
-        v
-    }
-
-    allDiff(problem, qd2)
-
     (queens, problem)
   }
 
-  def allDiff(p: CSPOM, q: Seq[CSPOMVariable]) {
+  def allDiff(q: Seq[CSPOMVariable])(implicit p: CSPOM) {
 
-    p.ctr(q.mkString("alldifferent(", ", ", ")"))
+    ctr("alldifferent", q: _*)
 
   }
 
@@ -54,29 +59,29 @@ object QueensAllDiffCSPOM extends App {
 
   def sol(s: Solver) = s.nextSolution
 
-  ParameterManager("heuristic.variable") = classOf[cspfj.heuristic.DDegOnDom]
+  //ParameterManager("heuristic.variable") = classOf[cspfj.heuristic.DDegOnDom]
 
-  //ParameterManager("logger.level") = "INFO"
+  ParameterManager("logger.level") = "INFO"
 
-  ParameterManager("mac.filter") = classOf[cspfj.filter.ACC]
+  //ParameterManager("mac.filter") = classOf[cspfj.filter.ACC]
 
   for (size <- List(4, 8, 12, 20, 50, 100, 200, 500, 1000, 2000, 5000)) {
     //print(size + " : ")
     val (queens, problem) = qp(size)
     ProblemCompiler.compile(problem)
 
-    xml.XML.save("queensAllDiff-" + size + ".xml", problem.toXCSP)
+    //xml.XML.save("queensAllDiff-" + size + ".xml", problem.toXCSP)
     //println(problem)
 
-    //    val solver = Solver.factory(problem)
-    //    //solver.maxBacktracks = -1
-    //
-    //    val (s, time) = StatisticsManager.time(sol(solver))
-    //    //      for (v <- queens) {
-    //    //        print(s.get(v.name) + " ")
-    //    //      }
-    //    //      println
-    //    println("%g : %d".format(time, solver.statistics("solver.nbAssignments")))
+    val solver = Solver.factory(problem)
+    //solver.maxBacktracks = -1
+
+    val (s, time) = StatisticsManager.time(sol(solver))
+    //      for (v <- queens) {
+    //        print(s.get(v.name) + " ")
+    //      }
+    //      println
+    println(f"$size : $time%f, ${solver.statistics("solver.nbAssignments")}")
   }
 
 }

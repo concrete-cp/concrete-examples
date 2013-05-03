@@ -16,6 +16,7 @@ import cspom.extension.MDDLeaf
 import cspom.extension.MDDNode
 import cspom.extension.MDD
 import cspom.extension.LazyMDD
+import CSPOM._
 
 object CarSeq extends Concrete with App {
   /**
@@ -53,12 +54,10 @@ object CarSeq extends Concrete with App {
    * 5   1 1 0 0 0
    */
 
-  var cProblem: Option[CSPOM] = None
-
   var cars: IndexedSeq[CSPOMVariable] = _
   var options: IndexedSeq[IndexedSeq[CSPOMVariable]] = _
 
-  def load(args: List[String]) = {
+  override def loadCSPOM(args: List[String]) = {
     //val url = new URL(args(0))
     val url = getClass().getResource(args(0))
     val source = io.Source.fromURL(url)
@@ -77,34 +76,25 @@ object CarSeq extends Concrete with App {
       classes ::= (i +: options.drop(2).map(_.toInt))
     }
 
-    val problem = new CSPOM()
+    CSPOM {
+      cars = (0 until nbCars) map (c => interVar(s"car$c", 0, nbClasses - 1))
+      options = cars.zipWithIndex map {
+        case (cv, c) =>
+          val vars = (0 until nbOptions) map (o => varOf(s"car${c}option$o", 0, 1))
+          ctr(new Table(classes), false, cv +: vars: _*)
+          vars
+      }
 
-    cars = (0 until nbCars) map (c => problem.interVar(s"car$c", 0, nbClasses - 1))
-    options = cars.zipWithIndex map {
-      case (cv, c) =>
-        val vars = (0 until nbOptions) map (o => problem.varOf(s"car${c}option$o", 0, 1))
-        problem.addConstraint(new ExtensionConstraint(new Table(classes), false, cv +: vars))
-        vars
-    }
+      for (i <- 0 until nbOptions) {
+        val cardinality = classes.map(c => quantities(c(0)) * c(i + 1)).sum
+        //println(cardinality)
+        sequenceBDD(options.map(_(i)), maxCars(i), blockSizes(i), cardinality)
+      }
 
-    for (i <- 0 until nbOptions) {
-      val cardinality = classes.map(c => quantities(c(0)) * c(i + 1)).sum
-      //println(cardinality)
-      sequenceBDD(problem, options.map(_(i)), maxCars(i), blockSizes(i), cardinality)
-    }
-
-    problem.ctr(s"gcc{${
-      quantities.zipWithIndex.map {
+      ctr("gcc", quantities.zipWithIndex.map {
         case (q, i) => s"$i, $q, $q"
-      } mkString (", ")
-    }}(${cars.mkString(", ")})")
-
-    cProblem = Some(problem)
-    val cp = ProblemGenerator.generate(problem)
-    //problem.closeRelations()
-    //println(cp)
-
-    cp
+      } mkString (", "), cars: _*)
+    }
   }
 
   def sequence(cp: CSPOM, vars: IndexedSeq[CSPOMVariable], u: Int, q: Int, cardinality: Int) {
@@ -116,7 +106,7 @@ object CarSeq extends Concrete with App {
     cp.ctr(s"zerosum(${vars.mkString(", ")}, $ub)")
   }
 
-  def sequenceBDD(cp: CSPOM, vars: IndexedSeq[CSPOMVariable], u: Int, q: Int, cardinality: Int) {
+  def sequenceBDD(vars: IndexedSeq[CSPOMVariable], u: Int, q: Int, cardinality: Int)(implicit cp: CSPOM) {
     val b = new LazyMDD(Unit => bdd(u, q, Queue.empty, vars.size, cardinality))
     //println(s"${args(0)} ${b.lambda} ${b.edges}")
     cp.addConstraint(new ExtensionConstraint(b, false, vars))
