@@ -76,7 +76,7 @@ object QueensAllDiffCSPFJ {
       print(size + " : ")
       val (queens, problem) = qp(size)
 
-      val solver = Solver.factory(problem)
+      val solver = Solver(problem)
       //solver.maxBacktracks = -1
 
       val (s, time) = StatisticsManager.time(sol(solver))

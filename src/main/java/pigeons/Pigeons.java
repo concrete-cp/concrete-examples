@@ -26,8 +26,7 @@ public final class Pigeons {
 
 		for (int i = size; --i >= 0;) {
 			for (int j = i; --j >= 0;) {
-				problem.ctr("ne(" + variables.get(i) + ", " + variables.get(j)
-						+ ")");
+				problem.ctr(variables.get(i).ne(variables.get(j), problem));
 			}
 		}
 		return problem;
@@ -43,7 +42,7 @@ public final class Pigeons {
 
 			ProblemCompiler.compile(problem);
 
-			final Solver solver = Solver.factory(problem);
+			final Solver solver = Solver.apply(problem);
 
 			solver.nextSolution();
 

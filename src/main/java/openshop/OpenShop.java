@@ -110,7 +110,7 @@ public class OpenShop {
 
       // System.out.println(cspom);
 
-      final Solver solver = Solver.factory(cspom);
+      final Solver solver = Solver.apply(cspom);
 
       final SolverResult solution = solver.nextSolution();
       time += System.currentTimeMillis();

@@ -28,20 +28,19 @@ public final class Queens {
 
 		for (int j = size; --j >= 0;) {
 			for (int i = j; --i >= 0;) {
-				problem.ctr("ne(" + variables[i] + ", " + variables[j] + ")");
-				problem.ctr("ne(abs(sub(" + variables[i] + ", " + variables[j]
-						+ ")), " + (j - i) + ")");
+				problem.ctr(variables[i].ne(variables[j], problem));
+				problem.ctr("ne", problem.is("abs", variables[i].$less(variables[j], problem)),
+						problem.varOf(j - i));
 			}
 		}
 
 		return problem;
 	}
 
-	public static void main(String[] args) throws FailedGenerationException,
-			NumberFormatException, IOException, ClassNotFoundException {
-		//ParameterManager.parse("logger.level", "INFO");
-		ParameterManager.parse("heuristic.variable",
-				"cspfj.heuristic.WDegFixedOnDom");
+	public static void main(String[] args) throws FailedGenerationException, NumberFormatException,
+			IOException, ClassNotFoundException {
+		// ParameterManager.parse("logger.level", "INFO");
+		ParameterManager.parse("heuristic.variable", "cspfj.heuristic.WDegFixedOnDom");
 		for (int i : Arrays.asList(4, 8, 12, 15, 20, 30, 50, 80, 100, 120, 150)) {
 			System.out.println(i + " :");
 			long time = -System.currentTimeMillis();
@@ -49,7 +48,7 @@ public final class Queens {
 			final CSPOM problem = queens.generate();
 			ProblemCompiler.compile(problem);
 
-			final Solver solver = Solver.factory(problem);
+			final Solver solver = Solver.apply(problem);
 
 			solver.nextSolution();
 

@@ -85,7 +85,7 @@ public final class RB {
 				throw new IllegalStateException(e);
 			}
 
-			final Solver solver = Solver.factory(problem);
+			final Solver solver = Solver.apply(problem);
 			if (!solver.nextSolution().isSat()) {
 				unsat++;
 			}

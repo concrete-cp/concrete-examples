@@ -109,7 +109,7 @@ object Knapsack extends Concrete with App {
     args.mkString("knapsack-", "-", "")
   }
 
-  def load(args: List[String]) = {
+  override def load(args: List[String]) = {
     val List(n, b, r, i, s) = args map (_.toInt)
 
     val (w, m, p) = ks(n, b, r, i, s)

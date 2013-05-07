@@ -24,7 +24,7 @@ object QueensAllDiffCSPOM extends App {
       val qd1 = queens.zipWithIndex map {
         case (q, i) =>
           val v = interVar(0 - i, size - i - 1)
-          ctr("eq", v, is("add", q, -i))
+          ctr(v == (q - i))
           v
       }
 
@@ -34,7 +34,7 @@ object QueensAllDiffCSPOM extends App {
         case (q, i) =>
 
           val v = interVar(0 + i, size + i - 1)
-          ctr("eq", v, is("add", q, i))
+          ctr(v == (q + i))
           v
       }
 
@@ -45,7 +45,7 @@ object QueensAllDiffCSPOM extends App {
 
   def allDiff(q: Seq[CSPOMVariable])(implicit p: CSPOM) {
 
-    ctr("alldifferent", q: _*)
+    ctr('alldifferent(q: _*))
 
   }
 
@@ -73,7 +73,7 @@ object QueensAllDiffCSPOM extends App {
     //xml.XML.save("queensAllDiff-" + size + ".xml", problem.toXCSP)
     //println(problem)
 
-    val solver = Solver.factory(problem)
+    val solver = Solver(problem)
     //solver.maxBacktracks = -1
 
     val (s, time) = StatisticsManager.time(sol(solver))

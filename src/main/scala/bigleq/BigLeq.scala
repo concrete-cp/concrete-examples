@@ -16,10 +16,11 @@ object BigLeq extends App {
     }
 
     for (v <- vars.sliding(2)) {
-      ctr("ge", v(1), v(0));
+      ctr(v(1) > v(0))
     }
 
-    ctr("allDifferent", vars: _*)
+    ctr('allDifferent(vars: _*))
+
   }
 
   //Solver.loggerLevel = "FINE"

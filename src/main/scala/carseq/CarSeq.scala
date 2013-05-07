@@ -81,7 +81,7 @@ object CarSeq extends Concrete with App {
       options = cars.zipWithIndex map {
         case (cv, c) =>
           val vars = (0 until nbOptions) map (o => varOf(s"car${c}option$o", 0, 1))
-          ctr(new Table(classes), false, cv +: vars: _*)
+          ctr(new Table(classes), false)(cv +: vars: _*)
           vars
       }
 
@@ -91,9 +91,9 @@ object CarSeq extends Concrete with App {
         sequenceBDD(options.map(_(i)), maxCars(i), blockSizes(i), cardinality)
       }
 
-      ctr("gcc", quantities.zipWithIndex.map {
+      ctr('gcc(quantities.zipWithIndex.map {
         case (q, i) => s"$i, $q, $q"
-      } mkString (", "), cars: _*)
+      } mkString (", "))(cars: _*))
     }
   }
 
@@ -161,5 +161,5 @@ object CarSeq extends Concrete with App {
   }
 
   run(args)
-  
+
 }
