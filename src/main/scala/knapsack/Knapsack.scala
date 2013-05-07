@@ -19,9 +19,13 @@ import cspfj.generator.ProblemGenerator
 import cspom.variable.CSPOMVariable
 import scala.annotation.tailrec
 import scala.util.Random
+import cspfj.ParameterManager
+import cspfj.heuristic.RevLexico
+import concrete.Concrete
+import cspom.extension.LazyMDD
 
-object Knapsack {
-
+object Knapsack extends Concrete with App {
+  run(args)
   case class O(val w: Int, val p: Int)
 
   def load(is: InputStream): (List[O], Int) = {
@@ -94,19 +98,61 @@ object Knapsack {
     //    println("Optimal : " + bound)
   }
 
-  def main(args: Array[String]) {
-    val n = 100
-    val b = 10
-    val r = 100
-    val (w, m, p) = ks(n, b, r, 0, 10)
+  ParameterManager("logger.level") = "INFO"
+  ParameterManager("heuristic.value") = classOf[RevLexico]
 
-    val c = (95 * w.sum) / 100
+  def control(solution: Map[String, Int]) = None
+
+  def output(solution: Map[String, Int]) = solution.toString
+
+  def description(args: List[String]) = {
+    args.mkString("knapsack-", "-", "")
+  }
+
+  def load(args: List[String]) = {
+    val List(n, b, r, i, s) = args map (_.toInt)
+
+    val (w, m, p) = ks(n, b, r, i, s)
+
+    val c = (95 * w.zip(m).map(i => i._1 * i._2).sum) / 100
+    val ub = p.zip(m).map(i => i._1 * i._2).sum
 
     val cspom = new CSPOM
 
-    val variables = m.map(b => cspom.interVar(0, b))
+    val variables = m.map(b => cspom.interVar(0, b)).toList
 
-    val wBound = cspom.interVar("wBound", 0, c)
+    var lb = 0
+    var weight = 0
+
+    util.control.Breaks.breakable {
+      val l = (w, m, p).zipped.toList.sortBy {
+        case (wi, mi, pi) => wi / pi
+      }
+      for ((wi, mi, pi) <- l) {
+        val nw = weight + mi * wi
+        if (nw > c) {
+          util.control.Breaks.break
+        }
+        weight = nw
+        lb += mi * pi
+      }
+    }
+
+    val wBound = cspom.interVar("wBound", weight, c)
+    val pBound = cspom.interVar("pBound", lb, ub)
+
+    val wMDD = new LazyMDD(Unit => zeroSum(wBound :: variables, -1 :: w.toList))
+    //println(wMDD)
+    cspom.addConstraint(new ExtensionConstraint(wMDD, false, wBound :: variables))
+    val pMDD = new LazyMDD(Unit => zeroSum(pBound :: variables, -1 :: p.toList))
+    //println(pMDD)
+    cspom.addConstraint(new ExtensionConstraint(pMDD, false, pBound :: variables))
+
+    ProblemGenerator.generate(cspom)
+    //val solver = Solver.factory(problem)
+    //println(solver.nextSolution())
+    //println(solver.bestSolution(problem.variable("pBound")))
+
     //    val variables = List.fill(10)(
     //      cspom.interVar(1, 30))
     //

@@ -108,7 +108,7 @@ object CarSeq extends Concrete with App {
 
   def sequenceBDD(vars: IndexedSeq[CSPOMVariable], u: Int, q: Int, cardinality: Int)(implicit cp: CSPOM) {
     val b = new LazyMDD(Unit => bdd(u, q, Queue.empty, vars.size, cardinality))
-    //println(s"${args(0)} ${b.lambda} ${b.edges}")
+    //println(s"sizeR ${b.apply.lambda} ${b.apply.edges}")
     cp.addConstraint(new ExtensionConstraint(b, false, vars))
   }
 
@@ -157,7 +157,9 @@ object CarSeq extends Concrete with App {
     (cars zip options) map {
       case (c, o) => solution(c.name) + " " + o.map(p => solution(p.name)).mkString(" ")
     } mkString ("\n")
+    ""
   }
 
   run(args)
+  
 }
