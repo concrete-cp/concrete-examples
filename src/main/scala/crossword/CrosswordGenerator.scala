@@ -3,6 +3,7 @@ package crossword;
 import java.net.URL
 import java.text.Normalizer
 import cspom.CSPOM
+import CSPOM._
 import cspom.variable.CSPOMVariable
 import cspom.extension.MDD
 import cspom.extension.ExtensionConstraint
@@ -36,7 +37,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
   val variables: Array[Array[CSPOMVariable]] = Array.ofDim(x, y)
   var map: Map[String, Cell] = Map.empty
 
-  val problem = new CSPOM;
+  //val problem = new CSPOM;
 
   private def loadDicts(file: URL, max: Int) = {
 
@@ -69,48 +70,49 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
   }
 
   def generate() = {
-
-    for (i <- 0 until x; j <- 0 until y) {
-      if (!black.contains(Cell(i, j))) {
-        variables(i)(j) = problem.interVar(0, 25);
-        map += variables(i)(j).name -> Cell(i, j)
-      }
-    }
-
-    var currentWord: List[CSPOMVariable] = Nil
-
-    for (i <- 0 until x) {
-      for (j <- 0 until y) {
-        if (variables(i)(j) == null) {
-          newWord(currentWord.reverse);
-          currentWord = Nil
-        } else {
-          currentWord ::= variables(i)(j);
+    val problem = CSPOM {
+      for (i <- 0 until x; j <- 0 until y) {
+        if (!black.contains(Cell(i, j))) {
+          variables(i)(j) = interVar(0, 25);
+          map += variables(i)(j).name -> Cell(i, j)
         }
       }
-      newWord(currentWord.reverse);
-      currentWord = Nil
-    }
 
-    for (j <- 0 until y) {
+      var currentWord: List[CSPOMVariable] = Nil
+
       for (i <- 0 until x) {
-        if (variables(i)(j) == null) {
-          newWord(currentWord.reverse);
-          currentWord = Nil
-        } else {
-          currentWord ::= variables(i)(j);
+        for (j <- 0 until y) {
+          if (variables(i)(j) == null) {
+            newWord(currentWord.reverse);
+            currentWord = Nil
+          } else {
+            currentWord ::= variables(i)(j);
+          }
         }
+        newWord(currentWord.reverse);
+        currentWord = Nil
       }
-      newWord(currentWord.reverse);
-      currentWord = Nil
+
+      for (j <- 0 until y) {
+        for (i <- 0 until x) {
+          if (variables(i)(j) == null) {
+            newWord(currentWord.reverse);
+            currentWord = Nil
+          } else {
+            currentWord ::= variables(i)(j);
+          }
+        }
+        newWord(currentWord.reverse);
+        currentWord = Nil
+      }
     }
 
     ProblemGenerator.generate(problem);
   }
 
-  private def newWord(word: Seq[CSPOMVariable]) {
+  private def newWord(word: Seq[CSPOMVariable])(implicit problem: CSPOM) {
     if (word.size >= 2) {
-      problem.addConstraint(new ExtensionConstraint(dicts(word.size), false, word));
+      ctr(dicts(word.size), false)(word: _*);
     }
   }
 

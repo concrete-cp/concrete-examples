@@ -92,8 +92,8 @@ object CarSeq extends Concrete with App {
       }
 
       ctr('gcc(quantities.zipWithIndex.map {
-        case (q, i) => s"$i, $q, $q"
-      } mkString (", "))(cars: _*))
+        case (q, i) => (i, q, q)
+      })(cars: _*))
     }
   }
 
@@ -157,7 +157,6 @@ object CarSeq extends Concrete with App {
     (cars zip options) map {
       case (c, o) => solution(c.name) + " " + o.map(p => solution(p.name)).mkString(" ")
     } mkString ("\n")
-    ""
   }
 
   run(args)

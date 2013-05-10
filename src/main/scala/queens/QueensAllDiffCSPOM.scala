@@ -12,41 +12,25 @@ import cspfj.StatisticsManager
 import cspfj.generator.ProblemGenerator
 
 object QueensAllDiffCSPOM extends App {
-  def qp(size: Int) = {
-    var queens: Seq[CSPOMVariable] = null
+  def qp(size: Int) = CSPOM withResult {
 
-    val problem = CSPOM {
+    val queens = Seq.fill(size)(interVar(1, size))
 
-      queens = (0 until size) map (q => interVar(0, size - 1))
+    ctr('alldifferent(queens: _*))
 
-      allDiff(queens)
-
-      val qd1 = queens.zipWithIndex map {
-        case (q, i) =>
-          val v = interVar(0 - i, size - i - 1)
-          ctr(v == (q - i))
-          v
-      }
-
-      allDiff(qd1)
-
-      val qd2 = queens.zipWithIndex map {
-        case (q, i) =>
-
-          val v = interVar(0 + i, size + i - 1)
-          ctr(v == (q + i))
-          v
-      }
-
-      allDiff(qd2)
+    val qd1 = queens.zipWithIndex map {
+      case (q, i) => q - i
     }
-    (queens, problem)
-  }
 
-  def allDiff(q: Seq[CSPOMVariable])(implicit p: CSPOM) {
+    ctr('alldifferent(qd1: _*))
 
-    ctr('alldifferent(q: _*))
+    val qd2 = queens.zipWithIndex map {
+      case (q, i) => q + i
+    }
 
+    ctr('alldifferent(qd2: _*))
+
+    queens
   }
 
   def count(s: Solver) = {
@@ -61,13 +45,13 @@ object QueensAllDiffCSPOM extends App {
 
   //ParameterManager("heuristic.variable") = classOf[cspfj.heuristic.DDegOnDom]
 
-  ParameterManager("logger.level") = "INFO"
+  //ParameterManager("logger.level") = "INFO"
 
   //ParameterManager("mac.filter") = classOf[cspfj.filter.ACC]
 
   for (size <- List(4, 8, 12, 20, 50, 100, 200, 500, 1000, 2000, 5000)) {
     //print(size + " : ")
-    val (queens, problem) = qp(size)
+    val (problem, queens) = qp(size)
     ProblemCompiler.compile(problem)
 
     //xml.XML.save("queensAllDiff-" + size + ".xml", problem.toXCSP)
