@@ -12,9 +12,9 @@ import cspfj.StatisticsManager
 import cspfj.generator.ProblemGenerator
 
 object QueensAllDiffCSPOM extends App {
-  def qp(size: Int) = CSPOM withResult {
+  def qp(n: Int) = CSPOM withResult {
 
-    val queens = Seq.fill(size)(interVar(1, size))
+    val queens = Seq.fill(n)(interVar(1, n))
 
     ctr('alldifferent(queens: _*))
 
@@ -33,15 +33,6 @@ object QueensAllDiffCSPOM extends App {
     queens
   }
 
-  def count(s: Solver) = {
-    var i = 0
-    while (s.nextSolution.isSat)
-      i += 1
-
-    i
-  }
-
-  def sol(s: Solver) = s.nextSolution
 
   //ParameterManager("heuristic.variable") = classOf[cspfj.heuristic.DDegOnDom]
 
@@ -60,7 +51,7 @@ object QueensAllDiffCSPOM extends App {
     val solver = Solver(problem)
     //solver.maxBacktracks = -1
 
-    val (s, time) = StatisticsManager.time(sol(solver))
+    val (s, time) = StatisticsManager.time(solver.hasNext)
     //      for (v <- queens) {
     //        print(s.get(v.name) + " ")
     //      }

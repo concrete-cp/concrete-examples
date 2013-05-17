@@ -54,16 +54,6 @@ object QueensAllDiffCSPFJ {
 
   }
 
-  def count(s: Solver) = {
-    var i = 0
-    while (s.nextSolution.isSat)
-      i += 1
-
-    i
-  }
-
-  def sol(s: Solver) = s.nextSolution
-
   def main(args: Array[String]) {
     ParameterManager("heuristic.variable") = classOf[cspfj.heuristic.DDegOnDom]
     ParameterManager("mac.filter") = classOf[cspfj.filter.ACV]
@@ -79,7 +69,7 @@ object QueensAllDiffCSPFJ {
       val solver = Solver(problem)
       //solver.maxBacktracks = -1
 
-      val (s, time) = StatisticsManager.time(sol(solver))
+      val (s, time) = StatisticsManager.time(solver.hasNext)
       //      for (v <- queens) {
       //        print(s.get(v.name) + " ")
       //      }
