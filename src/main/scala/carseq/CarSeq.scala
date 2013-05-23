@@ -4,8 +4,6 @@ import java.io.ByteArrayInputStream
 import java.net.URL
 import scala.collection.immutable.Queue
 import scala.collection.mutable.HashMap
-import concrete.Concrete
-import concrete.SQLWriter
 import cspfj.generator.ProblemGenerator
 import cspom.CSPOM
 import cspom.extension.ExtensionConstraint
@@ -17,8 +15,9 @@ import cspom.extension.MDDNode
 import cspom.extension.MDD
 import cspom.extension.LazyMDD
 import CSPOM._
+import concrete.runner.ConcreteRunner
 
-object CarSeq extends Concrete with App {
+object CarSeq extends ConcreteRunner with App {
   /**
    * The format of the data files is as follows:
    *

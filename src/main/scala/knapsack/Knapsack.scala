@@ -21,10 +21,10 @@ import scala.annotation.tailrec
 import scala.util.Random
 import cspfj.ParameterManager
 import cspfj.heuristic.RevLexico
-import concrete.Concrete
 import cspom.extension.LazyMDD
+import concrete.runner.ConcreteRunner
 
-object Knapsack extends Concrete with App {
+object Knapsack extends ConcreteRunner with App {
   run(args)
   case class O(val w: Int, val p: Int)
 
