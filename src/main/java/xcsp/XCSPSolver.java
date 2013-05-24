@@ -6,14 +6,15 @@ import java.util.Formatter;
 import java.util.HashSet;
 import java.util.Set;
 
-import cspfj.Pair;
-import cspfj.ParameterManager;
-import cspfj.Problem;
-import cspfj.Variable;
-import cspfj.filter.ACV;
-import cspfj.filter.Filter;
-import cspfj.generator.FailedGenerationException;
-import cspfj.generator.ProblemGenerator;
+import concrete.Pair;
+import concrete.ParameterManager;
+import concrete.Problem;
+import concrete.Variable;
+import concrete.filter.ACV;
+import concrete.filter.Filter;
+import concrete.generator.FailedGenerationException;
+import concrete.generator.ProblemGenerator;
+
 import cspom.CSPOM;
 import cspom.CSPParseException;
 import cspom.compiler.ProblemCompiler;

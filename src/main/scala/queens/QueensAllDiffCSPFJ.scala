@@ -1,17 +1,17 @@
 package queens
-import cspfj.Problem
-import cspfj.constraint.semantic.Eq
-import cspfj.Solver
-import cspfj.StatisticsManager
-import cspfj.ParameterManager
-import cspfj.heuristic.Dom
-import cspfj.Variable
-import cspfj.constraint.semantic.Neq
-import cspfj.heuristic.LexVar
-import cspfj.constraint.semantic.AllDifferentBC
-import cspfj.constraint.semantic.AllDifferent2C
-import cspfj.IntDomain
-import cspfj.constraint.Constraint
+import concrete.Problem
+import concrete.constraint.semantic.Eq
+import concrete.Solver
+import concrete.StatisticsManager
+import concrete.ParameterManager
+import concrete.heuristic.Dom
+import concrete.Variable
+import concrete.constraint.semantic.Neq
+import concrete.heuristic.LexVar
+import concrete.constraint.semantic.AllDifferentBC
+import concrete.constraint.semantic.AllDifferent2C
+import concrete.IntDomain
+import concrete.constraint.Constraint
 
 object QueensAllDiffCSPFJ {
   def qp(size: Int) = {
@@ -55,9 +55,9 @@ object QueensAllDiffCSPFJ {
   }
 
   def main(args: Array[String]) {
-    ParameterManager("heuristic.variable") = classOf[cspfj.heuristic.DDegOnDom]
-    ParameterManager("mac.filter") = classOf[cspfj.filter.ACV]
-    ParameterManager("ac3c.queue") = classOf[cspfj.priorityqueues.QuickFifos[Variable]]
+    ParameterManager("heuristic.variable") = classOf[concrete.heuristic.DDegOnDom]
+    ParameterManager("mac.filter") = classOf[concrete.filter.ACV]
+    ParameterManager("ac3c.queue") = classOf[concrete.priorityqueues.QuickFifos[Variable]]
 
     var sz = 800
 

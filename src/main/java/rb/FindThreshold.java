@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import concrete.filter.Filter;
+import concrete.filter.SAC1;
+
 import rb.RBGenerator.Tightness;
 import rb.randomlists.RandomListGenerator.Structure;
-import cspfj.filter.Filter;
-import cspfj.filter.SAC1;
 
 public class FindThreshold {
     private static final int INST = 50;

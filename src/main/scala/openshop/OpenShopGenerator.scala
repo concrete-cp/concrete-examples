@@ -20,7 +20,7 @@
 package openshop;
 
 import math.max
-import cspfj.generator.FailedGenerationException
+import concrete.generator.FailedGenerationException
 import cspom.CSPOM
 import cspom.variable.CSPOMVariable;
 import scala.collection.mutable.HashMap

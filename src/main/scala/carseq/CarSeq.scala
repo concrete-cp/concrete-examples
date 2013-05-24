@@ -4,7 +4,7 @@ import java.io.ByteArrayInputStream
 import java.net.URL
 import scala.collection.immutable.Queue
 import scala.collection.mutable.HashMap
-import cspfj.generator.ProblemGenerator
+import concrete.generator.ProblemGenerator
 import cspom.CSPOM
 import cspom.extension.ExtensionConstraint
 import cspom.extension.Table

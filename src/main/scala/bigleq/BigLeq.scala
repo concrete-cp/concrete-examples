@@ -1,7 +1,7 @@
 package bigleq
 
-import cspfj.constraint.semantic.Gt
-import cspfj.Problem
+import concrete.constraint.semantic.Gt
+import concrete.Problem
 import cspom.CSPOM
 import CSPOM._
 
@@ -37,13 +37,13 @@ object BigLeq extends App {
 
   //}
 
-  //val cspfj = ProblemGenerator.generate(problem)
+  //val concrete = ProblemGenerator.generate(problem)
 
-  //println(cspfj)
-  //val s = new DummySolver(cspfj);
+  //println(concrete)
+  //val s = new DummySolver(concrete);
 
   // val (result, time) = StatisticsManager.time(s.nextSolution)
-  //println(cspfj)
+  //println(concrete)
 
   //println(result)
   //println(time);

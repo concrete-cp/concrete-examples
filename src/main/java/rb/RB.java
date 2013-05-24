@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import concrete.Problem;
+import concrete.Solver;
+import concrete.filter.Filter;
+import concrete.generator.FailedGenerationException;
+import concrete.generator.ProblemGenerator;
+
 import rb.RBGenerator.Tightness;
 import rb.randomlists.RandomListGenerator.Structure;
-import cspfj.Solver;
-import cspfj.generator.FailedGenerationException;
-import cspfj.filter.Filter;
-import cspfj.generator.ProblemGenerator;
-import cspfj.Problem;
 
 public final class RB {
 	private final int nbVariables;

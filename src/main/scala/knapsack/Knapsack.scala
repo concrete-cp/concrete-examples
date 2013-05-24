@@ -2,12 +2,12 @@ package knapsack
 
 import java.io.InputStream
 import scala.collection.mutable.HashMap
-import cspfj.IntDomain
-import cspfj.Problem
-import cspfj.Solver
-import cspfj.Variable
-import cspfj.constraint.semantic.Eq
-import cspfj.constraint.semantic.ZeroSum
+import concrete.IntDomain
+import concrete.Problem
+import concrete.Solver
+import concrete.Variable
+import concrete.constraint.semantic.Eq
+import concrete.constraint.semantic.ZeroSum
 import cspom.CSPOM
 import cspom.extension.EmptyMDD
 import cspom.extension.MDD
@@ -15,12 +15,12 @@ import cspom.extension.MDDLeaf
 import cspom.extension.MDDNode
 import cspom.extension.ExtensionConstraint
 import cspom.variable.CSPOMDomain
-import cspfj.generator.ProblemGenerator
+import concrete.generator.ProblemGenerator
 import cspom.variable.CSPOMVariable
 import scala.annotation.tailrec
 import scala.util.Random
-import cspfj.ParameterManager
-import cspfj.heuristic.RevLexico
+import concrete.ParameterManager
+import concrete.heuristic.RevLexico
 import cspom.extension.LazyMDD
 import concrete.runner.ConcreteRunner
 

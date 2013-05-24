@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cspfj.Solver;
-import cspfj.generator.FailedGenerationException;
+import concrete.Solver;
+import concrete.generator.FailedGenerationException;
+
 import cspom.CSPOM;
 import cspom.compiler.ProblemCompiler;
 import cspom.variable.CSPOMVariable;

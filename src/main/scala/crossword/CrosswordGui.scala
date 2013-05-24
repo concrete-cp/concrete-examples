@@ -8,11 +8,11 @@ import java.awt.GridLayout
 import java.util.Random
 import java.util.Set
 
-import cspfj.constraint.Constraint
-import cspfj.generator.FailedGenerationException
-import cspfj.Problem
-import cspfj.Variable
-import cspfj.ParameterManager
+import concrete.constraint.Constraint
+import concrete.generator.FailedGenerationException
+import concrete.Problem
+import concrete.Variable
+import concrete.ParameterManager
 import javax.swing.BorderFactory
 import javax.swing.JButton
 import javax.swing.JFrame

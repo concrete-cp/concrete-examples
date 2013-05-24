@@ -3,9 +3,10 @@ package queens;
 import java.io.IOException;
 import java.util.Arrays;
 
-import cspfj.ParameterManager;
-import cspfj.Solver;
-import cspfj.generator.FailedGenerationException;
+import concrete.ParameterManager;
+import concrete.Solver;
+import concrete.generator.FailedGenerationException;
+
 import cspom.CSPOM;
 import cspom.compiler.ProblemCompiler;
 import cspom.variable.CSPOMVariable;
@@ -40,7 +41,7 @@ public final class Queens {
 	public static void main(String[] args) throws FailedGenerationException, NumberFormatException,
 			IOException, ClassNotFoundException {
 		// ParameterManager.parse("logger.level", "INFO");
-		ParameterManager.parse("heuristic.variable", "cspfj.heuristic.WDegFixedOnDom");
+		ParameterManager.parse("heuristic.variable", "concrete.heuristic.WDegFixedOnDom");
 		for (int i : Arrays.asList(4, 8, 12, 15, 20, 30, 50, 80, 100, 120, 150)) {
 			System.out.println(i + " :");
 			long time = -System.currentTimeMillis();

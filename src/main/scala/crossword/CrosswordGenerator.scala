@@ -7,7 +7,7 @@ import CSPOM._
 import cspom.variable.CSPOMVariable
 import cspom.extension.MDD
 import cspom.extension.ExtensionConstraint
-import cspfj.generator.ProblemGenerator
+import concrete.generator.ProblemGenerator
 import scala.util.Random
 import scala.collection.mutable.HashMap
 

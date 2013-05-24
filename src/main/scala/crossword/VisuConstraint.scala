@@ -2,9 +2,9 @@ package crossword
 
 import java.awt.Color
 import scala.collection.BitSet
-import cspfj.constraint.Constraint
-import cspfj.Variable
-import cspfj.constraint.Removals
+import concrete.constraint.Constraint
+import concrete.Variable
+import concrete.constraint.Removals
 
 class VisuConstraint(variables: Array[Variable], crossword: CrosswordGui)
   extends Constraint(variables)

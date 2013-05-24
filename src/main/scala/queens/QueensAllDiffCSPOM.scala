@@ -1,15 +1,15 @@
 package queens
 
-import cspfj.filter.ACC
-import cspfj.heuristic.DDegOnDom
-import cspfj.ParameterManager
-import cspfj.Solver
+import concrete.filter.ACC
+import concrete.heuristic.DDegOnDom
+import concrete.ParameterManager
+import concrete.Solver
 import cspom.compiler.ProblemCompiler
 import cspom.variable.CSPOMVariable
 import cspom.CSPOM
 import CSPOM._
-import cspfj.StatisticsManager
-import cspfj.generator.ProblemGenerator
+import concrete.StatisticsManager
+import concrete.generator.ProblemGenerator
 
 object QueensAllDiffCSPOM extends App {
   def qp(n: Int) = CSPOM withResult {
@@ -34,11 +34,11 @@ object QueensAllDiffCSPOM extends App {
   }
 
 
-  //ParameterManager("heuristic.variable") = classOf[cspfj.heuristic.DDegOnDom]
+  //ParameterManager("heuristic.variable") = classOf[concrete.heuristic.DDegOnDom]
 
   //ParameterManager("logger.level") = "INFO"
 
-  //ParameterManager("mac.filter") = classOf[cspfj.filter.ACC]
+  //ParameterManager("mac.filter") = classOf[concrete.filter.ACC]
 
   for (size <- List(4, 8, 12, 20, 50, 100, 200, 500, 1000, 2000, 5000)) {
     //print(size + " : ")

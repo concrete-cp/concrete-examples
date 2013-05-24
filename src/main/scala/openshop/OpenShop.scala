@@ -29,13 +29,13 @@ import org.apache.commons.cli.HelpFormatter
 import org.apache.commons.cli.Options
 import org.apache.commons.cli.ParseException
 import scala.collection.Set
-import cspfj.Solver
-import cspfj.SolverResult
-import cspfj.generator.FailedGenerationException
+import concrete.Solver
+import concrete.SolverResult
+import concrete.generator.FailedGenerationException
 import cspom.CSPOM
 import cspom.compiler.ProblemCompiler
 import cspom.constraint.CSPOMConstraint;
-import cspfj.ParameterManager
+import concrete.ParameterManager
 
 object OpenShop extends App {
   ParameterManager("logger.level") = "INFO"
