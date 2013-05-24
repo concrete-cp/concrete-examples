@@ -1,14 +1,14 @@
 import com.typesafe.sbt.SbtStartScript
 
-name := "CSPFJ Examples"
+name := "Concrete-Examples"
 
-organization := "fr.univ-valenciennes.cspfj"
+organization := "fr.univ-valenciennes.concrete"
 
 version := "0.0.1-SNAPSHOT"
 
 scalaVersion := "2.10.1"
 
-resolvers += "CSP4J repository" at "http://cspfj.sourceforge.net/repository"
+resolvers += "Concrete repository" at "http://scand1sk.github.io/concrete/repository"
 
 scalacOptions += "-Xdisable-assertions"
 
@@ -18,3 +18,7 @@ libraryDependencies ++= Seq(
 	)
 
 seq(SbtStartScript.startScriptForClassesSettings: _*)
+
+publishTo := Some(
+	Resolver.file("Concrete local repository",
+		new File(Path.userHome.absolutePath+"/concrete/repository")))
