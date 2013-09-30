@@ -14,7 +14,7 @@ import concrete.filter.ACV;
 import concrete.filter.Filter;
 import concrete.generator.FailedGenerationException;
 import concrete.generator.ProblemGenerator;
-
+import concrete.generator.cspompatterns.Patterns;
 import cspom.CSPOM;
 import cspom.CSPParseException;
 import cspom.compiler.ProblemCompiler;
@@ -36,10 +36,10 @@ public class XCSPSolver {
       ParameterManager.parse(v[0], v[1]);
     }
 
-    ProblemCompiler.compile(cspomProblem);
+    ProblemCompiler.compile(cspomProblem, Patterns.apply());
 
     final Problem p = ProblemGenerator.generate(cspomProblem);
-    //System.out.println(p);
+    // System.out.println(p);
 
     // ParameterManager.checkPending();
 

@@ -13,8 +13,6 @@ import cspom.extension.EmptyMDD
 import cspom.extension.MDD
 import cspom.extension.MDDLeaf
 import cspom.extension.MDDNode
-import cspom.extension.ExtensionConstraint
-import cspom.variable.CSPOMDomain
 import concrete.generator.ProblemGenerator
 import cspom.variable.CSPOMVariable
 import scala.annotation.tailrec
@@ -23,6 +21,8 @@ import concrete.ParameterManager
 import concrete.heuristic.RevLexico
 import cspom.extension.LazyMDD
 import concrete.runner.ConcreteRunner
+import CSPOM._
+import cspom.variable.IntVariable
 
 object Knapsack extends ConcreteRunner with App {
   run(args)
@@ -143,10 +143,10 @@ object Knapsack extends ConcreteRunner with App {
 
     val wMDD = new LazyMDD(Unit => zeroSum(wBound :: variables, -1 :: w.toList))
     //println(wMDD)
-    cspom.addConstraint(new ExtensionConstraint(wMDD, false, wBound :: variables))
+    ctr(wMDD, false)(wBound :: variables: _*)
     val pMDD = new LazyMDD(Unit => zeroSum(pBound :: variables, -1 :: p.toList))
     //println(pMDD)
-    cspom.addConstraint(new ExtensionConstraint(pMDD, false, pBound :: variables))
+    ctr(pMDD, false)(pBound :: variables: _*)
 
     ProblemGenerator.generate(cspom)
     //val solver = Solver.factory(problem)
@@ -207,8 +207,8 @@ object Knapsack extends ConcreteRunner with App {
     }
   }
 
-  def zeroSum(variables: List[CSPOMVariable], factors: List[Int]): MDD = {
-    val domains = variables.map(_.domain.asInstanceOf[CSPOMDomain[Int]].values)
+  def zeroSum(variables: List[IntVariable], factors: List[Int]): MDD = {
+    val domains = variables.map(_.domain)
     zeroSum(domains, factors, sum(domains, factors, _.min), sum(domains, factors, _.max))
   }
 

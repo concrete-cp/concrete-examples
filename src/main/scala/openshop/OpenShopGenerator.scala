@@ -22,9 +22,10 @@ package openshop;
 import math.max
 import concrete.generator.FailedGenerationException
 import cspom.CSPOM
-import cspom.variable.CSPOMVariable;
+import cspom.variable.CSPOMVariable
 import scala.collection.mutable.HashMap
 import CSPOM._
+import cspom.variable.IntVariable
 
 object OpenShopGenerator {
   def apply(filename: String) = {
@@ -90,16 +91,16 @@ final class OpenShopGenerator(
     max(sumL, sumC)
   }
 
-  private def dtConstraint(v0: CSPOMVariable, v1: CSPOMVariable, d0: Int, d1: Int) = {
+  private def dtConstraint(v0: IntVariable, v1: IntVariable, d0: Int, d1: Int) = {
     diffGe(v0, v1, d0) | diffGe(v1, v0, d1)
   }
 
-  private def diffGe(v0: CSPOMVariable, v1: CSPOMVariable, d0: Int) = {
+  private def diffGe(v0: IntVariable, v1: IntVariable, d0: Int) = {
     (v1 - v0) >= d0
   }
 
   def generate(): CSPOM = {
-    val variables = Array.ofDim[CSPOMVariable](size, size)
+    val variables = Array.ofDim[IntVariable](size, size)
     durationsMap = new HashMap()
 
     CSPOM {
@@ -151,7 +152,9 @@ final class OpenShopGenerator(
 
   def display(solution: Map[String, Int]) {
     for (l <- variables) {
-      println(l.map(v => solution(v.name)).mkString(" "))
+      println(l map {
+        case v: CSPOMVariable => solution(v.name)
+      } mkString (" "))
     }
   }
 

@@ -34,8 +34,8 @@ import concrete.SolverResult
 import concrete.generator.FailedGenerationException
 import cspom.CSPOM
 import cspom.compiler.ProblemCompiler
-import cspom.constraint.CSPOMConstraint;
 import concrete.ParameterManager
+import concrete.generator.cspompatterns.Patterns
 
 object OpenShop extends App {
   ParameterManager("logger.level") = "INFO"
@@ -93,7 +93,7 @@ object OpenShop extends App {
 
     generator.ub = test;
     val cspom = generator.generate();
-    ProblemCompiler.compile(cspom);
+    ProblemCompiler.compile(cspom, Patterns());
 
     // System.out.println(cspom);
 

@@ -6,18 +6,18 @@ import java.util.Arrays;
 import concrete.ParameterManager;
 import concrete.Solver;
 import concrete.generator.FailedGenerationException;
-
+import concrete.generator.cspompatterns.Patterns;
 import cspom.CSPOM;
 import cspom.compiler.ProblemCompiler;
-import cspom.variable.CSPOMVariable;
+import cspom.variable.IntVariable;
 
 public final class Queens {
 	private final int size;
-	private final CSPOMVariable[] variables;
+	private final IntVariable[] variables;
 
 	private Queens(final int size) {
 		this.size = size;
-		variables = new CSPOMVariable[size];
+		variables = new IntVariable[size];
 	}
 
 	public CSPOM generate() {
@@ -30,8 +30,8 @@ public final class Queens {
 		for (int j = size; --j >= 0;) {
 			for (int i = j; --i >= 0;) {
 				problem.ctr(variables[i].ne(variables[j], problem));
-				problem.ctr("ne", problem.is("abs", variables[i].$less(variables[j], problem)),
-						problem.varOf(j - i));
+				problem.ctr("ne", problem.isInt("abs", variables[i].$less(variables[j], problem)),
+						problem.constant(j - i));
 			}
 		}
 
@@ -47,7 +47,7 @@ public final class Queens {
 			long time = -System.currentTimeMillis();
 			final Queens queens = new Queens(i);
 			final CSPOM problem = queens.generate();
-			ProblemCompiler.compile(problem);
+			ProblemCompiler.compile(problem, Patterns.apply());
 
 			final Solver solver = Solver.apply(problem);
 

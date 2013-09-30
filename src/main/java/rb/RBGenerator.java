@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import concrete.generator.FailedGenerationException;
-
 import rb.randomlists.CoarseProportionRandomListGenerator;
 import rb.randomlists.ProbabilityRandomListGenerator;
 import rb.randomlists.ProportionRandomListGenerator;
 import rb.randomlists.RandomListGenerator;
 import rb.randomlists.RandomListGenerator.Structure;
+import scala.collection.JavaConversions;
+import concrete.generator.FailedGenerationException;
 import cspom.CSPOM;
-import cspom.constraint.CSPOMConstraint;
-import cspom.extension.ExtensionConstraint;
+import cspom.CSPOMConstraint;
 import cspom.extension.MDD;
 import cspom.extension.MDD$;
-import cspom.variable.CSPOMVariable;
+import cspom.variable.CSPOMExpression;
+import cspom.variable.IntVariable;
 
 /**
  * This class corresponds to explicit random problems, i.e., random problems
@@ -130,7 +130,7 @@ public class RBGenerator {
   public CSPOM generate() throws FailedGenerationException {
     final CSPOM cspom = new CSPOM();
 
-    final List<CSPOMVariable> variables = new ArrayList<CSPOMVariable>(
+    final List<IntVariable> variables = new ArrayList<IntVariable>(
         nbVariables);
 
     for (int i = nbVariables; --i >= 0;) {
@@ -138,7 +138,7 @@ public class RBGenerator {
     }
 
     RAND.setSeed(seed);
-    final Map<CSPOMVariable, Integer> solution = (alwaysSatisfiable ? computeRandomSolution(variables)
+    final Map<IntVariable, Integer> solution = (alwaysSatisfiable ? computeRandomSolution(variables)
         : null);
 
     final int[] forcedTuple;
@@ -155,7 +155,7 @@ public class RBGenerator {
         constraintGraphType,
         repetition, false);
     for (int i = 0; i < activeConstraints.length; i++) {
-      final CSPOMVariable[] involvedVariables = new CSPOMVariable[arity];
+      final IntVariable[] involvedVariables = new IntVariable[arity];
       for (int j = 0; j < involvedVariables.length; j++) {
         involvedVariables[j] = variables.get(activeConstraints[i][j]);
         if (alwaysSatisfiable) {
@@ -171,17 +171,17 @@ public class RBGenerator {
 
   }
 
-  private Map<CSPOMVariable, Integer> computeRandomSolution(
-      List<CSPOMVariable> variables) {
-    Map<CSPOMVariable, Integer> solution = new HashMap<CSPOMVariable, Integer>(
+  private Map<IntVariable, Integer> computeRandomSolution(
+      List<IntVariable> variables) {
+    Map<IntVariable, Integer> solution = new HashMap<IntVariable, Integer>(
         nbVariables);
-    for (CSPOMVariable v : variables) {
+    for (IntVariable v : variables) {
       solution.put(v, RAND.nextInt(v.domain().getValues().size()));
     }
     return solution;
   }
 
-  private long computeNbUnallowedTuplesFrom(CSPOMVariable[] variables,
+  private long computeNbUnallowedTuplesFrom(IntVariable[] variables,
       double tightness) {
     long cpt = 1;
     for (int i = variables.length; --i >= 0;) {
@@ -190,7 +190,7 @@ public class RBGenerator {
     return (long) (tightness * cpt);
   }
 
-  private CSPOMConstraint buildExplicitConstraint(CSPOMVariable[] variables,
+  private CSPOMConstraint buildExplicitConstraint(IntVariable[] variables,
       Tightness tightnessMode, double tightness, long seed,
       Structure incompatibilityGraphType, int[] forcedTuple)
       throws FailedGenerationException {
@@ -226,7 +226,10 @@ public class RBGenerator {
           incompatibilityGraphType, forcedTuple);
     }
 
-    return new ExtensionConstraint(matrix.e, matrix.sup, variables);
+    return new CSPOMConstraint("extension",
+        (CSPOMExpression[]) variables,
+        CSPOMConstraint.param(
+            "relation", matrix.e).param("init", matrix.sup));
   }
 
   private static class Extension {

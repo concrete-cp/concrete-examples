@@ -4,6 +4,7 @@ import concrete.constraint.semantic.Gt
 import concrete.Problem
 import cspom.CSPOM
 import CSPOM._
+import cspom.xcsp.XCSPWriter
 
 object BigLeq extends App {
   val NB_VALS = 2000;
@@ -33,7 +34,7 @@ object BigLeq extends App {
 
   val i = 400
   val problem = bigleq(i, i)
-  xml.XML.save("bigleq-" + i + ".xml", problem.toXCSP)
+  xml.XML.save("bigleq-" + i + ".xml", XCSPWriter(problem))
 
   //}
 

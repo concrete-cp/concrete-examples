@@ -6,7 +6,6 @@ import scala.collection.immutable.Queue
 import scala.collection.mutable.HashMap
 import concrete.generator.ProblemGenerator
 import cspom.CSPOM
-import cspom.extension.ExtensionConstraint
 import cspom.extension.Table
 import cspom.variable.CSPOMVariable
 import cspom.extension.EmptyMDD
@@ -90,9 +89,9 @@ object CarSeq extends ConcreteRunner with App {
         sequenceBDD(options.map(_(i)), maxCars(i), blockSizes(i), cardinality)
       }
 
-      ctr('gcc(quantities.zipWithIndex.map {
+      ctr('gcc(Map("gcc" -> quantities.zipWithIndex.map {
         case (q, i) => (i, q, q)
-      })(cars: _*))
+      }))(cars))
     }
   }
 
@@ -108,7 +107,7 @@ object CarSeq extends ConcreteRunner with App {
   def sequenceBDD(vars: IndexedSeq[CSPOMVariable], u: Int, q: Int, cardinality: Int)(implicit cp: CSPOM) {
     val b = new LazyMDD(Unit => bdd(u, q, Queue.empty, vars.size, cardinality))
     //println(s"sizeR ${b.apply.lambda} ${b.apply.edges}")
-    cp.addConstraint(new ExtensionConstraint(b, false, vars))
+    ctr(b, false)(vars: _*)
   }
 
   def bdd(capa: Int, block: Int, queue: Queue[Int], k: Int, cardinality: Int,

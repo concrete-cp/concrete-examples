@@ -7,10 +7,10 @@ import java.util.List;
 
 import concrete.Solver;
 import concrete.generator.FailedGenerationException;
-
+import concrete.generator.cspompatterns.Patterns;
 import cspom.CSPOM;
+import cspom.variable.IntVariable;
 import cspom.compiler.ProblemCompiler;
-import cspom.variable.CSPOMVariable;
 
 public final class Pigeons {
 
@@ -20,7 +20,7 @@ public final class Pigeons {
 
 	public static CSPOM generate(int size) throws FailedGenerationException {
 		final CSPOM problem = new CSPOM();
-		final List<CSPOMVariable> variables = new ArrayList<CSPOMVariable>(size);
+		final List<IntVariable> variables = new ArrayList<IntVariable>(size);
 		for (int i = size; --i >= 0;) {
 			variables.add(problem.interVar("V" + i, 1, size - 1));
 		}
@@ -41,7 +41,7 @@ public final class Pigeons {
 			long time = -System.currentTimeMillis();
 			final CSPOM problem = generate(i);
 
-			ProblemCompiler.compile(problem);
+			ProblemCompiler.compile(problem, Patterns.apply());
 
 			final Solver solver = Solver.apply(problem);
 
