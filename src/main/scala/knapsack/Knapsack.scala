@@ -7,7 +7,7 @@ import concrete.Problem
 import concrete.Solver
 import concrete.Variable
 import concrete.constraint.semantic.Eq
-import concrete.constraint.semantic.ZeroSum
+import concrete.constraint.semantic.Sum
 import cspom.CSPOM
 import cspom.extension.EmptyMDD
 import cspom.extension.MDD
