@@ -15,6 +15,8 @@ import cspom.extension.MDD
 import cspom.extension.LazyMDD
 import CSPOM._
 import concrete.runner.ConcreteRunner
+import concrete.CSPOMDriver._
+import cspom.variable.IntVariable
 
 object CarSeq extends ConcreteRunner with App {
   /**
@@ -52,7 +54,7 @@ object CarSeq extends ConcreteRunner with App {
    * 5   1 1 0 0 0
    */
 
-  var cars: IndexedSeq[CSPOMVariable] = _
+  var cars: IndexedSeq[IntVariable] = _
   var options: IndexedSeq[IndexedSeq[CSPOMVariable]] = _
 
   override def loadCSPOM(args: List[String]) = {
@@ -89,19 +91,20 @@ object CarSeq extends ConcreteRunner with App {
         sequenceBDD(options.map(_(i)), maxCars(i), blockSizes(i), cardinality)
       }
 
-      ctr('gcc(Map("gcc" -> quantities.zipWithIndex.map {
+      ctr(gcc(quantities.zipWithIndex.map {
         case (q, i) => (i, q, q)
-      }))(cars))
+      }, cars: _*))
     }
   }
 
   def sequence(cp: CSPOM, vars: IndexedSeq[CSPOMVariable], u: Int, q: Int, cardinality: Int) {
     for (i <- 0 to vars.size - q) {
       val ub = cp.interVar(-u, 0)
-      cp.ctr(s"zerosum(${vars.slice(i, i + q).mkString(", ")}, $ub)")
+      ctr(sum(vars.slice(i, i + q) :+ ub: _*) === 0)
+
     }
     val ub = cp.interVar(-cardinality, -cardinality)
-    cp.ctr(s"zerosum(${vars.mkString(", ")}, $ub)")
+    ctr(sum(vars :+ ub: _*) === 0)
   }
 
   def sequenceBDD(vars: IndexedSeq[CSPOMVariable], u: Int, q: Int, cardinality: Int)(implicit cp: CSPOM) {

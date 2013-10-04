@@ -11,29 +11,29 @@ import CSPOM._
 import concrete.StatisticsManager
 import concrete.generator.ProblemGenerator
 import concrete.generator.cspompatterns.Patterns
+import concrete.CSPOMDriver._
 
 object QueensAllDiffCSPOM extends App {
   def qp(n: Int) = CSPOM withResult {
 
     val queens = Seq.fill(n)(interVar(1, n))
 
-    ctr('alldifferent(queens: _*))
+    ctr(allDifferent(queens: _*))
 
     val qd1 = queens.zipWithIndex map {
       case (q, i) => q - i
     }
 
-    ctr('alldifferent(qd1: _*))
+    ctr(allDifferent(qd1: _*))
 
     val qd2 = queens.zipWithIndex map {
       case (q, i) => q + i
     }
 
-    ctr('alldifferent(qd2: _*))
+    ctr(allDifferent(qd2: _*))
 
     queens
   }
-
 
   //ParameterManager("heuristic.variable") = classOf[concrete.heuristic.DDegOnDom]
 

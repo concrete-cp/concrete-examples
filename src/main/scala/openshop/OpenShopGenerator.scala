@@ -26,6 +26,7 @@ import cspom.variable.CSPOMVariable
 import scala.collection.mutable.HashMap
 import CSPOM._
 import cspom.variable.IntVariable
+import concrete.CSPOMDriver._
 
 object OpenShopGenerator {
   def apply(filename: String) = {

@@ -5,6 +5,7 @@ import concrete.Problem
 import cspom.CSPOM
 import CSPOM._
 import cspom.xcsp.XCSPWriter
+import concrete.CSPOMDriver._
 
 object BigLeq extends App {
   val NB_VALS = 2000;
@@ -20,7 +21,7 @@ object BigLeq extends App {
       ctr(v(1) > v(0))
     }
 
-    ctr('allDifferent(vars: _*))
+    ctr(allDifferent(vars: _*))
 
   }
 
