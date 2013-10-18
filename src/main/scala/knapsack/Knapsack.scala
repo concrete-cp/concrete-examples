@@ -71,11 +71,11 @@ object Knapsack extends ConcreteRunner with App {
 
     val variables = o.zipWithIndex map {
       case (O(w, _), i) =>
-        cspom.interVar("v" + i, 0, c / w)
+        interVar("v" + i, 0, c / w)
     }
 
-    val wBound = cspom.interVar("wBound", 0, c)
-    val pBound = cspom.interVar("pBound", lb, ub)
+    val wBound = interVar("wBound", 0, c)
+    val pBound = interVar("pBound", lb, ub)
 
     println(variables.mkString("\n"))
 
@@ -119,7 +119,7 @@ object Knapsack extends ConcreteRunner with App {
 
     val cspom = new CSPOM
 
-    val variables = m.map(b => cspom.interVar(0, b)).toList
+    val variables = m.map(b => interVar(0, b)).toList
 
     var lb = 0
     var weight = 0
@@ -138,8 +138,8 @@ object Knapsack extends ConcreteRunner with App {
       }
     }
 
-    val wBound = cspom.interVar("wBound", weight, c)
-    val pBound = cspom.interVar("pBound", lb, ub)
+    val wBound = interVar("wBound", weight, c)
+    val pBound = interVar("pBound", lb, ub)
 
     val wMDD = new LazyMDD(Unit => zeroSum(wBound :: variables, -1 :: w.toList))
     //println(wMDD)

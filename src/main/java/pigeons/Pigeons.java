@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import concrete.JCSPOMDriver;
 import concrete.Solver;
 import concrete.generator.FailedGenerationException;
 import concrete.generator.cspompatterns.Patterns;
@@ -19,7 +20,7 @@ public final class Pigeons {
 	}
 
 	public static CSPOM generate(int size) throws FailedGenerationException {
-		final CSPOM problem = new CSPOM();
+		final JCSPOMDriver problem = new JCSPOMDriver();
 		final List<IntVariable> variables = new ArrayList<IntVariable>(size);
 		for (int i = size; --i >= 0;) {
 			variables.add(problem.interVar("V" + i, 1, size - 1));
@@ -27,7 +28,7 @@ public final class Pigeons {
 
 		for (int i = size; --i >= 0;) {
 			for (int j = i; --j >= 0;) {
-				problem.ctr(variables.get(i).ne(variables.get(j), problem));
+				problem.ctr(problem.ne(variables.get(i), variables.get(j)));
 			}
 		}
 		return problem;

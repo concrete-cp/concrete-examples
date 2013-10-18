@@ -99,11 +99,11 @@ object CarSeq extends ConcreteRunner with App {
 
   def sequence(cp: CSPOM, vars: IndexedSeq[CSPOMVariable], u: Int, q: Int, cardinality: Int) {
     for (i <- 0 to vars.size - q) {
-      val ub = cp.interVar(-u, 0)
+      val ub = interVar(-u, 0)
       ctr(sum(vars.slice(i, i + q) :+ ub: _*) === 0)
 
     }
-    val ub = cp.interVar(-cardinality, -cardinality)
+    val ub = interVar(-cardinality, -cardinality)
     ctr(sum(vars :+ ub: _*) === 0)
   }
 

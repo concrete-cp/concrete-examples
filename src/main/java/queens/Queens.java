@@ -3,6 +3,7 @@ package queens;
 import java.io.IOException;
 import java.util.Arrays;
 
+import concrete.JCSPOMDriver;
 import concrete.ParameterManager;
 import concrete.Solver;
 import concrete.generator.FailedGenerationException;
@@ -21,28 +22,27 @@ public final class Queens {
 	}
 
 	public CSPOM generate() {
-		final CSPOM problem = new CSPOM();
+		final JCSPOMDriver p = new JCSPOMDriver();
 
 		for (int i = size; --i >= 0;) {
-			variables[i] = problem.interVar("Q" + i, 1, size);
+			variables[i] = p.interVar("Q" + i, 1, size);
 		}
 
 		for (int j = size; --j >= 0;) {
 			for (int i = j; --i >= 0;) {
-				problem.ctr(variables[i].ne(variables[j], problem));
-				problem.ctr("ne", problem.isInt("abs", variables[i].$less(variables[j], problem)),
-						problem.constant(j - i));
+				p.ctr(p.ne(variables[i], variables[j]));
+				p.ctr(p.ne(p.abs(p.less(variables[i], variables[j])), p.constant(j - i)));
 			}
 		}
 
-		return problem;
+		return p;
 	}
 
 	public static void main(String[] args) throws FailedGenerationException, NumberFormatException,
 			IOException, ClassNotFoundException {
 		// ParameterManager.parse("logger.level", "INFO");
-		ParameterManager.parse("heuristic.variable", "concrete.heuristic.WDegFixedOnDom");
-		for (int i : Arrays.asList(4, 8, 12, 15, 20, 30, 50, 80, 100, 120, 150)) {
+		ParameterManager.update("heuristic.variable", concrete.heuristic.WDegOnDom.class);
+		for (int i : Arrays.asList(80,4, 8, 12, 15, 20, 30, 50, 80, 100, 120, 150)) {
 			System.out.println(i + " :");
 			long time = -System.currentTimeMillis();
 			final Queens queens = new Queens(i);
