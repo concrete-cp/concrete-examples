@@ -15,6 +15,8 @@ import concrete.CSPOMDriver._
 import cspom.variable.IntVariable
 import cspom.CSPOMConstraint
 import cspom.variable.BoolVariable
+import java.util.Arrays
+import cspom.variable.BoolExpression
 
 object MQueens extends App {
   def qp(n: Int) = CSPOM {
@@ -34,6 +36,16 @@ object MQueens extends App {
     }
 
     allDifferentBut0(qd2: _*).foreach(ctr)
+
+    for (i <- 0 until n; j <- 1 to n) {
+      ctr((queens(i) !== 0) |
+        (occurrence(j, queens: _*) > 0) |
+        (occurrence(j - i + 1, qd1: _*) > 0) |
+        (occurrence(j + i + 1, qd2: _*) > 0))
+    }
+
+    val occurrences = freeInt("occurrences")
+    ctr(occurrences === occurrence(0, queens: _*))
 
   }
 
@@ -58,11 +70,10 @@ object MQueens extends App {
     println(problem)
 
     val solver = Solver(problem)
+    solver.maximize("occurrences")
     //solver.maxBacktracks = -1
 
-    val (s, time) = StatisticsManager.time(solver.hasNext)
-
-    val sol = solver.next()
+    val (sol, time) = StatisticsManager.time(solver.toIterable.last)
 
     println((0 until size).map(i => sol(s"Q$i")))
     //      for (v <- queens) {
