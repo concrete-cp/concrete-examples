@@ -109,10 +109,10 @@ object OpenShop extends App {
         println("UNSAT");
         lb = test + 1;
       case Some(sol) =>
-        val control = cspom.controlInt(sol);
-        if (control.nonEmpty) {
-          throw new IllegalStateException(control.toString);
-        }
+//        val control = ??? //cspom.controlInt(sol);
+//        if (control.nonEmpty) {
+//          throw new IllegalStateException(control.toString);
+//        }
         ub = generator.evaluate(sol);
         println(ub);
     }

@@ -6,7 +6,7 @@ organization := "fr.univ-valenciennes.concrete"
 
 version := "0.0.1-SNAPSHOT"
 
-scalaVersion := "2.10.1"
+scalaVersion := "2.10.3"
 
 resolvers += "Concrete repository" at "http://scand1sk.github.io/concrete/repository"
 

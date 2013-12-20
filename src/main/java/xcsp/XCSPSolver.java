@@ -25,7 +25,7 @@ public class XCSPSolver {
       IOException, FailedGenerationException, InterruptedException {
     // System.out.println(Arrays.toString(args));
     final URL url = new URL(args[1]);
-    final CSPOM cspomProblem = cspom.CSPOM.load(url);
+    final CSPOM cspomProblem = cspom.CSPOM.load(url)._1;
 
     // ParameterManager.parse("logger.level", "INFO");
 
