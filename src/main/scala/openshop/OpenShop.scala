@@ -35,7 +35,6 @@ import concrete.generator.FailedGenerationException
 import cspom.CSPOM
 import cspom.compiler.ProblemCompiler
 import concrete.ParameterManager
-import concrete.generator.cspompatterns.Patterns
 
 object OpenShop extends App {
   ParameterManager("logger.level") = "INFO"
@@ -93,7 +92,6 @@ object OpenShop extends App {
 
     generator.ub = test;
     val cspom = generator.generate();
-    ProblemCompiler.compile(cspom, Patterns());
 
     // System.out.println(cspom);
 
@@ -109,10 +107,10 @@ object OpenShop extends App {
         println("UNSAT");
         lb = test + 1;
       case Some(sol) =>
-//        val control = ??? //cspom.controlInt(sol);
-//        if (control.nonEmpty) {
-//          throw new IllegalStateException(control.toString);
-//        }
+        //        val control = ??? //cspom.controlInt(sol);
+        //        if (control.nonEmpty) {
+        //          throw new IllegalStateException(control.toString);
+        //        }
         ub = generator.evaluate(sol);
         println(ub);
     }

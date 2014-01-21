@@ -4,10 +4,7 @@ import concrete.JCSPOMDriver;
 import concrete.Solver;
 import concrete.SolverResult;
 import concrete.generator.FailedGenerationException;
-import concrete.generator.cspompatterns.Patterns;
 import cspom.CSPOM;
-import cspom.compiler.ProblemCompiler;
-import cspom.variable.CSPOMSeq;
 import cspom.variable.IntVariable;
 
 public final class AllDiffDec {
@@ -29,8 +26,6 @@ public final class AllDiffDec {
 
 	public static void main(String[] args) throws FailedGenerationException {
 		final CSPOM problem = generate();
-
-		ProblemCompiler.compile(problem, Patterns.apply());
 
 		final Solver solver = Solver.apply(problem);
 

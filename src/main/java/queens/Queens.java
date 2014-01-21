@@ -7,9 +7,7 @@ import concrete.JCSPOMDriver;
 import concrete.ParameterManager;
 import concrete.Solver;
 import concrete.generator.FailedGenerationException;
-import concrete.generator.cspompatterns.Patterns;
 import cspom.CSPOM;
-import cspom.compiler.ProblemCompiler;
 import cspom.variable.IntVariable;
 
 public final class Queens {
@@ -42,12 +40,11 @@ public final class Queens {
 			IOException, ClassNotFoundException {
 		// ParameterManager.parse("logger.level", "INFO");
 		ParameterManager.update("heuristic.variable", concrete.heuristic.WDegOnDom.class);
-		for (int i : Arrays.asList(80,4, 8, 12, 15, 20, 30, 50, 80, 100, 120, 150)) {
+		for (int i : Arrays.asList(80, 4, 8, 12, 15, 20, 30, 50, 80, 100, 120, 150)) {
 			System.out.println(i + " :");
 			long time = -System.currentTimeMillis();
 			final Queens queens = new Queens(i);
 			final CSPOM problem = queens.generate();
-			ProblemCompiler.compile(problem, Patterns.apply());
 
 			final Solver solver = Solver.apply(problem);
 

@@ -10,7 +10,6 @@ import cspom.CSPOM
 import CSPOM._
 import concrete.StatisticsManager
 import concrete.generator.ProblemGenerator
-import concrete.generator.cspompatterns.Patterns
 import concrete.CSPOMDriver._
 import cspom.variable.IntVariable
 import cspom.CSPOMConstraint
@@ -64,10 +63,6 @@ object MQueens extends App {
   for (size <- List(4, 8, 12, 20, 50, 100, 200, 500, 1000, 2000, 5000)) {
     //print(size + " : ")
     val problem = qp(size)
-    ProblemCompiler.compile(problem, Patterns())
-
-    //xml.XML.save("queensAllDiff-" + size + ".xml", problem.toXCSP)
-    println(problem)
 
     val solver = Solver(problem)
     solver.maximize("occurrences")
