@@ -20,7 +20,7 @@ object NonTransitiveDice extends App {
   val problem = CSPOM {
     val dice = for (i <- 0 until NB_DICE) yield {
       for (j <- 0 until NB_FACES) yield {
-        interVar(s"D${i}F$j", 1, MAX_VALUE)
+        interVar(1, MAX_VALUE) as s"D${i}F$j"
       }
     }
 
@@ -30,7 +30,7 @@ object NonTransitiveDice extends App {
       }
     }
 
-    val nbs = freeInt("NBS")
+    val nbs = IntVariable.free() as "NBS"
 
     for ((d1, d2) <- slide(dice)) {
       ctr(nbs === nbSup(d1, d2))

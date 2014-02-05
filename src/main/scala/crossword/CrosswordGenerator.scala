@@ -72,8 +72,9 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
     val problem = CSPOM {
       for (i <- 0 until x; j <- 0 until y) {
         if (!black.contains(Cell(i, j))) {
-          variables(i)(j) = interVar(0, 25);
-          map += variables(i)(j).name -> Cell(i, j)
+          val name = s"C$i.$j"
+          variables(i)(j) = interVar(0, 25) as name
+          map += name -> Cell(i, j)
         }
       }
 
@@ -111,7 +112,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
 
   private def newWord(word: Seq[CSPOMVariable])(implicit problem: CSPOM) {
     if (word.size >= 2) {
-      ctr(dicts(word.size), false)(word: _*);
+      ctr(table(dicts(word.size), false, word: _*))
     }
   }
 

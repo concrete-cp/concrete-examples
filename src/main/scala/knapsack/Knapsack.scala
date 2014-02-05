@@ -70,12 +70,11 @@ object Knapsack extends ConcreteRunner with App {
     val cspom = new CSPOM
 
     val variables = o.zipWithIndex map {
-      case (O(w, _), i) =>
-        interVar("v" + i, 0, c / w)
+      case (O(w, _), i) => interVar(0, c / w) as ("v" + i)
     }
 
-    val wBound = interVar("wBound", 0, c)
-    val pBound = interVar("pBound", lb, ub)
+    val wBound = interVar(0, c) as "wBound"
+    val pBound = interVar(lb, ub) as "pBound"
 
     println(variables.mkString("\n"))
 
@@ -102,8 +101,6 @@ object Knapsack extends ConcreteRunner with App {
   ParameterManager("heuristic.value") = classOf[RevLexico]
 
   def control(solution: Map[String, Int]) = None
-
-  def output(solution: Map[String, Int]) = solution.toString
 
   def description(args: List[String]) = {
     args.mkString("knapsack-", "-", "")
@@ -138,15 +135,15 @@ object Knapsack extends ConcreteRunner with App {
       }
     }
 
-    val wBound = interVar("wBound", weight, c)
-    val pBound = interVar("pBound", lb, ub)
+    val wBound = interVar(weight, c) as "wBound"
+    val pBound = interVar(lb, ub) as "pBound"
 
     val wMDD = new LazyMDD(Unit => zeroSum(wBound :: variables, -1 :: w.toList))
     //println(wMDD)
-    ctr(wMDD, false)(wBound :: variables: _*)
+    ctr(table(wMDD, false, wBound :: variables: _*))
     val pMDD = new LazyMDD(Unit => zeroSum(pBound :: variables, -1 :: p.toList))
     //println(pMDD)
-    ctr(pMDD, false)(pBound :: variables: _*)
+    ctr(table(pMDD, false, pBound :: variables: _*))
 
     ProblemGenerator.generate(cspom)
     //val solver = Solver.factory(problem)

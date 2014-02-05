@@ -83,8 +83,8 @@ final class OpenShopGenerator(
   val js: Boolean,
   var ub: Int) {
 
-  var durationsMap: HashMap[CSPOMVariable, Int] = _
-  var variables: Array[Array[CSPOMVariable]] = _
+  var durationsMap: HashMap[String, Int] = _
+  var variableNames: Array[Array[String]] = _
 
   def getLB: Int = {
     val sumL = durations.map(_.sum).max
@@ -102,16 +102,19 @@ final class OpenShopGenerator(
 
   def generate(): CSPOM = {
     val variables = Array.ofDim[IntVariable](size, size)
+    variableNames = Array.ofDim[String](size, size)
     durationsMap = new HashMap()
 
     CSPOM {
       for (i <- 0 until size; j <- 0 until size) {
+        val name = s"V$i.$j"
+        variableNames(i)(j) = name
         if (i == 0 && j == 0 && !js) {
-          variables(0)(0) = interVar(0, (ub - durations(i)(j)) / 2);
+          variables(0)(0) = interVar(0, (ub - durations(i)(j)) / 2) as name
         } else {
-          variables(i)(j) = interVar(0, ub - durations(i)(j));
+          variables(i)(j) = interVar(0, ub - durations(i)(j)) as name
         }
-        durationsMap.put(variables(i)(j), durations(i)(j));
+        durationsMap.put(name, durations(i)(j));
       }
 
       // L'op�ration j du job i
@@ -147,15 +150,13 @@ final class OpenShopGenerator(
 
   def evaluate(solution: Map[String, Int]): Int = {
     durationsMap.map {
-      case (variable, duration) => solution(variable.name) + duration
+      case (variable, duration) => solution(variable) + duration
     } max
   }
 
   def display(solution: Map[String, Int]) {
-    for (l <- variables) {
-      println(l map {
-        case v: CSPOMVariable => solution(v.name)
-      } mkString (" "))
+    for (l <- variableNames) {
+      println(l.map(solution).mkString(" "))
     }
   }
 

@@ -20,7 +20,7 @@ import cspom.variable.BoolExpression
 object MQueens extends App {
   def qp(n: Int) = CSPOM {
 
-    val queens = (0 until n) map { i => interVar(s"Q$i", 0, n) }
+    val queens = (0 until n) map { i => interVar(0, n) as s"Q$i" }
 
     allDifferentBut0(queens: _*).foreach(ctr)
 
@@ -43,9 +43,7 @@ object MQueens extends App {
         (occurrence(j + i + 1, qd2: _*) > 0))
     }
 
-    val occurrences = freeInt("occurrences")
-    ctr(occurrences === occurrence(0, queens: _*))
-
+    val occurrences = occurrence(0, queens: _*) as "occurrences"
   }
 
   def allDifferentBut0(q: IntVariable*) = {
