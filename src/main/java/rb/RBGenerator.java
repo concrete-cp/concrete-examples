@@ -16,9 +16,8 @@ import cspom.CSPOM;
 import cspom.CSPOMConstraint;
 import cspom.extension.MDD;
 import cspom.extension.MDD$;
-import cspom.variable.CSPOMExpression;
-import cspom.variable.CSPOMTrue$;
 import cspom.variable.IntVariable;
+import static cspom.CSPOM.interVar;
 
 /**
  * This class corresponds to explicit random problems, i.e., random problems
@@ -130,7 +129,7 @@ public class RBGenerator {
 		final List<IntVariable> variables = new ArrayList<IntVariable>(nbVariables);
 
 		for (int i = nbVariables; --i >= 0;) {
-			variables.add(cspom.interVar("X" + i, 0, domainSize - 1));
+			variables.add(interVar("X" + i, 0, domainSize - 1));
 		}
 
 		RAND.setSeed(seed);
