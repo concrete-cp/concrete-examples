@@ -4,7 +4,6 @@ import concrete.constraint.semantic.Gt
 import concrete.Problem
 import cspom.CSPOM
 import CSPOM._
-import cspom.xcsp.XCSPWriter
 import concrete.CSPOMDriver._
 
 object BigLeq extends App {
@@ -13,8 +12,8 @@ object BigLeq extends App {
 
   def bigleq(nbVars: Int, nbVals: Int) = CSPOM {
     val vars = (1 to nbVars).map {
-      case i if i == 2 => interVar("V" + i, 2, nbVals)
-      case i => interVar("V" + i, 1, nbVals)
+      case i if i == 2 => interVar(2, nbVals) as ("V" + i)
+      case i => interVar(1, nbVals) as ("V" + i)
     }
 
     for (v <- vars.sliding(2)) {
@@ -35,7 +34,7 @@ object BigLeq extends App {
 
   val i = 400
   val problem = bigleq(i, i)
-  xml.XML.save("bigleq-" + i + ".xml", XCSPWriter(problem))
+  //xml.XML.save("bigleq-" + i + ".xml", XCSPWriter(problem))
 
   //}
 

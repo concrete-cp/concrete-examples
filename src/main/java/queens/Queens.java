@@ -9,7 +9,8 @@ import concrete.Solver;
 import concrete.generator.FailedGenerationException;
 import cspom.CSPOM;
 import cspom.variable.IntVariable;
-import static cspom.CSPOM.interVar;
+import static cspom.CSPOM.*;
+import static concrete.JCSPOMDriver.*;
 
 public final class Queens {
 	private final int size;
@@ -21,16 +22,16 @@ public final class Queens {
 	}
 
 	public CSPOM generate() {
-		final JCSPOMDriver p = new JCSPOMDriver();
+		final CSPOM p = new CSPOM();
 
 		for (int i = size; --i >= 0;) {
-			variables[i] = interVar("Q" + i, 1, size);
+			variables[i] = interVar(1, size);
 		}
 
 		for (int j = size; --j >= 0;) {
 			for (int i = j; --i >= 0;) {
-				p.ctr(p.ne(variables[i], variables[j]));
-				p.ctr(p.ne(p.abs(p.less(variables[i], variables[j])), p.constant(j - i)));
+				p.ctr(ne(variables[i], variables[j]));
+				p.ctr(ne(abs(less(variables[i], variables[j])), p.constant(j - i)));
 			}
 		}
 

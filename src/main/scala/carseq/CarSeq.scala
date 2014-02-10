@@ -54,8 +54,9 @@ object CarSeq extends ConcreteRunner with App {
    * 5   1 1 0 0 0
    */
 
-  var cars: IndexedSeq[IntVariable] = _
-  var options: IndexedSeq[IndexedSeq[CSPOMVariable]] = _
+  var carNames: IndexedSeq[String] = _
+
+  var optionNames: IndexedSeq[IndexedSeq[String]] = _
 
   override def loadCSPOM(args: List[String]) = {
     //val url = new URL(args(0))
@@ -77,13 +78,18 @@ object CarSeq extends ConcreteRunner with App {
     }
 
     CSPOM {
-      cars = (0 until nbCars) map (c => interVar(s"car$c", 0, nbClasses - 1))
-      options = cars.zipWithIndex map {
+      val (cars, cn) = (0 until nbCars).map(c => interVar(0, nbClasses - 1) withName s"car$c").unzip
+
+      carNames = cn
+      val oc = cars.zipWithIndex map {
         case (cv, c) =>
-          val vars = (0 until nbOptions) map (o => varOf(s"car${c}option$o", 0, 1))
-          ctr(new Table(classes), false)(cv +: vars: _*)
+          val vars = (0 until nbOptions) map (o => varOf(0, 1) withName s"car${c}option$o")
+          ctr(table(new Table(classes), false, cv +: vars.map(_._1): _*))
           vars
       }
+      val (options, on) = oc.map(_.unzip).unzip
+
+      optionNames = on
 
       for (i <- 0 until nbOptions) {
         val cardinality = classes.map(c => quantities(c(0)) * c(i + 1)).sum
@@ -110,7 +116,7 @@ object CarSeq extends ConcreteRunner with App {
   def sequenceBDD(vars: IndexedSeq[CSPOMVariable], u: Int, q: Int, cardinality: Int)(implicit cp: CSPOM) {
     val b = new LazyMDD(Unit => bdd(u, q, Queue.empty, vars.size, cardinality))
     //println(s"sizeR ${b.apply.lambda} ${b.apply.edges}")
-    ctr(b, false)(vars: _*)
+    ctr(table(b, false, vars: _*))
   }
 
   def bdd(capa: Int, block: Int, queue: Queue[Int], k: Int, cardinality: Int,
@@ -154,9 +160,9 @@ object CarSeq extends ConcreteRunner with App {
   def control(solution: Map[String, Int]): Option[String] = ???
   def description(args: List[String]) = args.head
 
-  def output(solution: Map[String, Int]): String = {
-    (cars zip options) map {
-      case (c, o) => solution(c.name) + " " + o.map(p => solution(p.name)).mkString(" ")
+  override def output(solution: Map[String, Int]): String = {
+    (carNames zip optionNames) map {
+      case (c, o) => solution(c) + " " + o.map(p => solution(p)).mkString(" ")
     } mkString ("\n")
   }
 
