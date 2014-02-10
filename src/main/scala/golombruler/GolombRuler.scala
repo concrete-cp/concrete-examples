@@ -4,6 +4,12 @@ import cspom.CSPOM
 import CSPOM._
 import concrete.CSPOMDriver._
 import concrete.Solver
+import cspom.compiler.ProblemCompiler
+import concrete.generator.ProblemGenerator
+import cspom.compiler.StandardCompilers
+import concrete.generator.cspompatterns.AllDiff
+import concrete.generator.cspompatterns.SubToAdd
+import concrete.MAC
 
 object GolombRuler extends App {
   val TICKS = 8
@@ -11,6 +17,10 @@ object GolombRuler extends App {
 
   val problem = CSPOM {
     val variables = for (i <- 1 to TICKS) yield interVar(1, MAX) as s"T$i"
+
+    for (Seq(xi, xj) <- variables.sliding(2)) {
+      ctr(xi < xj)
+    }
 
     for (
       xi <- variables; xj <- variables if xi != xj;
@@ -21,11 +31,15 @@ object GolombRuler extends App {
   }
 
   println(problem.constraints.size + " constraints")
-  
-  val solver = Solver(problem)
 
-  println(solver.problem)
+  ProblemCompiler.compile(problem, StandardCompilers() ++ Seq(AllDiff))
 
-  solver.statistics.digest.foreach(println)
+  println(problem)
+
+  //  val solver = Solver(ProblemGenerator.generate(problem))
+  //
+  //  println(solver.problem)
+
+  ProblemCompiler.statistics.digest.foreach(println)
 
 }

@@ -8,7 +8,7 @@ import cspom.compiler.ProblemCompiler
 import cspom.variable.CSPOMVariable
 import cspom.CSPOM
 import CSPOM._
-import concrete.StatisticsManager
+import cspom.StatisticsManager
 import concrete.generator.ProblemGenerator
 import concrete.CSPOMDriver._
 import cspom.variable.IntVariable

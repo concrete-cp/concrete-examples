@@ -2,7 +2,7 @@ package queens
 import concrete.Problem
 import concrete.constraint.semantic.Eq
 import concrete.Solver
-import concrete.StatisticsManager
+import cspom.StatisticsManager
 import concrete.ParameterManager
 import concrete.heuristic.Dom
 import concrete.Variable
