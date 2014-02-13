@@ -148,9 +148,9 @@ final class OpenShopGenerator(
     }
   }
 
-  def evaluate(solution: Map[String, Int]): Int = {
+  def evaluate(solution: Map[String, Any]): Int = {
     durationsMap.map {
-      case (variable, duration) => solution(variable) + duration
+      case (variable, duration) => solution(variable).asInstanceOf[Int] + duration
     } max
   }
 

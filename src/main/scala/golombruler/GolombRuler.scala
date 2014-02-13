@@ -1,18 +1,19 @@
 package golombruler
 
-import cspom.CSPOM
-import CSPOM._
 import concrete.CSPOMDriver._
 import concrete.Solver
-import cspom.compiler.ProblemCompiler
 import concrete.generator.ProblemGenerator
-import cspom.compiler.StandardCompilers
 import concrete.generator.cspompatterns.AllDiff
+import cspom.CSPOM
+import cspom.CSPOM._
+import cspom.StatisticsManager
+import cspom.compiler.ProblemCompiler
+import cspom.compiler.StandardCompilers
 import concrete.generator.cspompatterns.SubToAdd
-import concrete.MAC
+import cspom.compiler.MergeEq
 
 object GolombRuler extends App {
-  val TICKS = 8
+  val TICKS = 10
   val MAX = TICKS * TICKS
 
   val problem = CSPOM {
@@ -32,14 +33,22 @@ object GolombRuler extends App {
 
   println(problem.constraints.size + " constraints")
 
-  ProblemCompiler.compile(problem, StandardCompilers() ++ Seq(AllDiff))
+  val statistics = new StatisticsManager()
+  statistics.register("problemCompiler", ProblemCompiler)
+
+  //ProblemCompiler.compile(problem, StandardCompilers() ++ Seq(AllDiff, SubToAdd))
+  ProblemCompiler.compile(problem, Seq(MergeEq, SubToAdd))
 
   println(problem)
 
-  //  val solver = Solver(ProblemGenerator.generate(problem))
+  //println(statistics)
+
+  val solver = Solver(ProblemGenerator.generate(problem))
   //
   //  println(solver.problem)
 
-  ProblemCompiler.statistics.digest.foreach(println)
+  solver.hasNext
+
+  println(solver.statistics) //.digest.foreach(println)
 
 }

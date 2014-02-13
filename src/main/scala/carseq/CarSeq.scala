@@ -157,10 +157,10 @@ object CarSeq extends ConcreteRunner with App {
 
   }
 
-  def control(solution: Map[String, Int]): Option[String] = ???
+  def control(solution: Map[String, Any]): Option[String] = ???
   def description(args: List[String]) = args.head
 
-  override def output(solution: Map[String, Int]): String = {
+  override def output(solution: Map[String, Any]): String = {
     (carNames zip optionNames) map {
       case (c, o) => solution(c) + " " + o.map(p => solution(p)).mkString(" ")
     } mkString ("\n")

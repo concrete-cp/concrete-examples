@@ -100,7 +100,7 @@ object Knapsack extends ConcreteRunner with App {
   ParameterManager("logger.level") = "INFO"
   ParameterManager("heuristic.value") = classOf[RevLexico]
 
-  def control(solution: Map[String, Int]) = None
+  def control(solution: Map[String, Any]) = None
 
   def description(args: List[String]) = {
     args.mkString("knapsack-", "-", "")
