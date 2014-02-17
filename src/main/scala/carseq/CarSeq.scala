@@ -17,6 +17,7 @@ import CSPOM._
 import concrete.runner.ConcreteRunner
 import concrete.CSPOMDriver._
 import cspom.variable.IntVariable
+import cspom.CSPOMConstraint
 
 object CarSeq extends ConcreteRunner with App {
   /**
@@ -94,7 +95,9 @@ object CarSeq extends ConcreteRunner with App {
       for (i <- 0 until nbOptions) {
         val cardinality = classes.map(c => quantities(c(0)) * c(i + 1)).sum
         //println(cardinality)
-        sequenceBDD(options.map(_(i)), maxCars(i), blockSizes(i), cardinality)
+        ctr(new CSPOMConstraint('slidingSum, 0, maxCars(i), blockSizes(i), options.map(_(i))))
+        //ctr(sum(options.map(_(i)): _*) === cardinality)
+        //sequenceBDD(options.map(_(i)), maxCars(i), blockSizes(i), cardinality)
       }
 
       ctr(gcc(quantities.zipWithIndex.map {
