@@ -284,7 +284,7 @@ public class RBGenerator {
 		MDD extension = MDD$.MODULE$.empty();
 
 		for (int[] tuple : tuples) {
-			extension = extension.$plus(tuple);
+			extension = extension.add(tuple);
 		}
 		return extension;
 	}

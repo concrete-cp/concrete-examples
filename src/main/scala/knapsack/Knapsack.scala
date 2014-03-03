@@ -140,10 +140,10 @@ object Knapsack extends ConcreteRunner with App {
 
     val wMDD = new LazyMDD(Unit => zeroSum(wBound :: variables, -1 :: w.toList))
     //println(wMDD)
-    ctr(table(wMDD, false, wBound :: variables: _*))
+    ctr(table(wMDD, false, (wBound :: variables).toArray))
     val pMDD = new LazyMDD(Unit => zeroSum(pBound :: variables, -1 :: p.toList))
     //println(pMDD)
-    ctr(table(pMDD, false, pBound :: variables: _*))
+    ctr(table(pMDD, false, (pBound :: variables).toArray))
 
     ProblemGenerator.generate(cspom)
     //val solver = Solver.factory(problem)

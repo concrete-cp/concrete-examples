@@ -8,6 +8,7 @@ import concrete.ParameterManager;
 import concrete.Solver;
 import concrete.generator.FailedGenerationException;
 import cspom.CSPOM;
+import cspom.variable.CSPOMConstant;
 import cspom.variable.IntVariable;
 import static cspom.CSPOM.*;
 import static concrete.JCSPOMDriver.*;
@@ -30,15 +31,16 @@ public final class Queens {
 
 		for (int j = size; --j >= 0;) {
 			for (int i = j; --i >= 0;) {
-				p.ctr(ne(variables[i], variables[j]));
-				p.ctr(ne(abs(less(variables[i], variables[j])), p.constant(j - i)));
+				p.ctr(neq(variables[i], variables[j]));
+				p.ctr(neq(abs(less(variables[i], variables[j])), constant(j - i)));
 			}
 		}
 
 		return p;
 	}
 
-	public static void main(String[] args) throws FailedGenerationException, NumberFormatException,
+
+  public static void main(String[] args) throws FailedGenerationException, NumberFormatException,
 			IOException, ClassNotFoundException {
 		// ParameterManager.parse("logger.level", "INFO");
 		ParameterManager.update("heuristic.variable", concrete.heuristic.WDegOnDom.class);

@@ -11,9 +11,13 @@ import cspom.compiler.ProblemCompiler
 import cspom.compiler.StandardCompilers
 import concrete.generator.cspompatterns.SubToAdd
 import cspom.compiler.MergeEq
+import concrete.generator.cspompatterns.ConcretePatterns
 
 object GolombRuler extends App {
-  val TICKS = 10
+
+  val TICKS = args(0).toInt
+  ConcretePatterns.improveModel = args(1).toBoolean
+
   val MAX = TICKS * TICKS
 
   val problem = CSPOM {
@@ -33,21 +37,18 @@ object GolombRuler extends App {
 
   println(problem.constraints.size + " constraints")
 
-  val statistics = new StatisticsManager()
-  statistics.register("problemCompiler", ProblemCompiler)
-
-  //ProblemCompiler.compile(problem, StandardCompilers() ++ Seq(AllDiff, SubToAdd))
-  ProblemCompiler.compile(problem, Seq(MergeEq, SubToAdd))
-
-  println(problem)
+  //println(problem)
 
   //println(statistics)
 
-  val solver = Solver(ProblemGenerator.generate(problem))
+  val solver = Solver(problem)
+  solver.minimize(s"T$TICKS")
   //
   //  println(solver.problem)
 
-  solver.hasNext
+  for (sol <- solver) {
+    println((1 to TICKS).map(i => sol(s"T$i")))
+  }
 
   println(solver.statistics) //.digest.foreach(println)
 

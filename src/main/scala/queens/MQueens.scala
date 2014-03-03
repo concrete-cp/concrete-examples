@@ -15,7 +15,6 @@ import cspom.variable.IntVariable
 import cspom.CSPOMConstraint
 import cspom.variable.BoolVariable
 import java.util.Arrays
-import cspom.variable.BoolExpression
 
 object MQueens extends App {
   def qp(n: Int) = CSPOM {

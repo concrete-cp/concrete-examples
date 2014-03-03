@@ -9,6 +9,7 @@ import cspom.extension.MDD
 import concrete.generator.ProblemGenerator
 import scala.util.Random
 import scala.collection.mutable.HashMap
+import cspom.variable.IntVariable
 
 /*
  * Created on 20 mai 08
@@ -33,7 +34,7 @@ object CrosswordGenerator {
 
 class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
   val dicts = loadDicts(getClass.getResource("french"), math.max(x, y))
-  val variables: Array[Array[CSPOMVariable]] = Array.ofDim(x, y)
+  val variables: Array[Array[IntVariable]] = Array.ofDim(x, y)
   var map: Map[String, Cell] = Map.empty
 
   //val problem = new CSPOM;
@@ -51,9 +52,9 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
 
       val ths = dicts.getOrElseUpdate(word.size, MDD.empty)
 
-      val tuple = word map { c => c.toInt - 65 } toArray
+      val tuple = word map { c => c.toInt - 65 }
 
-      dicts += word.size -> (ths + tuple);
+      dicts += word.size -> (ths + (tuple: _*));
 
     }
     dicts;
@@ -78,7 +79,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
         }
       }
 
-      var currentWord: List[CSPOMVariable] = Nil
+      var currentWord: List[IntVariable] = Nil
 
       for (i <- 0 until x) {
         for (j <- 0 until y) {
@@ -110,9 +111,9 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
     ProblemGenerator.generate(problem);
   }
 
-  private def newWord(word: Seq[CSPOMVariable])(implicit problem: CSPOM) {
+  private def newWord(word: Seq[IntVariable])(implicit problem: CSPOM) {
     if (word.size >= 2) {
-      ctr(table(dicts(word.size), false, word: _*))
+      ctr(table(dicts(word.size), false, word.toArray))
     }
   }
 

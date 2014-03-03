@@ -70,7 +70,7 @@ object CarSeq extends ConcreteRunner with App {
     val maxCars = itr.next().split(" ").map(_.toInt)
     val blockSizes = itr.next().split(" ").map(_.toInt)
 
-    var classes = List[Array[Int]]()
+    var classes = List[Seq[Int]]()
     val quantities = Array.ofDim[Int](nbClasses)
     for (options <- itr.map(_.split(" "))) {
       val i = options(0).toInt
@@ -85,7 +85,7 @@ object CarSeq extends ConcreteRunner with App {
       val oc = cars.zipWithIndex map {
         case (cv, c) =>
           val vars = (0 until nbOptions) map (o => varOf(0, 1) withName s"car${c}option$o")
-          ctr(table(new Table(classes), false, cv +: vars.map(_._1): _*))
+          ctr(table(new Table(classes), false, (cv +: vars.map(_._1)).toArray))
           vars
       }
       val (options, on) = oc.map(_.unzip).unzip
@@ -95,7 +95,7 @@ object CarSeq extends ConcreteRunner with App {
       for (i <- 0 until nbOptions) {
         val cardinality = classes.map(c => quantities(c(0)) * c(i + 1)).sum
         //println(cardinality)
-        ctr(new CSPOMConstraint('slidingSum, 0, maxCars(i), blockSizes(i), options.map(_(i))))
+        ctr(CSPOMConstraint('slidingSum, 0, maxCars(i), blockSizes(i), options.map(_(i))))
         //ctr(sum(options.map(_(i)): _*) === cardinality)
         //sequenceBDD(options.map(_(i)), maxCars(i), blockSizes(i), cardinality)
       }
@@ -106,58 +106,12 @@ object CarSeq extends ConcreteRunner with App {
     }
   }
 
-  def sequence(cp: CSPOM, vars: IndexedSeq[CSPOMVariable], u: Int, q: Int, cardinality: Int) {
+  def sequence(cp: CSPOM, vars: IndexedSeq[IntVariable], u: Int, q: Int, cardinality: Int) {
     for (i <- 0 to vars.size - q) {
       val ub = interVar(-u, 0)
       ctr(sum(vars.slice(i, i + q) :+ ub: _*) === 0)
 
     }
-    val ub = interVar(-cardinality, -cardinality)
-    ctr(sum(vars :+ ub: _*) === 0)
-  }
-
-  def sequenceBDD(vars: IndexedSeq[CSPOMVariable], u: Int, q: Int, cardinality: Int)(implicit cp: CSPOM) {
-    val b = new LazyMDD(Unit => bdd(u, q, Queue.empty, vars.size, cardinality))
-    //println(s"sizeR ${b.apply.lambda} ${b.apply.edges}")
-    ctr(table(b, false, vars: _*))
-  }
-
-  def bdd(capa: Int, block: Int, queue: Queue[Int], k: Int, cardinality: Int,
-    nodes: HashMap[(Int, Int, Queue[Int], Int, Int), MDD] = new HashMap()): MDD = {
-    if (capa < 0 || cardinality < 0 || cardinality > k) {
-      EmptyMDD
-    } else if (k == 0) {
-      MDDLeaf
-    } else {
-      nodes.getOrElseUpdate((capa, block, queue, k, cardinality), {
-        val (newCapa, newQueue) =
-          if (queue.nonEmpty) {
-            val (front, tail) = queue.dequeue
-
-            if (front == k + block) {
-              (capa + 1, tail)
-            } else {
-              (capa, queue)
-            }
-          } else {
-            (capa, queue)
-          }
-
-        val l = bdd(newCapa, block, newQueue, k - 1, cardinality, nodes)
-        val r = bdd(newCapa - 1, block, newQueue.enqueue(k), k - 1, cardinality - 1, nodes)
-
-        if (l.isEmpty && r.isEmpty) {
-          EmptyMDD
-        } else if (l.isEmpty) {
-          new MDDNode(Map(1 -> r))
-        } else if (r.isEmpty) {
-          new MDDNode(Map(0 -> l))
-        } else {
-          new MDDNode(Map(0 -> l, 1 -> r))
-        }
-      })
-    }
-
   }
 
   def control(solution: Map[String, Any]): Option[String] = ???

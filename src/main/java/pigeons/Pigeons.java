@@ -30,7 +30,7 @@ public final class Pigeons {
 
 		for (int i = size; --i >= 0;) {
 			for (int j = i; --j >= 0;) {
-				problem.ctr(ne(variables.get(i), variables.get(j)));
+				problem.ctr(neq(variables.get(i), variables.get(j)));
 			}
 		}
 		return problem;

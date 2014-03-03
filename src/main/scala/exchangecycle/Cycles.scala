@@ -14,7 +14,7 @@ import cspom.CSPOMConstraint
 import scala.util.Random
 import cspom.variable.CSPOMFalse
 import cspom.variable.BoolVariable
-import cspom.variable.BoolExpression
+import cspom.variable.IntVariable
 
 object Cycles extends App {
 
@@ -78,8 +78,8 @@ object Cycles extends App {
     }
 
     for (i <- 0 until n) yield {
-      ctr(occurrence(true, variables(i).filter(_.isInstanceOf[CSPOMVariable]): _*) === d)
-      ctr(occurrence(true, variables.map(_(i)).filter(_.isInstanceOf[CSPOMVariable]): _*) === d)
+      ctr(occurrence(true, variables(i).filter(_.isInstanceOf[IntVariable]): _*) === d)
+      ctr(occurrence(true, variables.map(_(i)).filter(_.isInstanceOf[IntVariable]): _*) === d)
     }
   }
 
