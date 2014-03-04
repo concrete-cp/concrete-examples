@@ -14,14 +14,13 @@ import cspom.compiler.MergeEq
 import concrete.generator.cspompatterns.ConcretePatterns
 
 object GolombRuler extends App {
-
-  val TICKS = args(0).toInt
   ConcretePatterns.improveModel = args(1).toBoolean
 
-  val MAX = TICKS * TICKS
+  val ticks = args(0).toInt
+  val max = ticks * ticks
 
   val problem = CSPOM {
-    val variables = for (i <- 1 to TICKS) yield interVar(1, MAX) as s"T$i"
+    val variables = for (i <- 1 to ticks) yield interVar(1, max) as s"T$i"
 
     for (Seq(xi, xj) <- variables.sliding(2)) {
       ctr(xi < xj)
@@ -29,9 +28,10 @@ object GolombRuler extends App {
 
     for (
       xi <- variables; xj <- variables if xi != xj;
-      xk <- variables; xl <- variables if xk != xl && (xi != xk || xj != xl)
+      xk <- variables; xl <- variables if xk != xl &&
+        (xi != xk || xj != xl)
     ) {
-      ctr((xi - xj) !== (xk - xl))
+      ctr(xi - xj !== xk - xl)
     }
   }
 
@@ -42,12 +42,12 @@ object GolombRuler extends App {
   //println(statistics)
 
   val solver = Solver(problem)
-  solver.minimize(s"T$TICKS")
+  solver.minimize(s"T$ticks")
   //
   //  println(solver.problem)
 
   for (sol <- solver) {
-    println((1 to TICKS).map(i => sol(s"T$i")))
+    println((1 to ticks).map(i => sol(s"T$i")))
   }
 
   println(solver.statistics) //.digest.foreach(println)

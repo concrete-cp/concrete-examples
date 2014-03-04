@@ -23,7 +23,7 @@ public final class Queens {
 	}
 
 	public CSPOM generate() {
-		final CSPOM p = new CSPOM();
+		final JCSPOMDriver p = new JCSPOMDriver();
 
 		for (int i = size; --i >= 0;) {
 			variables[i] = interVar(1, size);
@@ -31,8 +31,8 @@ public final class Queens {
 
 		for (int j = size; --j >= 0;) {
 			for (int i = j; --i >= 0;) {
-				p.ctr(neq(variables[i], variables[j]));
-				p.ctr(neq(abs(less(variables[i], variables[j])), constant(j - i)));
+				p.ctr(p.neq(variables[i], variables[j]));
+				p.ctr(p.neq(p.abs(p.less(variables[i], variables[j])), constant(j - i)));
 			}
 		}
 
