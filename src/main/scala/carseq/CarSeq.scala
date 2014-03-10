@@ -79,12 +79,12 @@ object CarSeq extends ConcreteRunner with App {
     }
 
     CSPOM {
-      val (cars, cn) = (0 until nbCars).map(c => interVar(0, nbClasses - 1) withName s"car$c").unzip
+      val (cars, cn) = (0 until nbCars).map(c => IntVariable(0 until nbClasses) withName s"car$c").unzip
 
       carNames = cn
       val oc = cars.zipWithIndex map {
         case (cv, c) =>
-          val vars = (0 until nbOptions) map (o => varOf(0, 1) withName s"car${c}option$o")
+          val vars = (0 until nbOptions) map (o => IntVariable(Seq(0, 1)) withName s"car${c}option$o")
           ctr(table(new Table(classes), false, (cv +: vars.map(_._1)).toArray))
           vars
       }
@@ -108,8 +108,8 @@ object CarSeq extends ConcreteRunner with App {
 
   def sequence(cp: CSPOM, vars: IndexedSeq[IntVariable], u: Int, q: Int, cardinality: Int) {
     for (i <- 0 to vars.size - q) {
-      val ub = interVar(-u, 0)
-      ctr(sum(vars.slice(i, i + q) :+ ub: _*) === 0)
+      //val ub = IntVariable(-u to 0)
+      ctr(sum(vars.slice(i, i + q): _*) <= u)
 
     }
   }

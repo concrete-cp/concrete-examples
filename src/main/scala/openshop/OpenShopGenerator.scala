@@ -110,9 +110,9 @@ final class OpenShopGenerator(
         val name = s"V$i.$j"
         variableNames(i)(j) = name
         if (i == 0 && j == 0 && !js) {
-          variables(0)(0) = interVar(0, (ub - durations(i)(j)) / 2) as name
+          variables(0)(0) = IntVariable(0 to (ub - durations(i)(j)) / 2) as name
         } else {
-          variables(i)(j) = interVar(0, ub - durations(i)(j)) as name
+          variables(i)(j) = IntVariable(0 to (ub - durations(i)(j))) as name
         }
         durationsMap.put(name, durations(i)(j));
       }

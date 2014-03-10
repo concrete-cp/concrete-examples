@@ -1,6 +1,6 @@
 package pigeons;
 
-import static cspom.CSPOM.interVar;
+import static cspom.JCSPOM.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public final class Pigeons {
 		final JCSPOMDriver p = new JCSPOMDriver();
 		final List<IntVariable> variables = new ArrayList<IntVariable>(size);
 		for (int i = size; --i >= 0;) {
-			variables.add(interVar(1, size - 1));
+			variables.add(intVarRange(1, size - 1));
 		}
 
 		for (int i = size; --i >= 0;) {

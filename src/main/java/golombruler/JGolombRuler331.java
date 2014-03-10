@@ -1,7 +1,5 @@
 package golombruler;
 
-import static cspom.CSPOM.interVar;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +9,7 @@ import concrete.generator.cspompatterns.ConcretePatterns;
 import cspom.CSPOM;
 import cspom.variable.IntVariable;
 import static concrete.JCSPOMDriver.*;
+import static cspom.JCSPOM.*;
 
 public class JGolombRuler331 {
 
@@ -26,7 +25,7 @@ public class JGolombRuler331 {
 
 		final List<IntVariable> variables = new ArrayList<>();
 		for (int i = 1; i <= ticks; i++) {
-			variables.add(p.nameExpression(interVar(1, max), "T" + i));
+			variables.add(p.nameExpression(intVarRange(1, max), "T" + i));
 		}
 
 		for (int i = 0; i < ticks - 1; i++) {

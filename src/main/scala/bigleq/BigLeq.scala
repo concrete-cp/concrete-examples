@@ -5,6 +5,7 @@ import concrete.Problem
 import cspom.CSPOM
 import CSPOM._
 import concrete.CSPOMDriver._
+import cspom.variable.IntVariable
 
 object BigLeq extends App {
   val NB_VALS = 2000;
@@ -12,8 +13,8 @@ object BigLeq extends App {
 
   def bigleq(nbVars: Int, nbVals: Int) = CSPOM {
     val vars = (1 to nbVars).map {
-      case i if i == 2 => interVar(2, nbVals) as ("V" + i)
-      case i => interVar(1, nbVals) as ("V" + i)
+      case i if i == 2 => IntVariable(2 to nbVals) as ("V" + i)
+      case i => IntVariable(1 to nbVals) as ("V" + i)
     }
 
     for (v <- vars.sliding(2)) {

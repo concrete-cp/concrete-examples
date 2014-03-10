@@ -19,7 +19,7 @@ import java.util.Arrays
 object MQueens extends App {
   def qp(n: Int) = CSPOM {
 
-    val queens = (0 until n) map { i => interVar(0, n) as s"Q$i" }
+    val queens = (0 until n) map { i => IntVariable(0 to n) as s"Q$i" }
 
     allDifferentBut0(queens: _*).foreach(ctr)
 
