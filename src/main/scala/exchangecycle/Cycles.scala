@@ -7,12 +7,11 @@ import scala.xml.Node
 import cspom.extension.Table
 import concrete.Solver
 import cspom.compiler.ProblemCompiler
-import cspom.variable.CSPOMTrue
+import cspom.variable.CSPOMConstant
 import concrete.ParameterManager
 import cspom.variable.CSPOMVariable
 import cspom.CSPOMConstraint
 import scala.util.Random
-import cspom.variable.CSPOMFalse
 import cspom.variable.BoolVariable
 import cspom.variable.IntVariable
 
@@ -31,7 +30,7 @@ object Cycles extends App {
           if (rand.nextDouble() < t) {
             new BoolVariable() as s"V$i-$j"
           } else {
-            CSPOMFalse
+            CSPOMConstant(false)
           }
         }
       }
@@ -48,7 +47,7 @@ object Cycles extends App {
     //            ctr(variables(i)(j) ==> v)
     //            v
     //            //            } else {
-    //            //              CSPOMTrue
+    //            //              CSPOMConstant(true)
     //            //            }
     //
     //          }
@@ -67,7 +66,7 @@ object Cycles extends App {
         if (k == 0 || k == 0) {
           variables(i)(j)
         } else if (k == n - 1 && i != j) {
-          CSPOMTrue
+          CSPOMConstant(true)
         } else {
           new BoolVariable() as s"F$i-$j-$k"
         }
