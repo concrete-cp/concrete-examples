@@ -12,6 +12,7 @@ import cspom.compiler.StandardCompilers
 import concrete.generator.cspompatterns.SubToAdd
 import cspom.compiler.MergeEq
 import concrete.generator.cspompatterns.ConcretePatterns
+import cspom.variable.IntVariable
 
 object GolombRuler extends App {
   ConcretePatterns.improveModel = args(1).toBoolean
@@ -20,7 +21,7 @@ object GolombRuler extends App {
   val max = ticks * ticks
 
   val problem = CSPOM {
-    val variables = for (i <- 1 to ticks) yield interVar(1, max) as s"T$i"
+    val variables = for (i <- 1 to ticks) yield IntVariable.ofInterval(1, max) as s"T$i"
 
     for (Seq(xi, xj) <- variables.sliding(2)) {
       ctr(xi < xj)

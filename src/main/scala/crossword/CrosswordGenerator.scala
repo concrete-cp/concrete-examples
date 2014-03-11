@@ -74,7 +74,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
       for (i <- 0 until x; j <- 0 until y) {
         if (!black.contains(Cell(i, j))) {
           val name = s"C$i.$j"
-          variables(i)(j) = interVar(0, 25) as name
+          variables(i)(j) = IntVariable.ofInterval(0, 25) as name
           map += name -> Cell(i, j)
         }
       }

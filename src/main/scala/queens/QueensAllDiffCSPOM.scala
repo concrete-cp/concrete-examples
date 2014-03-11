@@ -11,11 +11,12 @@ import CSPOM._
 import cspom.StatisticsManager
 import concrete.generator.ProblemGenerator
 import concrete.CSPOMDriver._
+import cspom.variable.IntVariable
 
 object QueensAllDiffCSPOM extends App {
   def qp(n: Int) = CSPOM withResult {
 
-    val queens = Seq.fill(n)(interVar(1, n))
+    val queens = Seq.fill(n)(IntVariable.ofInterval(1, n))
 
     ctr(allDifferent(queens: _*))
 

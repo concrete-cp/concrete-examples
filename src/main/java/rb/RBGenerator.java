@@ -130,7 +130,7 @@ public class RBGenerator {
 		final List<IntVariable> variables = new ArrayList<IntVariable>(nbVariables);
 
 		for (int i = nbVariables; --i >= 0;) {
-			variables.add(interVar(0, domainSize - 1));
+			variables.add(IntVariable.ofInterval(0, domainSize - 1));
 		}
 
 		RAND.setSeed(seed);

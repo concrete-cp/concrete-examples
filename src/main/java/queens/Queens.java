@@ -26,7 +26,7 @@ public final class Queens {
 		final JCSPOMDriver p = new JCSPOMDriver();
 
 		for (int i = size; --i >= 0;) {
-			variables[i] = interVar(1, size);
+			variables[i] = IntVariable.ofInterval(1, size);
 		}
 
 		for (int j = size; --j >= 0;) {
