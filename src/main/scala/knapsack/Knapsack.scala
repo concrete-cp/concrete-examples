@@ -116,11 +116,7 @@ object Knapsack extends ConcreteRunner with App {
 
     val cspom = new CSPOM
 
-<<<<<<< HEAD
-    val variables = m.map(b => IntVariable.ofInterval(0, b)).toList
-=======
     val variables = m.map(b => IntVariable(0 to b)).toList
->>>>>>> d78b1102be71a39974558713e6667685ebda45c5
 
     var lb = 0
     var weight = 0

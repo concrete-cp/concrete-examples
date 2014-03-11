@@ -11,7 +11,7 @@ import concrete.filter.Filter;
 import concrete.filter.SAC1;
 
 import rb.RBGenerator.Tightness;
-import rb.randomlists.RandomListGenerator.Structure;
+import rb.randomlists.Structure;
 
 public class FindThreshold {
     private static final int INST = 50;

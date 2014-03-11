@@ -11,7 +11,7 @@ import concrete.generator.FailedGenerationException;
 import concrete.generator.ProblemGenerator;
 
 import rb.RBGenerator.Tightness;
-import rb.randomlists.RandomListGenerator.Structure;
+import rb.randomlists.Structure;
 
 public final class RB {
 	private final int nbVariables;
