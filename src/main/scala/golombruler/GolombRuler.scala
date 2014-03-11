@@ -21,7 +21,7 @@ object GolombRuler extends App {
   val max = ticks * ticks
 
   val problem = CSPOM {
-    val variables = for (i <- 1 to ticks) yield IntVariable.ofInterval(1, max) as s"T$i"
+    val variables = for (i <- 1 to ticks) yield IntVariable(1 to max) as s"T$i"
 
     for (Seq(xi, xj) <- variables.sliding(2)) {
       ctr(xi < xj)

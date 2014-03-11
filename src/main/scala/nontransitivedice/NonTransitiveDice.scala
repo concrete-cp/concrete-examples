@@ -20,7 +20,7 @@ object NonTransitiveDice extends App {
   val problem = CSPOM {
     val dice = for (i <- 0 until NB_DICE) yield {
       for (j <- 0 until NB_FACES) yield {
-        IntVariable.ofInterval(1, MAX_VALUE) as s"D${i}F$j"
+        IntVariable(1 to MAX_VALUE) as s"D${i}F$j"
       }
     }
 

@@ -8,6 +8,9 @@ import concrete.JCSPOMDriver;
 import concrete.Solver;
 import concrete.generator.cspompatterns.ConcretePatterns;
 import cspom.variable.IntVariable;
+import static concrete.JCSPOMDriver.*;
+import static cspom.JCSPOM.*;
+
 
 public class JGolombRuler331 {
 
@@ -23,7 +26,8 @@ public class JGolombRuler331 {
 
 		final List<IntVariable> variables = new ArrayList<>();
 		for (int i = 1; i <= ticks; i++) {
-			variables.add(p.nameExpression(IntVariable.ofInterval(1, max), "T" + i));
+
+			variables.add(p.nameExpression(intVarRange(1, max), "T" + i));
 		}
 
 		for (int i = 0; i < ticks - 1; i++) {

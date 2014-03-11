@@ -15,10 +15,10 @@ import concrete.generator.FailedGenerationException;
 import cspom.CSPOM;
 import cspom.CSPOMConstraint;
 import cspom.extension.MDD;
-import cspom.extension.MDD$;
 import cspom.variable.IntVariable;
 import static cspom.CSPOM.*;
 import static concrete.JCSPOMDriver.*;
+import static cspom.JCSPOM.*;
 
 /**
  * This class corresponds to explicit random problems, i.e., random problems
@@ -130,7 +130,7 @@ public class RBGenerator {
 		final List<IntVariable> variables = new ArrayList<IntVariable>(nbVariables);
 
 		for (int i = nbVariables; --i >= 0;) {
-			variables.add(IntVariable.ofInterval(0, domainSize - 1));
+			variables.add(intVarRange(0, domainSize - 1));
 		}
 
 		RAND.setSeed(seed);
@@ -168,7 +168,7 @@ public class RBGenerator {
 	private Map<IntVariable, Integer> computeRandomSolution(List<IntVariable> variables) {
 		Map<IntVariable, Integer> solution = new HashMap<IntVariable, Integer>(nbVariables);
 		for (IntVariable v : variables) {
-			solution.put(v, RAND.nextInt(v.domain().getValues().size()));
+			solution.put(v, RAND.nextInt(v.domain().size()));
 		}
 		return solution;
 	}
@@ -281,7 +281,7 @@ public class RBGenerator {
 	}
 
 	private static MDD tuplesToMatrix(int arity, int[][] tuples) {
-		MDD extension = MDD$.MODULE$.empty();
+		MDD extension = emptyMDD();
 
 		for (int[] tuple : tuples) {
 			extension = extension.add(tuple);

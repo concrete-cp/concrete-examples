@@ -14,9 +14,10 @@ import concrete.CSPOMDriver._
 import cspom.variable.IntVariable
 
 object QueensAllDiffCSPOM extends App {
-  def qp(n: Int) = CSPOM withResult {
+  def qp(n: Int) = CSPOM {
 
-    val queens = Seq.fill(n)(IntVariable.ofInterval(1, n))
+
+    val queens = 1 to n map (i => IntVariable(1 to n) as s"Q$i")
 
     ctr(allDifferent(queens: _*))
 
@@ -31,8 +32,6 @@ object QueensAllDiffCSPOM extends App {
     }
 
     ctr(allDifferent(qd2: _*))
-
-    queens
   }
 
   //ParameterManager("heuristic.variable") = classOf[concrete.heuristic.DDegOnDom]
@@ -43,7 +42,7 @@ object QueensAllDiffCSPOM extends App {
 
   for (size <- List(4, 8, 12, 20, 50, 100, 200, 500, 1000, 2000, 5000)) {
     //print(size + " : ")
-    val (problem, queens) = qp(size)
+    val problem = qp(size)
 
     //xml.XML.save("queensAllDiff-" + size + ".xml", problem.toXCSP)
     //println(problem)
