@@ -9,30 +9,29 @@ import Database.threadLocalSession
 import java.net.URI
 import cspom.StatisticsManager
 import scala.collection.mutable.HashMap
-import cspom.extension.EmptyMDD
 import cspom.extension.MDDLeaf
 import cspom.extension.MDDNode
 import cspom.extension.MDD
-import cspom.extension.LazyMDD
 import cspom.CSPOM._
 import scala.Array.canBuildFrom
 import scala.slick.jdbc.{ StaticQuery => Q }
 import cspom.variable.IntVariable
+import cspom.extension.LazyRelation
 
 object RandomMDD extends ConcreteRunner with App {
 
   def apply(d: Int, k: Int, l: Double, q: Double, rand: Random) = {
-    val existing = Array.fill(k + 1)(new HashMap[MDD, MDD]())
+    val existing = Array.fill(k + 1)(new HashMap[MDD[Int], MDD[Int]]())
     generate(d, k, l, q, existing, rand)
   }
 
   def generate(d: Int, k: Int, l: Double, q: Double,
-    existing: Array[HashMap[MDD, MDD]], rand: Random): MDD = {
+    existing: Array[HashMap[MDD[Int], MDD[Int]]], rand: Random): MDD[Int] = {
     if (k == 0) {
       if (rand.nextDouble < l) {
-        MDDLeaf
+        MDD.leaf
       } else {
-        EmptyMDD
+        MDD.empty
       }
     } else if (existing(k).nonEmpty && rand.nextDouble < q) {
       existing(k).keysIterator.drop(rand.nextInt(existing(k).size)).next
@@ -41,9 +40,9 @@ object RandomMDD extends ConcreteRunner with App {
         map(i => i -> generate(d, k - 1, l, q, existing, rand)).
         filter(_._2.nonEmpty)
 
-      val r =
+      val r: MDD[Int] =
         if (t.isEmpty) {
-          EmptyMDD
+          MDD.empty
         } else {
           new MDDNode(t.toMap)
         }
@@ -64,7 +63,7 @@ object RandomMDD extends ConcreteRunner with App {
       val r = new CoarseProportionRandomListGenerator(n, k, s);
 
       for (scope <- r.selectTuples(e, Structure.UNSTRUCTURED, false, false)) {
-        val mdd = new LazyMDD(Unit => {
+        val mdd = new LazyRelation(Unit => {
           val r = RandomMDD.apply(d, k, l, q, rand)
           //println(r.edges)
           r
@@ -194,7 +193,7 @@ object RenameMDD extends App {
     //          n.toInt, e.toInt, s"mdd-$n-$d-$k-$e-$l-$q-$s"))
     //      }
     //
-    //      tag.execute((s"mdd-$n-$d-$k-$e-$lp-$lq", s"^mdd-$n-$d-$k-$e-$l-$q-"))))))))
+    //      tag.execute((s"mdd-$n-$d-$k-$e-$lp-$lq", s"^mdd-$n-$d-$k-$e-$l-$q-"))))))))))))))
     //
     //    }
     //

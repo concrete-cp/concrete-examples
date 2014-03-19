@@ -9,7 +9,6 @@ import concrete.Variable
 import concrete.constraint.semantic.Eq
 import concrete.constraint.semantic.Sum
 import cspom.CSPOM
-import cspom.extension.EmptyMDD
 import cspom.extension.MDD
 import cspom.extension.MDDLeaf
 import cspom.extension.MDDNode
@@ -19,10 +18,10 @@ import scala.annotation.tailrec
 import scala.util.Random
 import concrete.ParameterManager
 import concrete.heuristic.RevLexico
-import cspom.extension.LazyMDD
 import concrete.runner.ConcreteRunner
 import CSPOM._
 import cspom.variable.IntVariable
+import cspom.extension.LazyRelation
 
 object Knapsack extends ConcreteRunner with App {
   run(args)
@@ -138,12 +137,12 @@ object Knapsack extends ConcreteRunner with App {
     val wBound = IntVariable(weight to c) as "wBound"
     val pBound = IntVariable(lb to ub) as "pBound"
 
-    val wMDD = new LazyMDD(Unit => zeroSum(wBound :: variables, -1 :: w.toList))
+    val wMDD = new LazyRelation(Unit => zeroSum(wBound :: variables, -1 :: w.toList))
     //println(wMDD)
-    ctr(table(wMDD, false, (wBound :: variables).toArray))
-    val pMDD = new LazyMDD(Unit => zeroSum(pBound :: variables, -1 :: p.toList))
+    ctr(table(wMDD, false, wBound :: variables))
+    val pMDD = new LazyRelation(Unit => zeroSum(pBound :: variables, -1 :: p.toList))
     //println(pMDD)
-    ctr(table(pMDD, false, (pBound :: variables).toArray))
+    ctr(table(pMDD, false, pBound :: variables))
 
     ProblemGenerator.generate(cspom)
     //val solver = Solver.factory(problem)
@@ -204,24 +203,24 @@ object Knapsack extends ConcreteRunner with App {
     }
   }
 
-  def zeroSum(variables: List[IntVariable], factors: List[Int]): MDD = {
+  def zeroSum(variables: List[IntVariable], factors: List[Int]): MDD[Int] = {
     val domains = variables.map(_.domain)
     zeroSum(domains, factors, sum(domains, factors, _.min), sum(domains, factors, _.max))
   }
 
   def zeroSum(domains: List[Seq[Int]], factors: List[Int], min: Int, max: Int, currentSum: Int = 0,
-    nodes: HashMap[(Int, Int), MDD] = new HashMap()): MDD = {
+    nodes: HashMap[(Int, Int), MDD[Int]] = new HashMap()): MDD[Int] = {
     if (domains.isEmpty) {
       require(currentSum == min && currentSum == max)
       if (currentSum == 0) {
-        MDDLeaf
+        MDD.leaf
       } else {
-        EmptyMDD
+        MDD.empty
       }
     } else if (min > 0) {
-      EmptyMDD
+      MDD.empty
     } else if (max < 0) {
-      EmptyMDD
+      MDD.empty
     } else {
       nodes.getOrElseUpdate((domains.size, currentSum), {
         val head :: tail = domains
@@ -233,7 +232,7 @@ object Knapsack extends ConcreteRunner with App {
           filter(_._2.nonEmpty)
 
         if (trie.isEmpty) {
-          EmptyMDD
+          MDD.empty
         } else {
           new MDDNode(trie.toMap)
         }

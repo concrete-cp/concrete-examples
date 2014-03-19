@@ -11,7 +11,6 @@ import rb.randomlists.ProbabilityRandomListGenerator;
 import rb.randomlists.ProportionRandomListGenerator;
 import rb.randomlists.RandomListGenerator;
 import rb.randomlists.Structure;
-import concrete.JCSPOMDriver;
 import concrete.generator.FailedGenerationException;
 import cspom.CSPOM;
 import cspom.CSPOMConstraint;
@@ -236,10 +235,10 @@ public class RBGenerator {
   }
 
   private static class Extension {
-    final MDD e;
+    final MDD<Integer> e;
     final boolean sup;
 
-    public Extension(MDD e, boolean sup) {
+    public Extension(MDD<Integer> e, boolean sup) {
       this.e = e;
       this.sup = sup;
     }
@@ -311,13 +310,14 @@ public class RBGenerator {
 
   }
 
-  private static MDD tuplesToMatrix(int arity, int[][] tuples) {
-    MDD extension = emptyMDD();
-
-    for (int[] tuple : tuples) {
-      extension = mddAdd(extension, tuple);
-    }
-    return extension;
+  private static MDD<Integer> tuplesToMatrix(int arity, int[][] tuples) {
+    return mdd(tuples);
+//    MDD extension = emptyMDD();
+//
+//    for (int[] tuple : tuples) {
+//      extension = mddAdd(extension, tuple);
+//    }
+//    return extension;
   }
 
 }

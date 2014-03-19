@@ -8,11 +8,6 @@ import concrete.generator.ProblemGenerator
 import cspom.CSPOM
 import cspom.extension.Table
 import cspom.variable.CSPOMVariable
-import cspom.extension.EmptyMDD
-import cspom.extension.MDDLeaf
-import cspom.extension.MDDNode
-import cspom.extension.MDD
-import cspom.extension.LazyMDD
 import CSPOM._
 import concrete.runner.ConcreteRunner
 import concrete.CSPOMDriver._
@@ -85,7 +80,7 @@ object CarSeq extends ConcreteRunner with App {
       val oc = cars.zipWithIndex map {
         case (cv, c) =>
           val vars = (0 until nbOptions) map (o => IntVariable(Seq(0, 1)) withName s"car${c}option$o")
-          ctr(table(new Table(classes), false, (cv +: vars.map(_._1)).toArray))
+          ctr(table(new Table(classes), false, cv +: vars.map(_._1)))
           vars
       }
       val (options, on) = oc.map(_.unzip).unzip
