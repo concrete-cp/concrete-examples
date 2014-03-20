@@ -49,7 +49,6 @@ object Knapsack extends ConcreteRunner with App {
     val (o, c) = load(getClass.getResource("exnsd16.ukp").openStream())
     //println(c)
     //println(o)
-    Solver.loggerLevel = "INFO"
     var u = 0
     var r = c
     for (obj <- o.sortBy(t => t.w.toDouble / t.p)) {
@@ -195,7 +194,7 @@ object Knapsack extends ConcreteRunner with App {
   }
 
   @tailrec
-  def sum(domains: List[Seq[Int]], factors: List[Int], f: Seq[Int] => Int, currentSum: Int = 0): Int = {
+  def sum(domains: List[Iterable[Int]], factors: List[Int], f: Iterable[Int] => Int, currentSum: Int = 0): Int = {
     if (domains.isEmpty) {
       currentSum
     } else {
@@ -208,7 +207,7 @@ object Knapsack extends ConcreteRunner with App {
     zeroSum(domains, factors, sum(domains, factors, _.min), sum(domains, factors, _.max))
   }
 
-  def zeroSum(domains: List[Seq[Int]], factors: List[Int], min: Int, max: Int, currentSum: Int = 0,
+  def zeroSum(domains: List[Iterable[Int]], factors: List[Int], min: Int, max: Int, currentSum: Int = 0,
     nodes: HashMap[(Int, Int), MDD[Int]] = new HashMap()): MDD[Int] = {
     if (domains.isEmpty) {
       require(currentSum == min && currentSum == max)

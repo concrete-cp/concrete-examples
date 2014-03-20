@@ -113,7 +113,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
 
   private def newWord(word: Seq[IntVariable])(implicit problem: CSPOM) {
     if (word.size >= 2) {
-      ctr(table(dicts(word.size), false, word))
+      ctr(table(dicts(word.size), false, word))(problem)
     }
   }
 

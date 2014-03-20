@@ -90,7 +90,7 @@ object CarSeq extends ConcreteRunner with App {
       for (i <- 0 until nbOptions) {
         val cardinality = classes.map(c => quantities(c(0)) * c(i + 1)).sum
         //println(cardinality)
-        ctr(CSPOMConstraint('slidingSum, 0, maxCars(i), blockSizes(i), options.map(_(i))))
+        ctr(CSPOMConstraint('slidingSum, Seq(0, maxCars(i), blockSizes(i), options.map(_(i)))))
         //ctr(sum(options.map(_(i)): _*) === cardinality)
         //sequenceBDD(options.map(_(i)), maxCars(i), blockSizes(i), cardinality)
       }

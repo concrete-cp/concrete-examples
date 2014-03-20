@@ -227,7 +227,7 @@ public class RBGenerator {
           incompatibilityGraphType, forcedTuple);
     }
 
-    return CSPOMConstraint.apply("extension",
+    return constraint("extension",
         variables,
         CSPOMConstraint.param(
             "relation", matrix.e).param(
