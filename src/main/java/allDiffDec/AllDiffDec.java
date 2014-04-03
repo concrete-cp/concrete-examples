@@ -1,13 +1,14 @@
 package allDiffDec;
 
-
+import static cspom.JCSPOM.intVarRange;
+import scala.collection.Map;
+import concrete.CSPOMSolver;
 import concrete.JCSPOMDriver;
 import concrete.Solver;
 import concrete.SolverResult;
 import concrete.generator.FailedGenerationException;
 import cspom.CSPOM;
 import cspom.variable.IntVariable;
-import static cspom.JCSPOM.*;
 
 public final class AllDiffDec {
 	private AllDiffDec(final int size) {
@@ -15,7 +16,6 @@ public final class AllDiffDec {
 
 	public static CSPOM generate() {
 		final JCSPOMDriver p = new JCSPOMDriver();
-
 
 		final IntVariable x1 = p.nameExpression(intVarRange(3, 4), "X1");
 		final IntVariable x2 = p.nameExpression(intVarRange(1, 5), "X2");
@@ -30,12 +30,11 @@ public final class AllDiffDec {
 	public static void main(String[] args) throws FailedGenerationException {
 		final CSPOM problem = generate();
 
-		final Solver solver = Solver.apply(problem);
+		final CSPOMSolver solver = Solver.apply(problem);
 
-		SolverResult solution = solver.nextSolution();
-		while (solution.isSat()) {
+		while (solver.hasNext()) {
+			Map<String, Object> solution = solver.next();
 			System.out.println(solution);
-			solution = solver.nextSolution();
 		}
 
 	}

@@ -22,8 +22,9 @@ import concrete.runner.ConcreteRunner
 import CSPOM._
 import cspom.variable.IntVariable
 import cspom.extension.LazyRelation
+import concrete.runner.CSPOMRunner
 
-object Knapsack extends ConcreteRunner with App {
+object Knapsack extends CSPOMRunner with App {
   run(args)
   case class O(val w: Int, val p: Int)
 
@@ -65,19 +66,20 @@ object Knapsack extends ConcreteRunner with App {
 
     println("p = [" + lb + ", " + ub + "], c = " + c)
 
-    val cspom = new CSPOM
+    val cspom = CSPOM { implicit problem =>
 
-    val variables = o.zipWithIndex map {
-      case (O(w, _), i) => IntVariable(0 to (c / w)) as ("v" + i)
+      val variables = o.zipWithIndex map {
+        case (O(w, _), i) => IntVariable(0 to (c / w)) as ("v" + i)
+      }
+
+      val wBound = IntVariable(0 to c) as "wBound"
+      val pBound = IntVariable(lb to ub) as "pBound"
+
+      println(variables.mkString("\n"))
+
+      val mdd = zeroSum(wBound :: variables, -1 :: o.map(_.w))
+      println(mdd)
     }
-
-    val wBound = IntVariable(0 to c) as "wBound"
-    val pBound = IntVariable(lb to ub) as "pBound"
-
-    println(variables.mkString("\n"))
-
-    val mdd = zeroSum(wBound :: variables, -1 :: o.map(_.w))
-    println(mdd)
     //
     //    problem.addConstraint(new ZeroSum(Array(-1) ++ o.map(_.w), Array(wBound) ++ variables))
     //    problem.addConstraint(new ZeroSum(Array(-1) ++ o.map(_.p), Array(pBound) ++ variables))
@@ -98,13 +100,13 @@ object Knapsack extends ConcreteRunner with App {
   ParameterManager("logger.level") = "INFO"
   ParameterManager("heuristic.value") = classOf[RevLexico]
 
-  def control(solution: Map[String, Any]) = None
+  def controlCSPOM(solution: Map[String, Any]) = ???
 
   def description(args: List[String]) = {
     args.mkString("knapsack-", "-", "")
   }
 
-  override def load(args: List[String]) = {
+  override def loadCSPOM(args: List[String]) = {
     val List(n, b, r, i, s) = args map (_.toInt)
 
     val (w, m, p) = ks(n, b, r, i, s)
@@ -112,38 +114,38 @@ object Knapsack extends ConcreteRunner with App {
     val c = (95 * w.zip(m).map(i => i._1 * i._2).sum) / 100
     val ub = p.zip(m).map(i => i._1 * i._2).sum
 
-    val cspom = new CSPOM
+    CSPOM { implicit problem =>
 
-    val variables = m.map(b => IntVariable(0 to b)).toList
+      val variables = m.map(b => IntVariable(0 to b)).toList
 
-    var lb = 0
-    var weight = 0
+      var lb = 0
+      var weight = 0
 
-    util.control.Breaks.breakable {
-      val l = (w, m, p).zipped.toList.sortBy {
-        case (wi, mi, pi) => wi / pi
-      }
-      for ((wi, mi, pi) <- l) {
-        val nw = weight + mi * wi
-        if (nw > c) {
-          util.control.Breaks.break
+      util.control.Breaks.breakable {
+        val l = (w, m, p).zipped.toList.sortBy {
+          case (wi, mi, pi) => wi / pi
         }
-        weight = nw
-        lb += mi * pi
+        for ((wi, mi, pi) <- l) {
+          val nw = weight + mi * wi
+          if (nw > c) {
+            util.control.Breaks.break
+          }
+          weight = nw
+          lb += mi * pi
+        }
       }
+
+      val wBound = IntVariable(weight to c) as "wBound"
+      val pBound = IntVariable(lb to ub) as "pBound"
+
+      val wMDD = new LazyRelation(Unit => zeroSum(wBound :: variables, -1 :: w.toList))
+      //println(wMDD)
+      ctr(table(wMDD, false, wBound :: variables))
+      val pMDD = new LazyRelation(Unit => zeroSum(pBound :: variables, -1 :: p.toList))
+      //println(pMDD)
+      ctr(table(pMDD, false, pBound :: variables))
     }
 
-    val wBound = IntVariable(weight to c) as "wBound"
-    val pBound = IntVariable(lb to ub) as "pBound"
-
-    val wMDD = new LazyRelation(Unit => zeroSum(wBound :: variables, -1 :: w.toList))
-    //println(wMDD)
-    ctr(table(wMDD, false, wBound :: variables))
-    val pMDD = new LazyRelation(Unit => zeroSum(pBound :: variables, -1 :: p.toList))
-    //println(pMDD)
-    ctr(table(pMDD, false, pBound :: variables))
-
-    ProblemGenerator.generate(cspom)
     //val solver = Solver.factory(problem)
     //println(solver.nextSolution())
     //println(solver.bestSolution(problem.variable("pBound")))

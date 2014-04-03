@@ -22,16 +22,16 @@ object Cycles extends App {
   val d = 1
   val rand = new Random(0)
 
-  val problem = CSPOM {
+  val problem = CSPOM { implicit problem =>
     // Génération des arcs
     val variables =
       for (i <- 0 until n) yield {
         for (j <- 0 until n) yield {
           if (rand.nextDouble() < t) {
-            new BoolVariable() as s"V$i-$j"
+            new BoolVariable()
           } else {
             CSPOMConstant(false)
-          }
+          } as s"V$i-$j"
         }
       }
 
@@ -82,8 +82,8 @@ object Cycles extends App {
     }
   }
 
-//  println(problem)
-//  ProblemCompiler.compile(problem, Patterns())
+  //  println(problem)
+  //  ProblemCompiler.compile(problem, Patterns())
 
   println(problem)
 
@@ -103,7 +103,8 @@ object Cycles extends App {
     }
 
     for (i <- 0 until n; j <- 0 until n) {
-      val r = sol.getOrElse(s"V$i-$j", 0)
+
+      val r: Int = sol(s"V$i-$j").asInstanceOf[Int]
 
       if (r == 1) {
         println("edge [")

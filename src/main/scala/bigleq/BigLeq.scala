@@ -11,7 +11,7 @@ object BigLeq extends App {
   val NB_VALS = 2000;
   val NB_VARS = 2000;
 
-  def bigleq(nbVars: Int, nbVals: Int) = CSPOM {
+  def bigleq(nbVars: Int, nbVals: Int) = CSPOM { implicit problem =>
     val vars = (1 to nbVars).map {
       case i if i == 2 => IntVariable(2 to nbVals) as ("V" + i)
       case i => IntVariable(1 to nbVals) as ("V" + i)

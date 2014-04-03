@@ -13,6 +13,7 @@ import concrete.generator.cspompatterns.SubToAdd
 import cspom.compiler.MergeEq
 import concrete.generator.cspompatterns.ConcretePatterns
 import cspom.variable.IntVariable
+import cspom.variable.CSPOMVariable
 
 object GolombRuler extends App {
   ConcretePatterns.improveModel = args(1).toBoolean
@@ -20,7 +21,7 @@ object GolombRuler extends App {
   val ticks = args(0).toInt
   val max = ticks * ticks
 
-  val problem = CSPOM {
+  val problem = CSPOM { implicit problem =>
     val variables = for (i <- 1 to ticks) yield IntVariable(1 to max) as s"T$i"
 
     for (Seq(xi, xj) <- variables.sliding(2)) {
@@ -43,6 +44,7 @@ object GolombRuler extends App {
   //println(statistics)
 
   val solver = Solver(problem)
+
   solver.minimize(s"T$ticks")
   //
   //  println(solver.problem)

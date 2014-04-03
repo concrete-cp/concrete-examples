@@ -40,8 +40,8 @@ public class TestCspfj {
 			final SolverResult sol = solver.nextSolution();
 			if (sol.isSat()) {
 				System.out.println(sol);
-				noGoodsConstraint.removeTuple(new int[] { (Integer) sol.get().apply("V0"),
-						(Integer) sol.get().apply("V1") });
+				noGoodsConstraint.removeTuple(new int[] { (Integer) sol.get().apply(v0),
+						(Integer) sol.get().apply(v1) });
 				solver.reset();
 			} else {
 				break;

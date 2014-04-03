@@ -70,7 +70,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
   }
 
   def generate() = {
-    val problem = CSPOM {
+    val problem = CSPOM { implicit problem =>
       for (i <- 0 until x; j <- 0 until y) {
         if (!black.contains(Cell(i, j))) {
           val name = s"C$i.$j"

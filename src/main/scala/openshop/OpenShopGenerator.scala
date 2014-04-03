@@ -92,11 +92,11 @@ final class OpenShopGenerator(
     max(sumL, sumC)
   }
 
-  private def dtConstraint(v0: IntVariable, v1: IntVariable, d0: Int, d1: Int) = {
+  private def dtConstraint(v0: IntVariable, v1: IntVariable, d0: Int, d1: Int)(implicit problem: CSPOM) = {
     diffGe(v0, v1, d0) | diffGe(v1, v0, d1)
   }
 
-  private def diffGe(v0: IntVariable, v1: IntVariable, d0: Int) = {
+  private def diffGe(v0: IntVariable, v1: IntVariable, d0: Int)(implicit problem: CSPOM) = {
     (v1 - v0) >= d0
   }
 
@@ -105,7 +105,7 @@ final class OpenShopGenerator(
     variableNames = Array.ofDim[String](size, size)
     durationsMap = new HashMap()
 
-    CSPOM {
+    CSPOM { implicit problem =>
       for (i <- 0 until size; j <- 0 until size) {
         val name = s"V$i.$j"
         variableNames(i)(j) = name

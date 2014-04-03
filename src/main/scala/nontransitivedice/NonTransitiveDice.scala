@@ -17,7 +17,7 @@ object NonTransitiveDice extends App {
     }
   }
 
-  val problem = CSPOM {
+  val problem = CSPOM { implicit problem =>
     val dice = for (i <- 0 until NB_DICE) yield {
       for (j <- 0 until NB_FACES) yield {
         IntVariable(1 to MAX_VALUE) as s"D${i}F$j"
@@ -43,7 +43,7 @@ object NonTransitiveDice extends App {
     ctr(nbs > (NB_FACES * NB_FACES) / 2)
   }
 
-  def nbSup(d1: Seq[IntVariable], d2: Seq[IntVariable]) = {
+  def nbSup(d1: Seq[IntVariable], d2: Seq[IntVariable])(implicit problem: CSPOM) = {
     val counts = for (i <- d1; j <- d2) yield {
       i > j
     }

@@ -9,12 +9,14 @@ import cspom.CSPOM
 import cspom.extension.Table
 import cspom.variable.CSPOMVariable
 import CSPOM._
-import concrete.runner.ConcreteRunner
 import concrete.CSPOMDriver._
 import cspom.variable.IntVariable
 import cspom.CSPOMConstraint
+import concrete.Variable
+import concrete.runner.CSPOMRunner
+import cspom.variable.CSPOMSeq
 
-object CarSeq extends ConcreteRunner with App {
+object CarSeq extends CSPOMRunner with App {
   /**
    * The format of the data files is as follows:
    *
@@ -73,7 +75,7 @@ object CarSeq extends ConcreteRunner with App {
       classes ::= (i +: options.drop(2).map(_.toInt))
     }
 
-    CSPOM {
+    CSPOM { implicit problem =>
       val (cars, cn) = (0 until nbCars).map(c => IntVariable(0 until nbClasses) withName s"car$c").unzip
 
       carNames = cn
@@ -90,7 +92,7 @@ object CarSeq extends ConcreteRunner with App {
       for (i <- 0 until nbOptions) {
         val cardinality = classes.map(c => quantities(c(0)) * c(i + 1)).sum
         //println(cardinality)
-        ctr(CSPOMConstraint('slidingSum, Seq(0, maxCars(i), blockSizes(i), options.map(_(i)))))
+        ctr(CSPOMConstraint('slidingSum, Seq(0, maxCars(i), blockSizes(i), new CSPOMSeq(options.map(o => o(i))))))
         //ctr(sum(options.map(_(i)): _*) === cardinality)
         //sequenceBDD(options.map(_(i)), maxCars(i), blockSizes(i), cardinality)
       }
@@ -101,19 +103,21 @@ object CarSeq extends ConcreteRunner with App {
     }
   }
 
-  def sequence(cp: CSPOM, vars: IndexedSeq[IntVariable], u: Int, q: Int, cardinality: Int) {
+  def sequence(cp: CSPOM, vars: IndexedSeq[IntVariable], u: Int, q: Int, cardinality: Int)(implicit problem: CSPOM) {
     for (i <- 0 to vars.size - q) {
       ctr(sum(vars.slice(i, i + q): _*) <= u)
     }
   }
 
-  def control(solution: Map[String, Any]): Option[String] = ???
+  def controlCSPOM(solution: Map[String, Any]): Option[String] = ???
   def description(args: List[String]) = args.head
 
-  override def output(solution: Map[String, Any]): String = {
-    (carNames zip optionNames) map {
-      case (c, o) => solution(c) + " " + o.map(p => solution(p)).mkString(" ")
-    } mkString ("\n")
+  override def outputCSPOM(solution: Option[Map[String, Any]]): String = {
+    solution.map { solution =>
+      (carNames zip optionNames) map {
+        case (c, o) => solution(c) + " " + o.map(p => solution(p)).mkString(" ")
+      } mkString ("\n")
+    } getOrElse ("UNSAT")
   }
 
   run(args)

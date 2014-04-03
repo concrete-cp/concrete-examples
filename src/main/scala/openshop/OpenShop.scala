@@ -95,7 +95,7 @@ object OpenShop extends App {
 
     // System.out.println(cspom);
 
-    val solver = Solver(cspom);
+    val solver = Solver(cspom)
 
     val solution = solver.toIterable.headOption
     time += System.currentTimeMillis();

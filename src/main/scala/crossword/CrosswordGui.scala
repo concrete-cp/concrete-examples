@@ -69,7 +69,7 @@ class CrosswordGui(x: Int, y: Int) {
 
   def solve() {
     crossword = new CrosswordGenerator(x, y, black);
-    this.problem = crossword.generate();
+    this.problem = crossword.generate()._1
     problem.addConstraint(new VisuConstraint(problem.variables.toArray, this))
     new CrosswordResolver(problem).start();
   }

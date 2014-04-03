@@ -14,8 +14,7 @@ import concrete.CSPOMDriver._
 import cspom.variable.IntVariable
 
 object QueensAllDiffCSPOM extends App {
-  def qp(n: Int) = CSPOM {
-
+  def qp(n: Int) = CSPOM { implicit problem =>
 
     val queens = 1 to n map (i => IntVariable(1 to n) as s"Q$i")
 

@@ -17,8 +17,7 @@ import cspom.variable.BoolVariable
 import java.util.Arrays
 
 object MQueens extends App {
-  def qp(n: Int) = CSPOM {
-
+  def qp(n: Int) = CSPOM { implicit problem =>
 
     val queens = (0 until n) map { i => IntVariable(0 to n) as s"Q$i" }
 
@@ -46,7 +45,7 @@ object MQueens extends App {
     val occurrences = occurrence(0, queens: _*) as "occurrences"
   }
 
-  def allDifferentBut0(q: IntVariable*) = {
+  def allDifferentBut0(q: IntVariable*)(implicit problem: CSPOM) = {
     for (Seq(q1, q2) <- q.combinations(2)) yield {
       (q1 === 0) | (q2 === 0) | (q1 !== q2)
     }

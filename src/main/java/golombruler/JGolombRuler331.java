@@ -1,21 +1,18 @@
 package golombruler;
 
+import static cspom.JCSPOM.intVarRange;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import concrete.CSPOMSolver;
 import concrete.JCSPOMDriver;
 import concrete.Solver;
 import concrete.generator.cspompatterns.ConcretePatterns;
 import cspom.variable.IntVariable;
-import static concrete.JCSPOMDriver.*;
-import static cspom.JCSPOM.*;
-
 
 public class JGolombRuler331 {
 
-	
-	
 	public static void main(String[] args) {
 		ConcretePatterns.improveModel_$eq(Boolean.valueOf(args[1]));
 
@@ -54,7 +51,8 @@ public class JGolombRuler331 {
 
 		// println(statistics)
 
-		Solver solver = Solver.apply(p);
+		CSPOMSolver solver = Solver.apply(p);
+
 		solver.minimize("T" + ticks);
 		//
 		// println(solver.problem)

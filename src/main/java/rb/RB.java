@@ -81,7 +81,7 @@ public final class RB {
 
 			final Problem problem;
 			try {
-				problem = ProblemGenerator.generate(rb.generate());
+				problem = ProblemGenerator.generate(rb.generate())._1;
 			} catch (FailedGenerationException e) {
 				throw new IllegalStateException(e);
 			}
@@ -105,7 +105,7 @@ public final class RB {
 
 			final Problem problem;
 			try {
-				problem = ProblemGenerator.generate(rb.generate());
+				problem = ProblemGenerator.generate(rb.generate())._1;
 			} catch (FailedGenerationException e) {
 				throw new IllegalStateException(e);
 			}

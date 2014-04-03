@@ -1,13 +1,14 @@
 package pigeons;
 
 
-import static cspom.JCSPOM.*;
+import static cspom.JCSPOM.intVarRange;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import concrete.CSPOMSolver;
 import concrete.JCSPOMDriver;
 import concrete.Solver;
 import concrete.generator.FailedGenerationException;
@@ -45,9 +46,9 @@ public final class Pigeons {
 			long time = -System.currentTimeMillis();
 			final CSPOM problem = generate(i);
 
-			final Solver solver = Solver.apply(problem);
+			final CSPOMSolver solver = Solver.apply(problem);
 
-			solver.nextSolution();
+			solver.next();
 
 			System.out.println((System.currentTimeMillis() + time) / 1000f);
 			// while (solution != null) {
