@@ -56,7 +56,7 @@ object QueensAllDiffCSPFJ {
     ParameterManager("mac.filter") = classOf[concrete.filter.ACV]
     ParameterManager("ac3c.queue") = classOf[concrete.priorityqueues.QuickFifos[Variable]]
 
-    var sz = 800
+    var sz = 12
 
     do {
       val size = sz.intValue
@@ -66,13 +66,20 @@ object QueensAllDiffCSPFJ {
       val solver = Solver(problem)
       //solver.maxBacktracks = -1
 
-      val (s, time) = StatisticsManager.time(solver.hasNext)
+      val (s, time) = StatisticsManager.time(solver.next)
       //      for (v <- queens) {
       //        print(s.get(v.name) + " ")
       //      }
       //      println
       println("%g : %d".format(time, solver.statistics("solver.nbAssignments")))
-      sz = (sz * 1.1).toInt
+      var count = 1
+      while (solver.hasNext) {
+        count += 1
+        solver.next()
+      }
+      println(solver.statistics("solver.searchCpu"))
+      println(count)
+      //sz = (sz * 1.1).toInt
     } while (true)
   }
 }
