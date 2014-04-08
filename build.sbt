@@ -4,7 +4,7 @@ organization := "fr.univ-valenciennes.concrete"
 
 version := "0.0.1-SNAPSHOT"
 
-scalaVersion := "2.11.0-RC1"
+scalaVersion := "2.11.0-RC4"
 
 resolvers += "Concrete repository" at "http://scand1sk.github.io/concrete/repository"
 
@@ -13,8 +13,7 @@ resolvers += "sonatype-releases" at "https://oss.sonatype.org/content/repositori
 scalacOptions += "-Xdisable-assertions"
 
 libraryDependencies ++= Seq(
-	"commons-cli" % "commons-cli" % "1.1",
-	"junit" % "junit" % "4.10" % "test"
+	"commons-cli" % "commons-cli" % "1.1"
 	)
 
 publishTo := Some(
