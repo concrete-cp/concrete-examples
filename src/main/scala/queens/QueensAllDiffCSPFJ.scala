@@ -52,10 +52,6 @@ object QueensAllDiffCSPFJ {
   }
 
   def main(args: Array[String]) {
-    ParameterManager("heuristic.variable") = classOf[concrete.heuristic.DDegOnDom]
-    ParameterManager("mac.filter") = classOf[concrete.filter.ACV]
-    ParameterManager("ac3c.queue") = classOf[concrete.priorityqueues.QuickFifos[Variable]]
-
     var sz = 12
 
     do {

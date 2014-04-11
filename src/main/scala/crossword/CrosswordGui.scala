@@ -22,8 +22,7 @@ import javax.swing.SwingConstants
 
 case class Cell(x: Int, y: Int)
 
-class CrosswordGui(x: Int, y: Int) {
-  ParameterManager("logger.level") = "INFO"
+class CrosswordGui(x: Int, y: Int, pm: ParameterManager) {
   val RAND = new Random(0)
   val frame = new JFrame
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
@@ -53,7 +52,7 @@ class CrosswordGui(x: Int, y: Int) {
   val start = new JButton("start");
 
   start.addActionListener(new ActionListener() {
-    override def actionPerformed(e: ActionEvent) { solve() }
+    override def actionPerformed(e: ActionEvent) { solve(pm) }
 
   });
 
@@ -67,11 +66,11 @@ class CrosswordGui(x: Int, y: Int) {
   var problem: Problem = null
   var crossword: CrosswordGenerator = null
 
-  def solve() {
+  def solve(pm: ParameterManager) {
     crossword = new CrosswordGenerator(x, y, black);
-    this.problem = crossword.generate()._1
+    this.problem = crossword.generate(pm)._1
     problem.addConstraint(new VisuConstraint(problem.variables.toArray, this))
-    new CrosswordResolver(problem).start();
+    new CrosswordResolver(problem, pm).start();
   }
 
 }
@@ -80,7 +79,7 @@ object CrosswordGui {
 
   def main(args: Array[String]) {
 
-    new CrosswordGui(12, 12);
+    new CrosswordGui(12, 12, new ParameterManager);
 
   }
 }

@@ -37,7 +37,6 @@ import cspom.compiler.ProblemCompiler
 import concrete.ParameterManager
 
 object OpenShop extends App {
-  ParameterManager("logger.level") = "INFO"
 
   val opt = new Options();
 

@@ -2,11 +2,12 @@ package crossword;
 
 import concrete.Problem
 import concrete.MAC
+import concrete.ParameterManager
 
-class CrosswordResolver(problem: Problem) extends Thread {
+class CrosswordResolver(problem: Problem, pm: ParameterManager) extends Thread {
 
   override def run() {
-    val solver = new MAC(problem);
+    val solver = new MAC(problem, pm);
 
     // solver.setAllSolutions(true);
 

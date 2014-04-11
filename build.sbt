@@ -6,7 +6,7 @@ version := "0.0.1-SNAPSHOT"
 
 scalaVersion := "2.11.0-RC4"
 
-resolvers += "Concrete repository" at "http://scand1sk.github.io/concrete/repository"
+resolvers += "Concrete repository" at "http://concrete-cp.github.io/concrete/repository"
 
 resolvers += "sonatype-releases" at "https://oss.sonatype.org/content/repositories/releases/"
 

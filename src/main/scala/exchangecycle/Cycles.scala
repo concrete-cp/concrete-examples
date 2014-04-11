@@ -1,19 +1,18 @@
 package exchangecycle
 
-import cspom.CSPOM
-import cspom.CSPOM._
-import concrete.CSPOMDriver._
-import scala.xml.Node
-import cspom.extension.Table
-import concrete.Solver
-import cspom.compiler.ProblemCompiler
-import cspom.variable.CSPOMConstant
-import concrete.ParameterManager
-import cspom.variable.CSPOMVariable
-import cspom.CSPOMConstraint
 import scala.util.Random
+import concrete.CSPOMDriver.CSPOMBoolExpressionOperations
+import concrete.CSPOMDriver.occurrence
+import concrete.ParameterManager
+import concrete.Solver
+import concrete.heuristic.RevLexico
+import cspom.CSPOM
+import cspom.CSPOM.constant
+import cspom.CSPOM.ctr
 import cspom.variable.BoolVariable
+import cspom.variable.CSPOMConstant
 import cspom.variable.IntVariable
+import concrete.SolverFactory
 
 object Cycles extends App {
 
@@ -87,9 +86,10 @@ object Cycles extends App {
 
   println(problem)
 
-  ParameterManager("heuristic.value") = classOf[concrete.heuristic.RevLexico]
+  val pm = new ParameterManager
+  pm("heuristic.value") = classOf[concrete.heuristic.RevLexico]
   //  ParameterManager("logger.level") = "INFO"
-  val solver = Solver(problem)
+  val solver = new SolverFactory(pm)(problem)
 
   println("Searching…")
 

@@ -10,6 +10,7 @@ import concrete.generator.ProblemGenerator
 import scala.util.Random
 import scala.collection.mutable.HashMap
 import cspom.variable.IntVariable
+import concrete.ParameterManager
 
 /*
  * Created on 20 mai 08
@@ -27,7 +28,7 @@ object CrosswordGenerator {
     val black = (for (i <- 0 until x; j <- 0 until y; if RAND.nextFloat < .15) yield Cell(i, j)).toSet
     //Set(Cell(4,4))
     val crossword = new CrosswordGenerator(x, y, black);
-    val problem = crossword.generate();
+    val problem = crossword.generate(new ParameterManager);
     println(problem)
   }
 }
@@ -69,7 +70,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
     transposed
   }
 
-  def generate() = {
+  def generate(pm: ParameterManager) = {
     val problem = CSPOM { implicit problem =>
       for (i <- 0 until x; j <- 0 until y) {
         if (!black.contains(Cell(i, j))) {
@@ -108,7 +109,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
       }
     }
 
-    ProblemGenerator.generate(problem);
+    new ProblemGenerator(pm).generate(problem);
   }
 
   private def newWord(word: Seq[IntVariable])(implicit problem: CSPOM) {

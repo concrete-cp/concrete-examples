@@ -25,7 +25,11 @@ import cspom.extension.LazyRelation
 import concrete.runner.CSPOMRunner
 
 object Knapsack extends CSPOMRunner with App {
+  
+  pm("logger.level") = "INFO"
+  pm("heuristic.value") = classOf[RevLexico]
   run(args)
+  
   case class O(val w: Int, val p: Int)
 
   def load(is: InputStream): (List[O], Int) = {
@@ -80,25 +84,7 @@ object Knapsack extends CSPOMRunner with App {
       val mdd = zeroSum(wBound :: variables, -1 :: o.map(_.w))
       println(mdd)
     }
-    //
-    //    problem.addConstraint(new ZeroSum(Array(-1) ++ o.map(_.w), Array(wBound) ++ variables))
-    //    problem.addConstraint(new ZeroSum(Array(-1) ++ o.map(_.p), Array(pBound) ++ variables))
-    //
-    //    val solver = Solver.factory(problem)
-    //    val sol = solver.bestSolution(pBound).get
-    //
-    //    (variables, o).zipped.foreach { (variable, o) =>
-    //      if (sol(variable.name) > 0) {
-    //        println(variable.name + "\t" + sol(variable.name) + "\t" + o.w + "\t" + o.p) //+ "\t" + sol(capa.name) + "\t" + sol(value.name))
-    //      }
-    //    }
-    //    val bound = sol("pBound")
-    //
-    //    println("Optimal : " + bound)
   }
-
-  ParameterManager("logger.level") = "INFO"
-  ParameterManager("heuristic.value") = classOf[RevLexico]
 
   def controlCSPOM(solution: Map[String, Any]) = ???
 
