@@ -4,153 +4,151 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import rb.RBGenerator.Tightness;
+import rb.randomlists.Structure;
+import concrete.CSPOMSolver;
+import concrete.ParameterManager;
 import concrete.Problem;
 import concrete.Solver;
 import concrete.filter.Filter;
 import concrete.generator.FailedGenerationException;
 import concrete.generator.ProblemGenerator;
 
-import rb.RBGenerator.Tightness;
-import rb.randomlists.Structure;
-
 public final class RB {
-	private final int nbVariables;
+  private final int nbVariables;
 
-	private final int domainSize;
+  private final int domainSize;
 
-	private final int arity;
+  private final int arity;
 
-	private final int nbConstraints;
+  private final int nbConstraints;
 
-	private final Tightness tightnessMode;
+  private final Tightness tightnessMode;
 
-	private final double tightness;
+  private final double tightness;
 
-	private final Structure constraintGraphType;
+  private final Structure constraintGraphType;
 
-	private final Structure incompatibilityGraphType;
+  private final Structure incompatibilityGraphType;
 
-	private final boolean repetition;
+  private final boolean repetition;
 
-	private final boolean alwaysSatisfiable;
+  private final boolean alwaysSatisfiable;
 
-	private final long nbInstances;
+  private final long nbInstances;
 
-	private final long firstSeed;
+  private final long firstSeed;
 
-	// private final AbstractResultWriter writer;
+  // private final AbstractResultWriter writer;
 
-	public RB(int nbVariables, int domainSize, int arity, int nbConstraints,
-			Tightness tightnessMode, double tightness,
-			Structure constraintGraphType, Structure incompatibilityGraphType,
-			boolean repetition, boolean alwaysSatisfiable, long nbInstances,
-			long firstSeed) throws IOException {
-		this.nbVariables = nbVariables;
+  public RB(int nbVariables, int domainSize, int arity, int nbConstraints,
+      Tightness tightnessMode, double tightness,
+      Structure constraintGraphType, Structure incompatibilityGraphType,
+      boolean repetition, boolean alwaysSatisfiable, long nbInstances,
+      long firstSeed) throws IOException {
+    this.nbVariables = nbVariables;
 
-		this.domainSize = domainSize;
+    this.domainSize = domainSize;
 
-		this.arity = arity;
+    this.arity = arity;
 
-		this.nbConstraints = nbConstraints;
+    this.nbConstraints = nbConstraints;
 
-		this.tightnessMode = tightnessMode;
+    this.tightnessMode = tightnessMode;
 
-		this.tightness = tightness;
+    this.tightness = tightness;
 
-		this.constraintGraphType = constraintGraphType;
+    this.constraintGraphType = constraintGraphType;
 
-		this.incompatibilityGraphType = incompatibilityGraphType;
+    this.incompatibilityGraphType = incompatibilityGraphType;
 
-		this.repetition = repetition;
+    this.repetition = repetition;
 
-		this.alwaysSatisfiable = alwaysSatisfiable;
+    this.alwaysSatisfiable = alwaysSatisfiable;
 
-		this.nbInstances = nbInstances;
+    this.nbInstances = nbInstances;
 
-		this.firstSeed = firstSeed;
-	}
+    this.firstSeed = firstSeed;
+  }
 
-	public int run() throws IOException {
-		int unsat = 0;
-		for (long seed = nbInstances; --seed >= 0;) {
+  public int run() throws IOException, FailedGenerationException {
+    int unsat = 0;
+    for (long seed = nbInstances; --seed >= 0;) {
 
-			final RBGenerator rb = new RBGenerator(nbVariables, domainSize,
-					arity, nbConstraints, tightnessMode, tightness, seed
-							+ firstSeed, constraintGraphType,
-					incompatibilityGraphType, repetition, alwaysSatisfiable);
+      final RBGenerator rb = new RBGenerator(nbVariables, domainSize,
+          arity, nbConstraints, tightnessMode, tightness, seed
+              + firstSeed, constraintGraphType,
+          incompatibilityGraphType, repetition, alwaysSatisfiable);
 
-			final Problem problem;
-			try {
-				problem = ProblemGenerator.generate(rb.generate())._1;
-			} catch (FailedGenerationException e) {
-				throw new IllegalStateException(e);
-			}
+      final CSPOMSolver solver = Solver.apply(rb.generate());
+      if (!solver.hasNext()) {
+        unsat++;
+      }
+    }
+    return unsat;
+  }
 
-			final Solver solver = Solver.apply(problem);
-			if (!solver.nextSolution().isSat()) {
-				unsat++;
-			}
-		}
-		return unsat;
-	}
+  public int runFilter(Class<? extends Filter> clazz) throws IOException {
+    int unsat = 0;
+    final ParameterManager pm = new ParameterManager();
+    final ProblemGenerator pg = new ProblemGenerator(pm);
+    for (long seed = nbInstances; --seed >= 0;) {
 
-	public int runFilter(Class<? extends Filter> clazz) throws IOException {
-		int unsat = 0;
-		for (long seed = nbInstances; --seed >= 0;) {
+      final RBGenerator rb = new RBGenerator(nbVariables, domainSize,
+          arity, nbConstraints, tightnessMode, tightness, seed
+              + firstSeed, constraintGraphType,
+          incompatibilityGraphType, repetition, alwaysSatisfiable);
 
-			final RBGenerator rb = new RBGenerator(nbVariables, domainSize,
-					arity, nbConstraints, tightnessMode, tightness, seed
-							+ firstSeed, constraintGraphType,
-					incompatibilityGraphType, repetition, alwaysSatisfiable);
+      final Problem problem;
+      try {
+        problem = pg.generate(rb.generate())._1;
+      } catch (FailedGenerationException e) {
+        throw new IllegalStateException(e);
+      }
 
-			final Problem problem;
-			try {
-				problem = ProblemGenerator.generate(rb.generate())._1;
-			} catch (FailedGenerationException e) {
-				throw new IllegalStateException(e);
-			}
+      // problem.prepare();
 
-			// problem.prepare();
+      final Filter filter;
+      try {
+        filter = clazz.getConstructor(Problem.class).newInstance(
+            problem);
+      } catch (Exception e) {
+        throw new IllegalStateException(e);
+      }
 
-			final Filter filter;
-			try {
-				filter = clazz.getConstructor(Problem.class).newInstance(
-						problem);
-			} catch (Exception e) {
-				throw new IllegalStateException(e);
-			}
+      if (!filter.reduceAll()) {
+        unsat++;
+      }
 
-			if (!filter.reduceAll()) {
-				unsat++;
-			}
+    }
+    return unsat;
+  }
 
-		}
-		return unsat;
-	}
+  /**
+   * @param args
+   * @throws FailedGenerationException 
+   * @throws NumberFormatException 
+   */
+  public static void main(String[] args) throws NumberFormatException, FailedGenerationException {
+    Logger.getLogger("").setLevel(Level.WARNING);
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Logger.getLogger("").setLevel(Level.WARNING);
+    try {
+      new RB(Integer.valueOf(args[0]), Integer.valueOf(args[1]),
+          Integer.valueOf(args[2]), Integer.valueOf(args[3]),
+          Tightness.PROPORTION, Double.valueOf(args[4]),
+          Structure.UNSTRUCTURED, Structure.UNSTRUCTURED, false,
+          false, 20, 0).run();
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.out.println(usage());
 
-		try {
-			new RB(Integer.valueOf(args[0]), Integer.valueOf(args[1]),
-					Integer.valueOf(args[2]), Integer.valueOf(args[3]),
-					Tightness.PROPORTION, Double.valueOf(args[4]),
-					Structure.UNSTRUCTURED, Structure.UNSTRUCTURED, false,
-					false, 20, 0).run();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println(usage());
+    }
+  }
 
-		}
-	}
+  public final static String usage() {
 
-	public final static String usage() {
-
-		return " {nb variables} {domain size} {arity} {nb constraints}"
-				+ " {tght mode} {tght} {cons graph type} {inc graph type}"
-				+ " {repetition} {force} {nb instances} {seed}";
-	}
+    return " {nb variables} {domain size} {arity} {nb constraints}"
+        + " {tght mode} {tght} {cons graph type} {inc graph type}"
+        + " {repetition} {force} {nb instances} {seed}";
+  }
 }
