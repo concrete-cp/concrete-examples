@@ -7,14 +7,15 @@ import java.util.List;
 
 import concrete.CSPOMSolver;
 import concrete.JCSPOMDriver;
+import concrete.ParameterManager;
 import concrete.Solver;
-import concrete.generator.cspompatterns.ConcretePatterns;
 import cspom.variable.IntVariable;
 
 public class JGolombRuler331 {
 
 	public static void main(String[] args) {
-		ConcretePatterns.improveModel_$eq(Boolean.valueOf(args[1]));
+		ParameterManager pm = new ParameterManager();
+		pm.update("improveModel", Boolean.valueOf(args[1]));
 
 		final int ticks = Integer.valueOf(Integer.valueOf(args[0]));
 		final int max = ticks * ticks;
@@ -51,7 +52,7 @@ public class JGolombRuler331 {
 
 		// println(statistics)
 
-		CSPOMSolver solver = Solver.apply(p);
+		CSPOMSolver solver = Solver.apply(p, pm);
 
 		solver.minimize("T" + ticks);
 		//

@@ -14,9 +14,11 @@ import cspom.compiler.MergeEq
 import concrete.generator.cspompatterns.ConcretePatterns
 import cspom.variable.IntVariable
 import cspom.variable.CSPOMVariable
+import concrete.ParameterManager
 
 object GolombRuler extends App {
-  ConcretePatterns.improveModel = args(1).toBoolean
+  val pm = new ParameterManager()
+  pm("improveModel") = args(1).toBoolean
 
   val ticks = args(0).toInt
   val max = ticks * ticks
@@ -43,7 +45,7 @@ object GolombRuler extends App {
 
   //println(statistics)
 
-  val solver = Solver(problem)
+  val solver = Solver(problem, pm)
 
   solver.minimize(s"T$ticks")
   //
