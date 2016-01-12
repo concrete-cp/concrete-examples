@@ -55,7 +55,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
 
       val tuple = word map { c => c.toInt - 65 }
 
-      dicts += word.size -> (ths + (tuple: _*));
+      dicts += word.size -> (ths + tuple);
 
     }
     dicts;
@@ -114,7 +114,7 @@ class CrosswordGenerator(x: Int, y: Int, black: Set[Cell]) {
 
   private def newWord(word: Seq[IntVariable])(implicit problem: CSPOM) {
     if (word.size >= 2) {
-      ctr(table(dicts(word.size), false, word))(problem)
+      ctr(word in dicts(word.size))
     }
   }
 

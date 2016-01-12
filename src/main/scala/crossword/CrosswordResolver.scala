@@ -7,7 +7,7 @@ import concrete.ParameterManager
 class CrosswordResolver(problem: Problem, pm: ParameterManager) extends Thread {
 
   override def run() {
-    val solver = new MAC(problem, pm);
+    val solver = MAC(problem, pm);
 
     // solver.setAllSolutions(true);
 

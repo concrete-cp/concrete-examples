@@ -47,10 +47,10 @@ object NonTransitiveDice extends App {
     val counts = for (i <- d1; j <- d2) yield {
       i > j
     }
-    occurrence(true, counts: _*)
+    occurrence(true)(counts: _*)
   }
 
-  val solver = Solver(problem)
+  val solver = Solver(problem).get
   solver.maximize("NBS")
 
   for (solution <- solver) {

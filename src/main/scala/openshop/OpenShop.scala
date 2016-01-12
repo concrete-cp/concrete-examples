@@ -33,7 +33,7 @@ import concrete.Solver
 import concrete.SolverResult
 import concrete.generator.FailedGenerationException
 import cspom.CSPOM
-import cspom.compiler.ProblemCompiler
+import cspom.compiler.CSPOMCompiler
 import concrete.ParameterManager
 
 object OpenShop extends App {
@@ -94,7 +94,7 @@ object OpenShop extends App {
 
     // System.out.println(cspom);
 
-    val solver = Solver(cspom)
+    val solver = Solver(cspom).get
 
     val solution = solver.toIterable.headOption
     time += System.currentTimeMillis();

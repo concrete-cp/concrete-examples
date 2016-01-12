@@ -4,7 +4,7 @@ import concrete.filter.ACC
 import concrete.heuristic.DDegOnDom
 import concrete.ParameterManager
 import concrete.Solver
-import cspom.compiler.ProblemCompiler
+import cspom.compiler.CSPOMCompiler
 import cspom.variable.CSPOMVariable
 import cspom.CSPOM
 import CSPOM._
@@ -15,6 +15,8 @@ import cspom.variable.IntVariable
 import cspom.CSPOMConstraint
 import cspom.variable.BoolVariable
 import java.util.Arrays
+import cspom.variable.SimpleExpression
+import concrete.CSPOMSolution
 
 object MQueens extends App {
   def qp(n: Int) = CSPOM { implicit problem =>
@@ -37,15 +39,15 @@ object MQueens extends App {
 
     for (i <- 0 until n; j <- 1 to n) {
       ctr((queens(i) !== 0) |
-        (occurrence(j, queens: _*) > 0) |
-        (occurrence(j - i + 1, qd1: _*) > 0) |
-        (occurrence(j + i + 1, qd2: _*) > 0))
+        (occurrence(j)(queens: _*) > 0) |
+        (occurrence(j - i + 1)(qd1: _*) > 0) |
+        (occurrence(j + i + 1)(qd2: _*) > 0))
     }
 
-    val occurrences = occurrence(0, queens: _*) as "occurrences"
+    val occurrences = occurrence(0)(queens: _*) as "occurrences"
   }
 
-  def allDifferentBut0(q: IntVariable*)(implicit problem: CSPOM) = {
+  def allDifferentBut0(q: SimpleExpression[Int]*)(implicit problem: CSPOM) = {
     for (Seq(q1, q2) <- q.combinations(2)) yield {
       (q1 === 0) | (q2 === 0) | (q1 !== q2)
     }
@@ -61,18 +63,22 @@ object MQueens extends App {
     //print(size + " : ")
     val problem = qp(size)
 
-    val solver = Solver(problem)
+    val solver = Solver(problem).get
     solver.maximize("occurrences")
     //solver.maxBacktracks = -1
 
-    val (sol, time) = StatisticsManager.time(solver.toIterable.last)
+    val (res, time) = StatisticsManager.measure(solver.toIterable.last)
 
-    println((0 until size).map(i => sol(s"Q$i")))
+    val sol = res.get
+
+    for { s: CSPOMSolution <- res } {
+      println((0 until size).map(i => s(s"Q$i")))
+    }
     //      for (v <- queens) {
     //        print(s.get(v.name) + " ")
     //      }
     //      println
-    println(f"$size : $time%f, ${solver.statistics("solver.nbAssignments")}")
+    println(f"$size : ${time.value}%f, ${solver.statistics("solver.nbAssignments")}")
   }
 
 }

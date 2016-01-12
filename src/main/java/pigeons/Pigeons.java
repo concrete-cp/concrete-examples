@@ -46,7 +46,7 @@ public final class Pigeons {
 			long time = -System.currentTimeMillis();
 			final CSPOM problem = generate(i);
 
-			final CSPOMSolver solver = Solver.apply(problem);
+			final CSPOMSolver solver = Solver.apply(problem).get();
 
 			solver.next();
 

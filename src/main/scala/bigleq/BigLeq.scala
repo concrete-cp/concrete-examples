@@ -1,6 +1,5 @@
 package bigleq
 
-import concrete.constraint.semantic.Gt
 import concrete.Problem
 import cspom.CSPOM
 import CSPOM._
@@ -14,7 +13,7 @@ object BigLeq extends App {
   def bigleq(nbVars: Int, nbVals: Int) = CSPOM { implicit problem =>
     val vars = (1 to nbVars).map {
       case i if i == 2 => IntVariable(2 to nbVals) as ("V" + i)
-      case i => IntVariable(1 to nbVals) as ("V" + i)
+      case i           => IntVariable(1 to nbVals) as ("V" + i)
     }
 
     for (v <- vars.sliding(2)) {

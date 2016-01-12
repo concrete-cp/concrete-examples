@@ -68,8 +68,8 @@ class CrosswordGui(x: Int, y: Int, pm: ParameterManager) {
 
   def solve(pm: ParameterManager) {
     crossword = new CrosswordGenerator(x, y, black);
-    this.problem = crossword.generate(pm)._1
-    problem.addConstraint(new VisuConstraint(problem.variables.toArray, this))
+    this.problem = crossword.generate(pm).get._1
+    //problem.addConstraint(new VisuConstraint(problem.variables.toArray, this))
     new CrosswordResolver(problem, pm).start();
   }
 

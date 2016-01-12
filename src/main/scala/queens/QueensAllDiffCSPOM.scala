@@ -4,7 +4,7 @@ import concrete.filter.ACC
 import concrete.heuristic.DDegOnDom
 import concrete.ParameterManager
 import concrete.Solver
-import cspom.compiler.ProblemCompiler
+import cspom.compiler.CSPOMCompiler
 import cspom.variable.CSPOMVariable
 import cspom.CSPOM
 import CSPOM._
@@ -46,15 +46,15 @@ object QueensAllDiffCSPOM extends App {
     //xml.XML.save("queensAllDiff-" + size + ".xml", problem.toXCSP)
     //println(problem)
 
-    val solver = Solver(problem)
+    val solver = Solver(problem).get
     //solver.maxBacktracks = -1
 
-    val (s, time) = StatisticsManager.time(solver.hasNext)
+    val (s, time) = StatisticsManager.measure(solver.hasNext)
     //      for (v <- queens) {
     //        print(s.get(v.name) + " ")
     //      }
     //      println
-    println(f"$size : $time%f, ${solver.statistics("solver.nbAssignments")}")
+    println(f"$size : ${time.value}%f, ${solver.statistics("solver.nbAssignments")}")
   }
 
 }

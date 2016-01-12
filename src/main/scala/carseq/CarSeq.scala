@@ -1,20 +1,17 @@
 package carseq
 
-import java.io.ByteArrayInputStream
 import java.net.URL
-import scala.collection.immutable.Queue
-import scala.collection.mutable.HashMap
-import concrete.generator.ProblemGenerator
-import cspom.CSPOM
-import cspom.extension.Table
-import cspom.variable.CSPOMVariable
-import CSPOM._
 import concrete.CSPOMDriver._
-import cspom.variable.IntVariable
-import cspom.CSPOMConstraint
 import concrete.Variable
 import concrete.runner.CSPOMRunner
+import cspom.CSPOM
+import cspom.CSPOM._
+import cspom.CSPOMConstraint
+import cspom.variable.CSPOMExpression
+import cspom.variable.CSPOMVariable
+import cspom.variable.IntVariable
 import cspom.variable.CSPOMSeq
+import scala.util.Try
 
 object CarSeq extends CSPOMRunner with App {
   /**
@@ -56,7 +53,7 @@ object CarSeq extends CSPOMRunner with App {
 
   var optionNames: IndexedSeq[IndexedSeq[String]] = _
 
-  override def loadCSPOM(args: List[String]) = {
+  override def loadCSPOM(args: List[String], opt: Map[Symbol, Any]) = Try {
     //val url = new URL(args(0))
     val url = getClass().getResource(args(0))
     val source = io.Source.fromURL(url)
@@ -81,8 +78,8 @@ object CarSeq extends CSPOMRunner with App {
       carNames = cn
       val oc = cars.zipWithIndex map {
         case (cv, c) =>
-          val vars = (0 until nbOptions) map (o => IntVariable(Seq(0, 1)) withName s"car${c}option$o")
-          ctr(table(new Table(classes), false, cv +: vars.map(_._1)))
+          val vars = (0 until nbOptions) map (o => IntVariable(0, 1) withName s"car${c}option$o")
+          ctr((cv +: vars.map(_._1)) in classes)
           vars
       }
       val (options, on) = oc.map(_.unzip).unzip
@@ -92,7 +89,7 @@ object CarSeq extends CSPOMRunner with App {
       for (i <- 0 until nbOptions) {
         val cardinality = classes.map(c => quantities(c(0)) * c(i + 1)).sum
         //println(cardinality)
-        ctr(CSPOMConstraint('slidingSum, Seq(0, maxCars(i), blockSizes(i), new CSPOMSeq(options.map(o => o(i))))))
+        ctr(CSPOMConstraint('slidingSum)(0, maxCars(i), blockSizes(i), CSPOMSeq(options.map(o => o(i)), 0 until options.length)))
         //ctr(sum(options.map(_(i)): _*) === cardinality)
         //sequenceBDD(options.map(_(i)), maxCars(i), blockSizes(i), cardinality)
       }
@@ -112,12 +109,10 @@ object CarSeq extends CSPOMRunner with App {
   def controlCSPOM(solution: Map[String, Any]): Option[String] = ???
   def description(args: List[String]) = args.head
 
-  override def outputCSPOM(solution: Option[Map[String, Any]]): String = {
-    solution.map { solution =>
-      (carNames zip optionNames) map {
-        case (c, o) => solution(c) + " " + o.map(p => solution(p)).mkString(" ")
-      } mkString ("\n")
-    } getOrElse ("UNSAT")
+  override def outputCSPOM(solution: Map[String, Any]): String = {
+    (carNames zip optionNames) map {
+      case (c, o) => solution(c) + " " + o.map(p => solution(p)).mkString(" ")
+    } mkString ("\n")
   }
 
   run(args)

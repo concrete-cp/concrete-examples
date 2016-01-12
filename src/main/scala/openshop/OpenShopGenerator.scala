@@ -27,6 +27,7 @@ import scala.collection.mutable.HashMap
 import CSPOM._
 import cspom.variable.IntVariable
 import concrete.CSPOMDriver._
+import concrete.Solver
 
 object OpenShopGenerator {
   def apply(filename: String) = {
@@ -73,6 +74,49 @@ object OpenShopGenerator {
     val maxL: Int = durations.map(_.sum).max
     val maxC: Int = (0 until size).map(i => (0 until size).map(j => durations(j)(shuffle(j).indexOf(i))).sum).max
     maxL + maxC;
+  }
+
+  def flowshop(size: Int, d: Array[Array[Int]],
+    ub: Int) = CSPOM { implicit problem =>
+    val s = for (i <- 0 until size) yield {
+      for (j <- 0 until size) yield {
+        IntVariable(0 to ub) as s"V$i.$j"
+      }
+    }
+
+    val end = IntVariable(0 to ub) as "end"
+
+    for (i <- 0 until size) {
+      ctr(s(i)(size - 1) + d(i)(size - 1) <= end)
+    }
+
+    for (i <- 0 until size; j <- 1 until size) {
+      ctr(s(i)(j) - s(i)(j - 1) >= d(i)(j - 1))
+    }
+
+    for (i <- 0 until size; j <- 0 until size; k <- 0 until j) {
+      ctr(
+        s(j)(i) - s(k)(i) >= d(k)(i) | s(k)(i) - s(j)(i) >= d(j)(i))
+    }
+  }
+
+  def main(args: Array[String]): Unit = {
+    val d = matrix"""
+	     4,  8,  6
+	     2,  5,  4
+	     3,  1,  7
+	  """
+    val p = flowshop(3, d, 40)
+    val s = Solver(p).get
+    s.minimize("end")
+    val sol = s.toSeq.last
+    println("end: " + sol("end"))
+    for (i <- 0 until 3) {
+      for (j <- 0 until 3) {
+        print(sol(s"V$i.$j") + " ")
+      }
+      println()
+    }
   }
 }
 

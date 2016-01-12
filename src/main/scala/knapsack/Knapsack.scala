@@ -1,35 +1,29 @@
 package knapsack
 
 import java.io.InputStream
-import scala.collection.mutable.HashMap
-import concrete.IntDomain
-import concrete.Problem
-import concrete.Solver
-import concrete.Variable
-import concrete.constraint.semantic.Eq
-import concrete.constraint.semantic.Sum
-import cspom.CSPOM
-import cspom.extension.MDD
-import cspom.extension.MDDLeaf
-import cspom.extension.MDDNode
-import concrete.generator.ProblemGenerator
-import cspom.variable.CSPOMVariable
 import scala.annotation.tailrec
+import scala.collection.mutable.HashMap
 import scala.util.Random
 import concrete.ParameterManager
+import concrete.Variable
 import concrete.heuristic.RevLexico
-import concrete.runner.ConcreteRunner
-import CSPOM._
-import cspom.variable.IntVariable
-import cspom.extension.LazyRelation
 import concrete.runner.CSPOMRunner
+import concrete.runner.ConcreteRunner
+import cspom.CSPOM
+import cspom.CSPOM._
+import cspom.extension.MDD
+import cspom.extension.MDDNode
+import cspom.util.ContiguousIntRangeSet
+import cspom.variable.CSPOMVariable
+import cspom.variable.IntVariable
+import scala.util.Try
 
 object Knapsack extends CSPOMRunner with App {
-  
+
   pm("logger.level") = "INFO"
   pm("heuristic.value") = classOf[RevLexico]
   run(args)
-  
+
   case class O(val w: Int, val p: Int)
 
   def load(is: InputStream): (List[O], Int) = {
@@ -43,8 +37,8 @@ object Knapsack extends CSPOMRunner with App {
 
     lines foreach {
       case R(w, p) => o +:= O(w.toInt, p.toInt)
-      case C(v) => c = v.toInt
-      case _ =>
+      case C(v)    => c = v.toInt
+      case _       =>
     }
 
     (o, c)
@@ -92,7 +86,7 @@ object Knapsack extends CSPOMRunner with App {
     args.mkString("knapsack-", "-", "")
   }
 
-  override def loadCSPOM(args: List[String]) = {
+  override def loadCSPOM(args: List[String], opt: Map[Symbol, Any]) = Try {
     val List(n, b, r, i, s) = args map (_.toInt)
 
     val (w, m, p) = ks(n, b, r, i, s)
@@ -124,12 +118,12 @@ object Knapsack extends CSPOMRunner with App {
       val wBound = IntVariable(weight to c) as "wBound"
       val pBound = IntVariable(lb to ub) as "pBound"
 
-      val wMDD = new LazyRelation(Unit => zeroSum(wBound :: variables, -1 :: w.toList))
+      val wMDD = zeroSum(wBound :: variables, -1 :: w.toList)
       //println(wMDD)
-      ctr(table(wMDD, false, wBound :: variables))
-      val pMDD = new LazyRelation(Unit => zeroSum(pBound :: variables, -1 :: p.toList))
+      ctr(wBound :: variables in wMDD)
+      val pMDD = zeroSum(pBound :: variables, -1 :: p.toList)
       //println(pMDD)
-      ctr(table(pMDD, false, pBound :: variables))
+      ctr(pBound :: variables in pMDD)
     }
 
     //val solver = Solver.factory(problem)
@@ -191,12 +185,12 @@ object Knapsack extends CSPOMRunner with App {
   }
 
   def zeroSum(variables: List[IntVariable], factors: List[Int]): MDD[Int] = {
-    val domains = variables.map(_.domain)
+    val domains = variables.map(v => new ContiguousIntRangeSet(v.domain))
     zeroSum(domains, factors, sum(domains, factors, _.min), sum(domains, factors, _.max))
   }
 
   def zeroSum(domains: List[Iterable[Int]], factors: List[Int], min: Int, max: Int, currentSum: Int = 0,
-    nodes: HashMap[(Int, Int), MDD[Int]] = new HashMap()): MDD[Int] = {
+              nodes: HashMap[(Int, Int), MDD[Int]] = new HashMap()): MDD[Int] = {
     if (domains.isEmpty) {
       require(currentSum == min && currentSum == max)
       if (currentSum == 0) {

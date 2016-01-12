@@ -30,7 +30,7 @@ public final class AllDiffDec {
 	public static void main(String[] args) throws FailedGenerationException {
 		final CSPOM problem = generate();
 
-		final CSPOMSolver solver = Solver.apply(problem);
+		final CSPOMSolver solver = Solver.apply(problem).get();
 
 		while (solver.hasNext()) {
 			Map<String, Object> solution = solver.next();

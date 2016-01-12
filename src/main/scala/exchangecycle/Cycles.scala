@@ -54,42 +54,42 @@ object Cycles extends App {
     //        }
     //      }
 
-    val F =
-      for (
-        i <- 0 until n
-      ) yield for (
-        j <- 0 until n
-      ) yield for (
-        k <- 0 until n
-      ) yield {
-        if (k == 0 || k == 0) {
-          variables(i)(j)
-        } else if (k == n - 1 && i != j) {
-          CSPOMConstant(true)
-        } else {
-          new BoolVariable() as s"F$i-$j-$k"
-        }
-      }
-
-    for (i <- 0 until n; j <- 0 until n; k <- 1 until n) {
-      ctr(F(i)(j)(k) === (F(i)(j)(k - 1) | (F(k)(j)(k - 1) & F(i)(k)(k - 1))))
-    }
+//    val F =
+//      for (
+//        i <- 0 until n
+//      ) yield for (
+//        j <- 0 until n
+//      ) yield for (
+//        k <- 0 until n
+//      ) yield {
+//        if (k == 0 || k == 0) {
+//          variables(i)(j)
+//        } else if (k == n - 1 && i != j) {
+//          CSPOMConstant(true)
+//        } else {
+//          new BoolVariable() as s"F$i-$j-$k"
+//        }
+//      }
+//
+//    for (i <- 0 until n; j <- 0 until n; k <- 1 until n) {
+//      ctr(F(i)(j)(k) === (F(i)(j)(k - 1) | (F(k)(j)(k - 1) & F(i)(k)(k - 1))))
+//    }
 
     for (i <- 0 until n) yield {
-      ctr(occurrence(true, variables(i).filter(_.isInstanceOf[IntVariable]): _*) === d)
-      ctr(occurrence(true, variables.map(_(i)).filter(_.isInstanceOf[IntVariable]): _*) === d)
+      ctr(occurrence(true)(variables(i): _*) === d)
+      ctr(occurrence(true)(variables.map(_(i)): _*) === d)
     }
   }
 
   //  println(problem)
-  //  ProblemCompiler.compile(problem, Patterns())
+  //  CSPOMCompiler.compile(problem, Patterns())
 
   println(problem)
 
   val pm = new ParameterManager
   pm("heuristic.value") = classOf[concrete.heuristic.RevLexico]
   //  ParameterManager("logger.level") = "INFO"
-  val solver = new SolverFactory(pm)(problem)
+  val solver = new SolverFactory(pm)(problem).get
 
   println("Searching…")
 

@@ -7,9 +7,8 @@ import concrete.generator.cspompatterns.AllDiff
 import cspom.CSPOM
 import cspom.CSPOM._
 import cspom.StatisticsManager
-import cspom.compiler.ProblemCompiler
+import cspom.compiler.CSPOMCompiler
 import cspom.compiler.StandardCompilers
-import concrete.generator.cspompatterns.SubToAdd
 import cspom.compiler.MergeEq
 import concrete.generator.cspompatterns.ConcretePatterns
 import cspom.variable.IntVariable
@@ -45,7 +44,7 @@ object GolombRuler extends App {
 
   //println(statistics)
 
-  val solver = Solver(problem, pm)
+  val solver = Solver(problem, pm).get
 
   solver.minimize(s"T$ticks")
   //

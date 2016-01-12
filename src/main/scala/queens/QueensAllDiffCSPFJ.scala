@@ -1,36 +1,34 @@
 package queens
+
+import concrete.IntDomain
 import concrete.Problem
-import concrete.constraint.semantic.Eq
 import concrete.Solver
+import concrete.Variable
+import concrete.constraint.linear.Eq
+import concrete.constraint.semantic.AllDifferent2C
+import concrete.constraint.semantic.AllDifferentBC
 import cspom.StatisticsManager
 import concrete.ParameterManager
-import concrete.heuristic.Dom
-import concrete.Variable
-import concrete.constraint.semantic.Neq
-import concrete.heuristic.LexVar
-import concrete.constraint.semantic.AllDifferentBC
-import concrete.constraint.semantic.AllDifferent2C
-import concrete.IntDomain
-import concrete.constraint.Constraint
 
 object QueensAllDiffCSPFJ {
   def qp(size: Int) = {
 
-    val queens = (0 until size) map (q => new Variable("q" + q, IntDomain(0 until size))) toList
+    val queens = IndexedSeq.tabulate(size)(q =>
+      new Variable("q" + q, IntDomain(0 until size)))
 
-    val qd1 = queens.zipWithIndex map {
+    val qd1 = queens.zipWithIndex.map {
       case (q, i) => new Variable("d1_" + q.name, IntDomain(-i until size - i))
     }
 
-    val qd2 = queens.zipWithIndex map {
+    val qd2 = queens.zipWithIndex.map {
       case (q, i) => new Variable("d2_" + q.name, IntDomain(i until size + i))
     }
 
-    val problem = new Problem(queens ::: qd1 ::: qd2)
+    val problem = Problem(queens ++ qd1 ++ qd2: _*)
 
     for (((q, q1, q2), i) <- (queens, qd1, qd2).zipped.toIterable.zipWithIndex) {
-      problem.addConstraint(new Eq(false, q, -i, q1))
-      problem.addConstraint(new Eq(false, q, i, q2))
+      Eq(false, q, -i, q1).foreach(problem.addConstraint)
+      Eq(false, q, i, q2).foreach(problem.addConstraint)
     }
 
     allDiff(problem, queens)
@@ -52,30 +50,36 @@ object QueensAllDiffCSPFJ {
   }
 
   def main(args: Array[String]) {
-    var sz = 12
+    var sz = 10
 
     do {
       val size = sz.intValue
       print(size + " : ")
       val (queens, problem) = qp(size)
 
-      val solver = Solver(problem)
+      val pm = new ParameterManager
+
+      //pm("mac.restartLevel") = -1
+
+      val solver = Solver(problem, pm)
       //solver.maxBacktracks = -1
 
-      val (s, time) = StatisticsManager.time(solver.next)
-      //      for (v <- queens) {
-      //        print(s.get(v.name) + " ")
-      //      }
+      val stats = new StatisticsManager
+      stats.register("solver", solver)
+      val (ts, time) = StatisticsManager.measure(solver.next)
+
+      val s = ts.get
+      //println(queens.map(s).mkString(" "))
       //      println
-      println("%g : %d".format(time, solver.statistics("solver.nbAssignments")))
-      var count = 1
-      while (solver.hasNext) {
-        count += 1
-        solver.next()
-      }
-      println(solver.statistics("solver.searchCpu"))
-      println(count)
-      //sz = (sz * 1.1).toInt
+      println(s"$time : ${stats("solver.nbAssignments")}")
+      //      var count = 1
+      //      while (solver.hasNext) {
+      //        count += 1
+      //        solver.next()
+      //      }
+      //      println(solver.statistics("solver.searchCpu"))
+      //      println(count)
+      sz += 10
     } while (true)
   }
 }

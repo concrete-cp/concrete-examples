@@ -52,7 +52,7 @@ public class JGolombRuler331 {
 
 		// println(statistics)
 
-		CSPOMSolver solver = Solver.apply(p, pm);
+		CSPOMSolver solver = Solver.apply(p, pm).get();
 
 		solver.minimize("T" + ticks);
 		//
